@@ -1,0 +1,312 @@
+/* Enhanced Portfolio Visual Improvements */
+
+/* Gradient animations */
+@keyframes gradient-shift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes radial-pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.8;
+  }
+}
+
+@keyframes glow-pulse {
+  0%, 100% {
+    box-shadow: 
+      0 0 20px hsl(var(--primary) / 0.15), 
+      0 0 40px hsl(var(--primary) / 0.05),
+      0 4px 20px hsl(var(--background) / 0.1);
+  }
+  50% {
+    box-shadow: 
+      0 0 30px hsl(var(--primary) / 0.25), 
+      0 0 60px hsl(var(--primary) / 0.1),
+      0 8px 40px hsl(var(--background) / 0.2);
+  }
+}
+
+@keyframes floating {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes shimmer-slide {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* Enhanced card hover effects */
+.enhanced-card {
+  position: relative;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.enhanced-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, 
+    rgba(255, 255, 255, 0.1) 0%, 
+    rgba(255, 255, 255, 0.05) 50%, 
+    rgba(255, 255, 255, 0) 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.enhanced-card:hover::before {
+  opacity: 1;
+}
+
+.enhanced-card:hover {
+  transform: translateY(-8px) scale(1.02);
+}
+
+/* Gradient text effects */
+.gradient-text-animated {
+  background: linear-gradient(45deg, 
+    hsl(var(--primary)), 
+    hsl(var(--primary-glow)), 
+    hsl(var(--accent)), 
+    hsl(var(--primary)));
+  background-size: 300% 300%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  animation: gradient-shift 3s ease-in-out infinite;
+}
+
+/* Progress bar enhancements */
+.enhanced-progress {
+  position: relative;
+  overflow: hidden;
+}
+
+.enhanced-progress::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(255, 255, 255, 0.4), 
+    transparent);
+  animation: shimmer-slide 2s infinite;
+}
+
+/* Button enhancements */
+.enhanced-button {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.enhanced-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(255, 255, 255, 0.2), 
+    transparent);
+  transition: left 0.5s;
+}
+
+.enhanced-button:hover::before {
+  left: 100%;
+}
+
+/* Status indicator animations */
+.status-indicator {
+  position: relative;
+}
+
+.status-indicator::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  background: inherit;
+  border-radius: inherit;
+  transform: translate(-50%, -50%);
+  animation: radial-pulse 2s infinite;
+  opacity: 0.5;
+}
+
+/* Icon container enhancements */
+.enhanced-icon-container {
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.enhanced-icon-container::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  background: linear-gradient(45deg, 
+    hsl(var(--primary) / 0.3), 
+    hsl(var(--accent) / 0.3));
+  border-radius: inherit;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: -1;
+}
+
+.enhanced-icon-container:hover::before {
+  opacity: 1;
+}
+
+.enhanced-icon-container:hover {
+  transform: scale(1.1) rotate(5deg);
+}
+
+/* Glassmorphism enhanced */
+.glass-enhanced {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+}
+
+.glass-enhanced::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, 
+    rgba(255, 255, 255, 0.1), 
+    rgba(255, 255, 255, 0.05));
+  border-radius: inherit;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.glass-enhanced:hover::before {
+  opacity: 1;
+}
+
+/* Enhanced shimmer effect */
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%) skewX(-12deg);
+  }
+  100% {
+    transform: translateX(200%) skewX(-12deg);
+  }
+}
+
+@keyframes card-glow {
+  0%, 100% {
+    box-shadow:
+      0 4px 20px hsl(var(--primary) / 0.1),
+      0 0 40px hsl(var(--primary) / 0.05);
+  }
+  50% {
+    box-shadow:
+      0 8px 40px hsl(var(--primary) / 0.2),
+      0 0 60px hsl(var(--primary) / 0.1);
+  }
+}
+
+@keyframes icon-float {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-2px) rotate(2deg);
+  }
+}
+
+/* Utility classes */
+.animate-glow {
+  animation: glow-pulse 3s ease-in-out infinite;
+}
+
+.animate-float {
+  animation: floating 6s ease-in-out infinite;
+}
+
+.animate-gradient {
+  animation: gradient-shift 4s ease-in-out infinite;
+}
+
+.animate-shimmer {
+  animation: shimmer 2s ease-in-out;
+}
+
+.animate-card-glow {
+  animation: card-glow 4s ease-in-out infinite;
+}
+
+.animate-icon-float {
+  animation: icon-float 3s ease-in-out infinite;
+}
+
+/* Enhanced card hover effects */
+.enhanced-stat-card {
+  position: relative;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.enhanced-stat-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg,
+    rgba(255, 255, 255, 0.1) 0%,
+    rgba(255, 255, 255, 0.05) 50%,
+    rgba(255, 255, 255, 0) 100%);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.enhanced-stat-card:hover::before {
+  opacity: 1;
+}
+
+.enhanced-stat-card:hover {
+  transform: translateY(-8px) scale(1.02);
+}
+
+/* Text glow effects */
+.text-glow {
+  text-shadow: 0 0 20px hsl(var(--primary) / 0.5);
+}
+
+.text-glow-white {
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+}
