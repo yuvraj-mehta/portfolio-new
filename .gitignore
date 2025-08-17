@@ -1,3 +1,5 @@
+# Ignore bun.lockb
+bun.lockb
 # Logs
 logs
 *.log
@@ -6,6 +8,8 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
+
+bun.lockb
 
 node_modules
 dist

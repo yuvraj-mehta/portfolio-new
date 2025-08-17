@@ -1,14 +1,4 @@
-User-agent: Googlebot
-Allow: /
-
-User-agent: Bingbot
-Allow: /
-
-User-agent: Twitterbot
-Allow: /
-
-User-agent: facebookexternalhit
-Allow: /
-
+# robots.txt for Yuvraj Mehta Portfolio
+# Allow all search engines to index everything
 User-agent: *
 Allow: /
