@@ -1,4 +1,4 @@
-const API_BASE_URL = 'http://localhost:9000/api/v1';
+const API_BASE_URL = 'https://portfolio-1-1rg6.onrender.com/api/v1';
 
 export interface LeetCodeStats {
   handle: string;
