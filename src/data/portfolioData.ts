@@ -27,7 +27,7 @@ export const personalInfo = {
   },
   profileImage:
     "https://images.pexels.com/photos/32326782/pexels-photo-32326782.jpeg",
-  resume: "/public/Yuvraj_Resume_v2_1 (1).pdf",
+  resume: "/src/assets/Yuvraj_Resume.pdf",
   status: {
     availability: "Available",
     workMode: "Remote",
@@ -474,7 +474,7 @@ export const siteMetadata = {
 export const quickLinks = [
   {
     name: "Resume",
-    href: "/public/Yuvraj_Resume_v2_1 (1).pdf",
+    href: "/src/assets/Yuvraj_Resume.pdf",
     icon: "📄",
     external: true,
   },
