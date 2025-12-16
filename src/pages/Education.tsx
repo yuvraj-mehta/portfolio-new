@@ -85,7 +85,7 @@ const Education = () => {
       year: "2023",
       description: "Comprehensive full-stack web development course covering HTML, CSS, JavaScript, React, and Node.js",
       badge: FaGlobe,
-      color: "text-blue-500"
+      colorStyle: { color: 'hsl(var(--primary))' }
     }
   ];
 
@@ -197,7 +197,7 @@ const Education = () => {
 
                               <div>
                                 <h4 className="font-semibold mb-3 flex items-center text-sm sm:text-base">
-                                  <FaTrophy className="w-5 h-5 text-yellow-500 mr-2" />
+                                  <FaTrophy className="w-5 h-5 mr-2" style={{ color: 'hsl(39, 100%, 60%)' }} />
                                   Achievements
                                 </h4>
                                 <ul className="space-y-1.5 sm:space-y-2">
@@ -253,7 +253,7 @@ const Education = () => {
                     <Card key={index} className="portfolio-card slide-up hover:shadow-lg hover:shadow-primary/5 transition-all duration-300">
                       <div className="flex items-start gap-3">
                         <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0 mt-1">
-                          <cert.badge className={`w-4 h-4 ${cert.color}`} />
+                          <cert.badge className="w-4 h-4" style={cert.colorStyle} />
                         </div>
                         
                         <div className="flex-1">

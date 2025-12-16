@@ -13,7 +13,8 @@ import {
   Star,
   GitFork,
   ChevronDown,
-  ChevronUp
+  ChevronUp,
+  AlertCircle
 } from 'lucide-react';
 import { FaGithub } from 'react-icons/fa';
 import { githubApi, GitHubCommit, GitHubRepository } from '@/services/githubApi';
@@ -33,6 +34,7 @@ const GitHubActivity = ({ className = '' }: GitHubActivityProps) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [showCommits, setShowCommits] = useState(true);
   const [showRepos, setShowRepos] = useState(false);
+  const [apiAvailable, setApiAvailable] = useState(true);
 
   const fetchGitHubData = async () => {
     try {
@@ -48,10 +50,16 @@ const GitHubActivity = ({ className = '' }: GitHubActivityProps) => {
       setCommits(commitsData);
       setRepositories(reposData);
       setStats(statsData);
+      
+      // Check if API is available
+      const isAvailable = githubApi.getIsApiAvailable();
+      setApiAvailable(isAvailable);
+      
       setLastUpdated(new Date());
     } catch (err) {
       console.error('Error fetching GitHub data:', err);
       setError('Failed to load GitHub activity');
+      setApiAvailable(false);
     } finally {
       setLoading(false);
     }
@@ -79,19 +87,20 @@ const GitHubActivity = ({ className = '' }: GitHubActivityProps) => {
 
   const getCommitIcon = (message: string) => {
     const lowerMessage = message.toLowerCase();
+    let color = 'hsl(var(--muted-foreground))';
+
     if (lowerMessage.includes('fix') || lowerMessage.includes('bug')) {
-      return <div className="w-2 h-2 bg-red-500 rounded-full"></div>;
+      color = 'hsl(var(--destructive))'; // destructive color
+    } else if (lowerMessage.includes('feat') || lowerMessage.includes('add')) {
+      color = 'hsl(var(--accent))';
+    } else if (lowerMessage.includes('update') || lowerMessage.includes('improve')) {
+      color = 'hsl(var(--primary))';
     }
-    if (lowerMessage.includes('feat') || lowerMessage.includes('add')) {
-      return <div className="w-2 h-2 bg-green-500 rounded-full"></div>;
-    }
-    if (lowerMessage.includes('update') || lowerMessage.includes('improve')) {
-      return <div className="w-2 h-2 bg-blue-500 rounded-full"></div>;
-    }
-    return <div className="w-2 h-2 bg-gray-500 rounded-full"></div>;
+
+    return <div className="w-2 h-2 rounded-full" style={{ backgroundColor: color }}></div>;
   };
 
-  if (loading && commits.length === 0) {
+  if (loading && commits.length === 0 && repositories.length === 0) {
     return (
       <Card className={`p-6 border-primary/20 ${className}`}>
         <div className="flex items-center justify-center py-8">
@@ -104,18 +113,49 @@ const GitHubActivity = ({ className = '' }: GitHubActivityProps) => {
     );
   }
 
-  if (error && commits.length === 0) {
+  // Show fallback UI if no data available due to API limits
+  if (!loading && commits.length === 0 && repositories.length === 0 && !apiAvailable) {
     return (
-      <Card className={`p-6 border-primary/20 ${className}`}>
-        <div className="text-center py-8">
-          <div className="w-12 h-12 bg-red-500/10 rounded-full flex items-center justify-center mx-auto mb-3">
-            <FaGithub className="w-6 h-6 text-red-500" />
+      <Card className={`p-6 border-primary/20 bg-gradient-to-r from-primary/5 to-primary-glow/5 ${className}`}>
+        <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center">
+            <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center mr-3">
+              <FaGithub className="w-4 h-4 text-primary" />
+            </div>
+            <h3 className="text-lg font-semibold">GitHub Activity</h3>
           </div>
-          <p className="text-sm text-muted-foreground mb-3">{error}</p>
-          <Button onClick={fetchGitHubData} size="sm" variant="outline">
-            <RefreshCw className="w-3 h-3 mr-2" />
-            Retry
-          </Button>
+        </div>
+
+        <div className="text-center py-8 px-4">
+          <div className="w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4 bg-yellow-500/10">
+            <AlertCircle className="w-6 h-6 text-yellow-600 dark:text-yellow-500" />
+          </div>
+          <p className="text-sm font-medium text-foreground mb-2">GitHub API Temporarily Limited</p>
+          <p className="text-xs text-muted-foreground mb-4 max-w-sm mx-auto leading-relaxed">
+            GitHub's public API has rate limiting. Your GitHub stats will be displayed once the limit resets. 
+            Please try again in a few minutes or{' '}
+            <a 
+              href={socialLinks.github.url} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-primary hover:underline"
+            >
+              visit your GitHub profile
+            </a>
+            {' '}directly.
+          </p>
+          <div className="flex flex-col gap-2">
+            <Button onClick={fetchGitHubData} size="sm" variant="outline" className="gap-2">
+              <RefreshCw className="w-3 h-3" />
+              Retry
+            </Button>
+            <Button asChild size="sm" variant="ghost">
+              <a href={socialLinks.github.url} target="_blank" rel="noopener noreferrer">
+                <FaGithub className="w-3 h-3 mr-2" />
+                View on GitHub
+              </a>
+            </Button>
+          </div>
         </div>
       </Card>
     );
@@ -242,7 +282,7 @@ const GitHubActivity = ({ className = '' }: GitHubActivityProps) => {
             <div className="p-4 max-h-96 overflow-y-auto">
               <div className="space-y-3">
                 {commits.length > 0 ? (
-                  commits.map((commit, index) => (
+                  commits.map((commit) => (
                     <div
                       key={commit.sha}
                       className="group flex items-start gap-3 p-3 rounded-lg hover:bg-primary/5 transition-all duration-300 cursor-pointer hover:scale-[1.02]"
@@ -289,7 +329,7 @@ const GitHubActivity = ({ className = '' }: GitHubActivityProps) => {
           {showRepos && repositories.length > 0 && (
             <div className="p-4 max-h-96 overflow-y-auto">
               <div className="grid grid-cols-1 gap-3">
-                {repositories.map((repo, index) => (
+                {repositories.map((repo) => (
                   <div
                     key={repo.full_name}
                     className="group p-4 rounded-lg border border-border hover:border-primary/30 hover:bg-primary/5 transition-all duration-300 cursor-pointer"
@@ -319,11 +359,11 @@ const GitHubActivity = ({ className = '' }: GitHubActivityProps) => {
                       </div>
                       <div className="flex items-center gap-3">
                         <div className="flex items-center gap-1">
-                          <Star className="w-3 h-3 text-yellow-500" />
+                          <Star className="w-3 h-3" style={{ color: 'hsl(var(--accent))' }} />
                           <span className="text-xs text-muted-foreground">{repo.stargazers_count}</span>
                         </div>
                         <div className="flex items-center gap-1">
-                          <GitFork className="w-3 h-3 text-blue-500" />
+                          <GitFork className="w-3 h-3" style={{ color: 'hsl(var(--primary))' }} />
                           <span className="text-xs text-muted-foreground">{repo.forks_count}</span>
                         </div>
                       </div>

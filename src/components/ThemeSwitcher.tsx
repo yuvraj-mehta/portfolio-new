@@ -9,6 +9,7 @@ import { FaPalette } from 'react-icons/fa';
 
 const ThemeSwitcher = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isTransitioning, setIsTransitioning] = useState(false);
   const { theme, setTheme, themes } = useTheme();
 
   const currentTheme = themes.find(t => t.id === theme);
@@ -56,13 +57,17 @@ const ThemeSwitcher = () => {
                 <div
                   key={themeOption.id}
                   onClick={() => {
+                    setIsTransitioning(true);
                     setTheme(themeOption.id);
-                    setIsOpen(false);
+                    setTimeout(() => {
+                      setIsOpen(false);
+                      setIsTransitioning(false);
+                    }, 300);
                   }}
                   className={`relative p-4 rounded-lg border-2 cursor-pointer transition-all duration-300 hover:scale-105 ${
                     theme === themeOption.id
-                      ? 'border-primary bg-primary/5'
-                      : 'border-border hover:border-primary/50'
+                      ? 'border-primary bg-primary/5 shadow-lg shadow-primary/20'
+                      : 'border-border hover:border-primary/50 hover:shadow-md hover:shadow-primary/10'
                   }`}
                 >
                   {theme === themeOption.id && (
@@ -73,7 +78,7 @@ const ThemeSwitcher = () => {
                   
                   <div className="flex items-center gap-3 mb-3">
                     <div
-                      className="w-8 h-8 rounded-full border-2 border-white/20"
+                      className="w-8 h-8 rounded-full border-2 border-border/50"
                       style={{ backgroundColor: themeOption.color }}
                     />
                     <div>

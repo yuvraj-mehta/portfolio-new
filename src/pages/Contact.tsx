@@ -108,36 +108,36 @@ const Contact = () => {
       icon: FaGithub,
       href: socialLinks.github.url,
       description: "Check out my code",
-      color: "text-gray-400",
-      bgColor: "from-gray-500/20 to-gray-600/20",
-      borderColor: "border-gray-500/30"
+      colorStyle: { color: 'hsl(var(--secondary))' },
+      bgColor: "bg-secondary/20",
+      borderColor: "border-secondary/30"
     },
     {
       name: "LinkedIn",
       icon: FaLinkedin,
       href: socialLinks.linkedin.url,
       description: "Let's connect professionally",
-      color: "text-blue-400",
-      bgColor: "from-blue-500/20 to-blue-600/20",
-      borderColor: "border-blue-500/30"
+      colorStyle: { color: 'hsl(var(--primary))' },
+      bgColor: "bg-primary/20",
+      borderColor: "border-primary/30"
     },
     {
       name: "Instagram",
       icon: FaInstagram,
       href: socialLinks.instagram.url,
       description: "Follow for updates",
-      color: "text-pink-400",
-      bgColor: "from-pink-500/20 to-purple-500/20",
-      borderColor: "border-pink-500/30"
+      colorStyle: { color: 'hsl(var(--accent))' },
+      bgColor: "bg-accent/20",
+      borderColor: "border-accent/30"
     },
     {
       name: "Email",
       icon: HiMail,
       href: socialLinks.email.url,
       description: "Send me a message",
-      color: "text-red-400",
-      bgColor: "from-red-500/20 to-orange-500/20",
-      borderColor: "border-red-500/30"
+      colorStyle: { color: 'hsl(var(--destructive))' },
+      bgColor: "bg-destructive/20",
+      borderColor: "border-destructive/30"
     }
   ];
 
@@ -376,7 +376,7 @@ const Contact = () => {
                   </Button>
 
                   {submitStatus === 'success' && (
-                    <div className="flex items-center justify-center text-green-600 text-sm">
+                    <div className="flex items-center justify-center text-sm" style={{ color: 'hsl(var(--skill-database))' }}>
                       <HiCheckCircle className="w-4 h-4 mr-2" />
                       Message sent successfully!
                     </div>
@@ -390,10 +390,10 @@ const Contact = () => {
                   )}
                 </form>
 
-                <div className="mt-6 p-4 bg-gradient-to-r from-green-500/10 to-blue-500/10 rounded-xl border border-green-500/20">
+                <div className="mt-6 p-4 rounded-xl border" style={{ backgroundColor: `hsl(var(--skill-database) / 0.1)`, borderColor: `hsl(var(--skill-database) / 0.2)` }}>
                   <div className="flex items-start gap-3">
-                    <div className="w-8 h-8 rounded-lg bg-green-500/20 flex items-center justify-center mt-0.5">
-                      <HiChatAlt className="w-4 h-4 text-green-600" />
+                    <div className="w-8 h-8 rounded-lg flex items-center justify-center mt-0.5" style={{ backgroundColor: `hsl(var(--skill-database) / 0.2)` }}>
+                      <HiChatAlt className="w-4 h-4" style={{ color: 'hsl(var(--skill-database))' }} />
                     </div>
                     <div>
                       <p className="text-sm text-foreground font-medium mb-1">

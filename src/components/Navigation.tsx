@@ -38,51 +38,51 @@ const Navigation = () => {
   const isActive = (path: string) => location.pathname === path;
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-md border-b border-border/50 shadow-lg shadow-primary/5">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          {/* Simple Logo */}
-          <Link to="/" className="flex items-center space-x-3 group">
-            <Avatar className="h-8 w-8">
+          {/* Enhanced Logo */}
+          <Link to="/" className="flex items-center space-x-3 group transition-all duration-200 hover:scale-105">
+            <Avatar className="h-8 w-8 ring-2 ring-primary/30 group-hover:ring-primary/60 transition-all duration-200">
               <AvatarImage src={personalInfo.profileImage} alt={personalInfo.name} />
-              <AvatarFallback className="bg-primary text-primary-foreground font-bold text-sm">
+              <AvatarFallback className="bg-gradient-to-br from-primary to-primary-glow text-primary-foreground font-bold text-sm">
                 <HiCode className="w-4 h-4" />
               </AvatarFallback>
             </Avatar>
-            <span className="text-lg font-semibold text-foreground">{personalInfo.name.split(' ')[0]}</span>
+            <span className="text-lg font-bold bg-gradient-to-r from-primary to-primary-glow bg-clip-text text-transparent group-hover:from-primary-glow group-hover:to-primary transition-all duration-300">{personalInfo.name.split(' ')[0]}</span>
           </Link>
 
-          {/* Minimal Clean Desktop Navigation */}
+          {/* Enhanced Desktop Navigation */}
           <div className="hidden lg:flex items-center space-x-8">
             {navigation.map((item) => (
               <Link
                 key={item.name}
                 to={item.href}
-                className={`relative text-sm font-medium transition-colors duration-200 ${
+                className={`relative text-sm font-medium transition-all duration-200 hover:scale-105 ${
                   isActive(item.href)
-                    ? "text-foreground"
+                    ? "text-foreground font-semibold"
                     : "text-muted-foreground hover:text-foreground"
                 }`}
               >
                 {item.name}
-                {/* Simple underline for active state */}
+                {/* Enhanced underline for active state */}
                 {isActive(item.href) && (
-                  <div className="absolute -bottom-1 left-0 right-0 h-0.5 bg-foreground"></div>
+                  <div className="absolute -bottom-1 left-0 right-0 h-1 bg-gradient-to-r from-primary via-primary-glow to-primary rounded-full shadow-lg shadow-primary/50"></div>
                 )}
               </Link>
             ))}
           </div>
 
-          {/* Simple Resume Button */}
+          {/* Enhanced Resume Button */}
           <div className="hidden lg:flex items-center">
             <Button
               variant="outline"
               size="sm"
-              className="text-sm"
+              className="text-sm font-semibold hover:border-primary/80 hover:bg-primary/5 group transition-all duration-200"
               asChild
             >
               <a href={personalInfo.resume} target="_blank" rel="noopener noreferrer">
-                <HiDownload className="w-4 h-4 mr-2" />
+                <HiDownload className="w-4 h-4 mr-2 group-hover:animate-bounce" />
                 Resume
               </a>
             </Button>

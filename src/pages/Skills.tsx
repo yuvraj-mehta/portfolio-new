@@ -81,14 +81,56 @@ const Skills = () => {
 
   const skillsData = skills;
 
-  const getLevelColor = (level: string) => {
+  const getLevelColor = (level: string): React.CSSProperties => {
     switch(level) {
-      case "Frontend": return "bg-blue-500/20 text-blue-300 border border-blue-500/30";
-      case "Backend": return "bg-green-500/20 text-green-300 border border-green-500/30";
-      case "Database": return "bg-purple-500/20 text-purple-300 border border-purple-500/30";
-      case "Languages": return "bg-orange-500/20 text-orange-300 border border-orange-500/30";
-      case "Tools": return "bg-cyan-500/20 text-cyan-300 border border-cyan-500/30";
-      default: return "bg-gray-500/20 text-gray-300 border border-gray-500/30";
+      case "Frontend":
+        return {
+          backgroundColor: 'hsl(var(--primary) / 0.15)',
+          color: 'hsl(var(--primary))',
+          borderColor: 'hsl(var(--primary) / 0.4)',
+          borderWidth: '1px',
+          borderStyle: 'solid'
+        };
+      case "Backend":
+        return {
+          backgroundColor: 'hsl(var(--accent) / 0.15)',
+          color: 'hsl(var(--accent))',
+          borderColor: 'hsl(var(--accent) / 0.4)',
+          borderWidth: '1px',
+          borderStyle: 'solid'
+        };
+      case "Database":
+        return {
+          backgroundColor: 'hsl(var(--skill-database) / 0.15)',
+          color: 'hsl(var(--skill-database))',
+          borderColor: 'hsl(var(--skill-database) / 0.4)',
+          borderWidth: '1px',
+          borderStyle: 'solid'
+        };
+      case "Languages":
+        return {
+          backgroundColor: 'hsl(var(--skill-languages) / 0.15)',
+          color: 'hsl(var(--skill-languages))',
+          borderColor: 'hsl(var(--skill-languages) / 0.4)',
+          borderWidth: '1px',
+          borderStyle: 'solid'
+        };
+      case "Tools":
+        return {
+          backgroundColor: 'hsl(var(--skill-tools) / 0.15)',
+          color: 'hsl(var(--skill-tools))',
+          borderColor: 'hsl(var(--skill-tools) / 0.4)',
+          borderWidth: '1px',
+          borderStyle: 'solid'
+        };
+      default:
+        return {
+          backgroundColor: 'hsl(var(--muted) / 0.3)',
+          color: 'hsl(var(--muted-foreground))',
+          borderColor: 'hsl(var(--muted) / 0.4)',
+          borderWidth: '1px',
+          borderStyle: 'solid'
+        };
     }
   };
 
@@ -162,28 +204,25 @@ const Skills = () => {
                     return (
                       <Card
                         key={`${sectionName}-${index}`}
-                        className="group bg-card/40 backdrop-blur-sm border-border/30 hover:border-primary/40 hover:bg-card/60 transition-all duration-300 hover:scale-105 cursor-pointer"
+                        className="group portfolio-card hover:border-primary/50 hover:-translate-y-0.5 transition-all duration-300 cursor-pointer !p-3 sm:!p-4"
                       >
-                        <div className="p-4">
-                          {/* Icon and Name Row */}
-                          <div className="flex items-center gap-3 mb-3">
-                            <div className={`${skill.color} group-hover:scale-110 transition-transform duration-300`}>
-                              <IconComponent className="w-6 h-6" />
-                            </div>
-                            <h4 className="font-medium text-foreground text-sm group-hover:text-primary transition-colors duration-300">
-                              {skill.name}
-                            </h4>
+                        {/* Icon and Name Row */}
+                        <div className="flex items-center gap-3 mb-3">
+                          <div style={skill.style} className="group-hover:scale-110 transition-transform duration-300">
+                            <IconComponent className="w-6 h-6" />
                           </div>
-
-                          {/* Level Badge */}
-                          <Badge className={`
-                            ${getLevelColor(sectionName)}
-                            text-xs font-medium px-2 py-1 rounded-md w-full justify-center
-                            transition-all duration-300 group-hover:scale-105
-                          `}>
-                            {skill.level || sectionName}
-                          </Badge>
+                          <h4 className="font-medium text-foreground text-sm group-hover:text-primary transition-colors duration-300">
+                            {skill.name}
+                          </h4>
                         </div>
+
+                        {/* Level Badge */}
+                        <Badge
+                          style={getLevelColor(sectionName)}
+                          className="text-xs font-medium px-2 py-1 rounded-md w-full justify-center transition-all duration-300 group-hover:scale-105"
+                        >
+                          {skill.level || sectionName}
+                        </Badge>
                       </Card>
                     );
                   })}

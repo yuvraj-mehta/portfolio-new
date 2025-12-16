@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import type { ReactNode } from 'react';
 
-type Theme = 'purple' | 'cyberpunk' | 'glassmorphism' | 'glass-dream' | 'ocean-depth';
+type Theme = 'cyberpunk' | 'ocean-depth' | 'midnight' | 'cosmic' | 'cosmic-white';
 
 interface ThemeContextType {
   theme: Theme;
@@ -19,39 +19,39 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 // Revolutionary theme system with unique visual identities
 export const themes = [
   {
-    id: 'purple' as Theme,
-    name: 'Purple Dream',
-    color: 'hsl(262, 80%, 65%)',
-    description: 'Classic elegant portfolio'
-  },
-  {
     id: 'cyberpunk' as Theme,
     name: 'Cyberpunk',
     color: 'hsl(180, 100%, 50%)',
     description: 'Futuristic hacker aesthetic with neon grids'
   },
   {
-    id: 'glassmorphism' as Theme,
-    name: 'Glass Morphism',
-    color: 'hsl(220, 100%, 70%)',
-    description: 'Frosted glass with blur effects'
-  },
-  {
-    id: 'glass-dream' as Theme,
-    name: 'Purple Glass Dream',
-    color: 'hsl(262, 80%, 65%)',
-    description: 'Elegant purple with dreamy glass effects'
-  },
-  {
     id: 'ocean-depth' as Theme,
     name: 'Ocean Depth',
     color: 'hsl(205, 100%, 45%)',
     description: 'Deep blue ocean with aquatic vibes'
+  },
+  {
+    id: 'midnight' as Theme,
+    name: 'Midnight',
+    color: 'hsl(0, 0%, 8%)',
+    description: 'True dark theme with striking neon accents'
+  },
+  {
+    id: 'cosmic' as Theme,
+    name: 'Cosmic',
+    color: 'hsl(200, 100%, 50%)',
+    description: 'Pitch black universe with stars and nebula'
+  },
+  {
+    id: 'cosmic-white' as Theme,
+    name: 'Cosmic White',
+    color: 'hsl(45, 100%, 65%)',
+    description: 'Black night sky with white moon, stars, and golden accents'
   }
 ];
 
 export const ThemeProvider = ({ children }: { children: ReactNode }) => {
-  const [theme, setTheme] = useState<Theme>('purple');
+  const [theme, setTheme] = useState<Theme>('cyberpunk');
 
   useEffect(() => {
     const savedTheme = localStorage.getItem('portfolio-theme') as Theme;
@@ -62,14 +62,12 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     localStorage.setItem('portfolio-theme', theme);
-    
+
     // Remove all theme classes
     document.documentElement.removeAttribute('data-theme');
-    
+
     // Apply new theme
-    if (theme !== 'purple') {
-      document.documentElement.setAttribute('data-theme', theme);
-    }
+    document.documentElement.setAttribute('data-theme', theme);
   }, [theme]);
 
   const value = {

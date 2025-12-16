@@ -158,9 +158,9 @@ const Coding = () => {
       solved: apiData?.leetcode?.problemsSolved?.total || fallbackData.leetcode.totalSolved,
       rating: apiData?.leetcode?.profile?.rating ? Math.round(apiData.leetcode.profile.rating).toString() : fallbackData.leetcode.rating.toString(),
       rank: apiData?.leetcode?.contests?.topPercentage ? `Top ${apiData.leetcode.contests.topPercentage}%` : achievements.leetcode.percentile,
-      color: "text-orange-400",
-      bgColor: "from-orange-500/20 to-yellow-500/20",
-      borderColor: "border-orange-500/30",
+      color: "text-accent",
+      bgColor: "from-accent/20 to-primary-glow/20",
+      borderColor: "border-accent/30",
       icon: SiLeetcode,
       url: socialLinks.leetcode.url,
       lastActive: "2024",
@@ -173,9 +173,9 @@ const Coding = () => {
       solved: apiData?.gfg?.problemsSolved?.total || 130,
       rating: apiData?.gfg?.profile?.rank || "Rank #1058",
       streak: apiData?.gfg?.profile?.currentStreak ? `${apiData.gfg.profile.currentStreak}+ day streak` : "35+ day streak",
-      color: "text-green-400",
-      bgColor: "from-green-500/20 to-emerald-500/20",
-      borderColor: "border-green-500/30",
+      color: "text-primary",
+      bgColor: "from-primary/20 to-primary-glow/20",
+      borderColor: "border-primary/30",
       icon: SiGeeksforgeeks,
       url: socialLinks.geeksforgeeks.url,
       lastActive: "2024",
@@ -188,9 +188,9 @@ const Coding = () => {
       solved: apiData?.codechef?.problemsSolved?.total || 25,
       rating: apiData?.codechef?.profile?.rating?.toString() || "1451",
       rank: apiData?.codechef?.achievements?.stars ? `${apiData.codechef.achievements.stars} Coder` : "2★ Coder (Division 3)",
-      color: "text-amber-400",
-      bgColor: "from-amber-500/20 to-orange-500/20",
-      borderColor: "border-amber-500/30",
+      color: "text-accent",
+      bgColor: "from-accent/20 to-primary/20",
+      borderColor: "border-accent/30",
       icon: SiCodechef,
       url: socialLinks.codechef.url,
       lastActive: "2024",
@@ -203,9 +203,9 @@ const Coding = () => {
       solved: apiData?.codeforces?.problemsSolved?.total || 27,
       rating: apiData?.codeforces?.profile?.rating?.toString() || "1030",
       rank: apiData?.codeforces?.profile?.rank || "Newbie",
-      color: "text-blue-400",
-      bgColor: "from-blue-500/20 to-cyan-500/20",
-      borderColor: "border-blue-500/30",
+      color: "text-secondary",
+      bgColor: "from-secondary/20 to-muted/20",
+      borderColor: "border-secondary/30",
       icon: SiCodeforces,
       url: socialLinks.codeforces.url,
       lastActive: "2024",
@@ -224,36 +224,36 @@ const Coding = () => {
       title: "LeetCode Consistency Champion",
       description: `Maintained active problem-solving streak with ${apiData?.leetcode?.problemsSolved?.total || fallbackData.leetcode.totalSolved}+ problems solved, achieving top ${apiData?.leetcode?.contests?.topPercentage || achievements.leetcode.percentile.replace('Top ', '').replace('%', '')}% global ranking`,
       icon: FaTrophy,
-      color: "text-yellow-400",
-      bgColor: "from-yellow-500/20 to-orange-500/20",
-      borderColor: "border-yellow-500/30",
+      color: "text-primary-glow",
+      bgColor: "from-primary-glow/20 to-accent/20",
+      borderColor: "border-primary-glow/30",
       metric: `${apiData?.leetcode?.problemsSolved?.total || fallbackData.leetcode.totalSolved} Problems`
     },
     {
       title: "Contest Performer",
       description: `Best rank ${apiData?.leetcode?.contests?.bestRank || 6851} in LeetCode contests with ${apiData?.leetcode?.contests?.attendedCount || 14} contests attended, demonstrating competitive programming skills`,
       icon: FaMedal,
-      color: "text-orange-400",
-      bgColor: "from-orange-500/20 to-red-500/20",
-      borderColor: "border-orange-500/30",
+      color: "text-accent",
+      bgColor: "from-accent/20 to-destructive/20",
+      borderColor: "border-accent/30",
       metric: `Rank ${apiData?.leetcode?.contests?.bestRank || 6851}`
     },
     {
       title: "LeetCode Rating Champion",
       description: `Achieved a competitive rating of ${Math.round(apiData?.leetcode?.profile?.rating || fallbackData.leetcode.rating)} on LeetCode with ${apiData?.leetcode?.achievements?.streaks?.totalActiveDays || 149} total active coding days, demonstrating consistent algorithmic excellence`,
       icon: FaFire,
-      color: "text-green-400",
-      bgColor: "from-green-500/20 to-emerald-500/20",
-      borderColor: "border-green-500/30",
+      color: "text-primary",
+      bgColor: "from-primary/20 to-primary-glow/20",
+      borderColor: "border-primary/30",
       metric: `${Math.round(apiData?.leetcode?.profile?.rating || fallbackData.leetcode.rating)} Rating`
     },
     {
       title: "Multi-Platform Excellence",
       description: `Active across 4+ competitive programming platforms with ${targetTotal}+ total problems solved and consistent performance growth`,
       icon: FaStar,
-      color: "text-purple-400",
-      bgColor: "from-purple-500/20 to-pink-500/20",
-      borderColor: "border-purple-500/30",
+      color: "text-accent",
+      bgColor: "from-accent/20 to-secondary/20",
+      borderColor: "border-accent/30",
       metric: "4 Platforms"
     }
   ];
@@ -300,13 +300,13 @@ const Coding = () => {
                   </>
                 ) : apiError ? (
                   <>
-                    <FaExclamationTriangle className="w-4 h-4 text-orange-500" />
-                    <span className="text-sm text-orange-600">Using offline data</span>
+                    <FaExclamationTriangle className="w-4 h-4 text-accent" />
+                    <span className="text-sm text-accent">Using offline data</span>
                   </>
                 ) : (
                   <>
-                    <FaWifi className="w-4 h-4 text-green-500" />
-                    <span className="text-sm text-green-600">Live data</span>
+                    <FaWifi className="w-4 h-4 text-primary" />
+                    <span className="text-sm text-primary">Live data</span>
                   </>
                 )}
               </div>
@@ -334,8 +334,8 @@ const Coding = () => {
 
             {/* Inline Stats Display */}
             <div className="flex items-center justify-center gap-6 text-sm animate-fade-in-up animation-delay-600">
-              <div className="flex items-center gap-2 px-3 py-2 bg-green-500/5 rounded-lg border border-green-500/20">
-                <FaTrophy className="w-4 h-4 text-green-500" />
+              <div className="flex items-center gap-2 px-3 py-2 bg-primary/5 rounded-lg border border-primary/20">
+                <FaTrophy className="w-4 h-4 text-primary" />
                 <span className="text-muted-foreground font-medium">4 Platforms</span>
               </div>
               <div className="flex items-center gap-2 px-3 py-2 bg-primary/5 rounded-lg border border-primary/20">
@@ -345,8 +345,8 @@ const Coding = () => {
                 </span>
                 <span className="text-muted-foreground font-medium">Total Solved</span>
               </div>
-              <div className="flex items-center gap-2 px-3 py-2 bg-orange-500/5 rounded-lg border border-orange-500/20">
-                <FaStar className="w-4 h-4 text-orange-500" />
+              <div className="flex items-center gap-2 px-3 py-2 bg-accent/5 rounded-lg border border-accent/20">
+                <FaStar className="w-4 h-4 text-accent" />
                 <span className="text-muted-foreground font-medium">
                   LeetCode {apiData?.leetcode?.contests?.topPercentage ? `Top ${apiData.leetcode.contests.topPercentage}%` : achievements.leetcode.percentile}
                 </span>
@@ -367,7 +367,7 @@ const Coding = () => {
                 return (
                   <Card
                     key={index}
-                    className="group relative overflow-hidden bg-gradient-to-br from-slate-900/90 to-slate-800/90 border border-slate-700/50 rounded-xl transition-all duration-300 hover:border-slate-600/70 hover:scale-[1.02]"
+                    className="group relative overflow-hidden bg-card/70 border border-border/50 rounded-xl transition-all duration-300 hover:border-primary/50 hover:scale-[1.02] hover:shadow-lg hover:shadow-primary/15 backdrop-blur-sm"
                   >
                     <div className="p-6">
                       {/* Header with platform icon and visit button */}
@@ -377,12 +377,12 @@ const Coding = () => {
                             <IconComponent className={`w-6 h-6 ${platform.color}`} />
                           </div>
                           <div>
-                            <h3 className="text-lg font-semibold text-white mb-1">
+                            <h3 className="text-lg font-semibold text-foreground mb-1">
                               {platform.platform}
                             </h3>
                             <div className="flex items-center gap-1 mt-1">
-                              <FaClock className="w-3 h-3 text-slate-500" />
-                              <span className="text-xs text-slate-500">Joined {platform.joinedDate}</span>
+                              <FaClock className="w-3 h-3 text-muted-foreground" />
+                              <span className="text-xs text-muted-foreground">Joined {platform.joinedDate}</span>
                             </div>
                           </div>
                         </div>
@@ -391,14 +391,14 @@ const Coding = () => {
                             <Button
                               size="sm"
                               variant="outline"
-                              className="text-blue-400 border-blue-400/50 hover:bg-blue-400/10 hover:border-blue-400 text-xs px-3 py-1"
+                              className="text-primary border-primary/50 hover:bg-primary/10 hover:border-primary text-xs px-3 py-1"
                             >
                               Visit
                             </Button>
                           </a>
                           <div className="flex items-center gap-1">
-                            <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                            <span className="text-xs text-slate-400">Active</span>
+                            <div className="w-2 h-2 bg-primary rounded-full animate-pulse"></div>
+                            <span className="text-xs text-muted-foreground">Active</span>
                           </div>
                         </div>
                       </div>
@@ -406,10 +406,10 @@ const Coding = () => {
                       <div className="flex items-start justify-between mb-4">
                         {/* Main problem count */}
                         <div>
-                          <div className="text-3xl font-bold text-white mb-1">
+                          <div className="text-3xl font-bold text-foreground mb-1">
                             {animatedCounts.platforms[index]}
                           </div>
-                          <div className="text-sm text-slate-400">
+                          <div className="text-sm text-muted-foreground">
                             Problems Solved
                           </div>
                         </div>
@@ -419,29 +419,28 @@ const Coding = () => {
                           <div className="flex items-center justify-end gap-2">
                             {platform.rating && (
                               <>
-                                <span className="text-xs text-slate-300">Rating: {platform.rating}</span>
-                                <MdTrendingUp className="w-3 h-3 text-yellow-400" />
+                                <span className="text-xs text-foreground/70">Rating: {platform.rating}</span>
+                                <MdTrendingUp className="w-3 h-3 text-primary-glow" />
                               </>
                             )}
                           </div>
                           <div className="flex items-center justify-end gap-2">
-                            <span className="text-xs text-slate-300">
+                            <span className="text-xs text-foreground/70">
                               {platform.platform === "LeetCode" && platform.rank}
                               {platform.platform === "CodeChef" && platform.rank}
                               {platform.platform === "GeeksforGeeks" && platform.streak}
                               {platform.platform === "Codeforces" && platform.rank}
                             </span>
-                            {platform.platform === "LeetCode" && <MdLeaderboard className="w-3 h-3 text-blue-400" />}
-                            {platform.platform === "CodeChef" && <FaMedal className="w-3 h-3 text-amber-400" />}
-                            {platform.platform === "GeeksforGeeks" && <FaFire className="w-3 h-3 text-green-400" />}
-                            {platform.platform === "Codeforces" && <FaBolt className="w-3 h-3 text-blue-400" />}
+                            {platform.platform === "LeetCode" && <MdLeaderboard className="w-3 h-3 text-secondary" />}
+                            {platform.platform === "CodeChef" && <FaMedal className="w-3 h-3 text-accent" />}
+                            {platform.platform === "GeeksforGeeks" && <FaFire className="w-3 h-3 text-primary" />}
+                            {platform.platform === "Codeforces" && <FaBolt className="w-3 h-3 text-secondary" />}
                           </div>
                         </div>
                       </div>
 
-
                       {/* Bottom description text */}
-                      <div className="text-xs text-slate-400 border-t border-slate-700/50 pt-3">
+                      <div className="text-xs text-muted-foreground border-t border-border/50 pt-3">
                         {platform.platform === "LeetCode" && `Solved ${platform.solved}+ problems across all difficulty levels`}
                         {platform.platform === "CodeChef" && `${platform.rank} with ${apiData?.codechef?.contests?.attendedCount || 9} contests attended`}
                         {platform.platform === "GeeksforGeeks" && `Solved ${platform.solved}+ problems with ${apiData?.gfg?.profile?.currentStreak || 7} day current streak`}

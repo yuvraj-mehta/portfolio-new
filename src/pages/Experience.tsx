@@ -137,13 +137,13 @@ const Experience = () => {
 
                             <div>
                               <h4 className="font-semibold mb-3 flex items-center text-sm sm:text-base">
-                                <span className="text-yellow-500 mr-2">⭐</span>
+                                <span className="mr-2" style={{ color: 'hsl(var(--highlight-achievement))' }}>⭐</span>
                                 <span>Key Highlights</span>
                               </h4>
                               <ul className="space-y-2">
                                 {exp.highlights.map((highlight, idx) => (
                                   <li key={idx} className="text-xs sm:text-sm text-muted-foreground flex items-start p-2 rounded-lg hover:bg-primary/5 transition-colors duration-200">
-                                    <span className="text-yellow-500 mr-2 mt-0.5">⭐</span>
+                                    <span className="mr-2 mt-0.5" style={{ color: 'hsl(var(--highlight-achievement))' }}>⭐</span>
                                     <span>{highlight}</span>
                                   </li>
                                 ))}
@@ -175,8 +175,8 @@ const Experience = () => {
             {/* Enhanced Achievements Sidebar */}
             <div className="space-y-8 sm:space-y-10 mt-12 lg:mt-0">
               <div className="flex items-center mb-6 sm:mb-8">
-                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-br from-yellow-500/20 to-orange-500/20 flex items-center justify-center mr-4">
-                  <Trophy className="w-5 h-5 sm:w-6 sm:h-6 text-yellow-500" />
+                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center mr-4" style={{ backgroundColor: `hsl(var(--highlight-achievement) / 0.2)` }}>
+                  <Trophy className="w-5 h-5 sm:w-6 sm:h-6" style={{ color: 'hsl(var(--highlight-achievement))' }} />
                 </div>
                 <h2 className="text-xl sm:text-2xl font-bold">Achievements</h2>
               </div>

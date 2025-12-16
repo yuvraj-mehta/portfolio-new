@@ -45,6 +45,7 @@ class GitHubApiService {
   // Cache for API responses to avoid rate limiting
   private cache = new Map<string, { data: any; timestamp: number }>();
   private cacheTimeout = 5 * 60 * 1000; // 5 minutes
+  private isApiAvailable = true;
 
   private async fetchWithCache(url: string): Promise<any> {
     const cacheKey = url;
@@ -64,19 +65,36 @@ class GitHubApiService {
       });
 
       if (!response.ok) {
-        throw new Error(`GitHub API error: ${response.status}`);
+        // Mark API as unavailable if rate limited or error
+        if (response.status === 403 || response.status === 401) {
+          this.isApiAvailable = false;
+          console.warn(`GitHub API rate limited (${response.status}). Using fallback.`);
+        } else {
+          console.warn(`GitHub API error: ${response.status}`);
+        }
+        
+        // Return cached data if available, even if expired (graceful degradation)
+        if (cached) {
+          return cached.data;
+        }
+        // If no cache and error, return empty array to prevent crashes
+        return [];
       }
 
       const data = await response.json();
       this.cache.set(cacheKey, { data, timestamp: Date.now() });
+      this.isApiAvailable = true;
       return data;
     } catch (error) {
-      console.error('GitHub API fetch error:', error);
+      console.warn('GitHub API fetch failed, using fallback:', error);
+      this.isApiAvailable = false;
+      
       // Return cached data if available, even if expired
       if (cached) {
         return cached.data;
       }
-      throw error;
+      // Return empty data to prevent crashes
+      return [];
     }
   }
 
@@ -84,6 +102,11 @@ class GitHubApiService {
     try {
       // Get user's repositories first
       const repos = await this.fetchWithCache(`${this.baseUrl}/users/${this.username}/repos?sort=updated&per_page=5`);
+      
+      // If no repos data, return empty array
+      if (!Array.isArray(repos) || repos.length === 0) {
+        return [];
+      }
       
       const allCommits: GitHubCommit[] = [];
       
@@ -94,17 +117,19 @@ class GitHubApiService {
             `${this.baseUrl}/repos/${repo.full_name}/commits?author=${this.username}&per_page=5`
           );
           
-          const commitsWithRepo = commits.map((commit: GitHubCommit) => ({
-            ...commit,
-            repository: {
-              name: repo.name,
-              full_name: repo.full_name
-            }
-          }));
-          
-          allCommits.push(...commitsWithRepo);
+          if (Array.isArray(commits) && commits.length > 0) {
+            const commitsWithRepo = commits.map((commit: GitHubCommit) => ({
+              ...commit,
+              repository: {
+                name: repo.name,
+                full_name: repo.full_name
+              }
+            }));
+            
+            allCommits.push(...commitsWithRepo);
+          }
         } catch (error) {
-          console.error(`Error fetching commits for ${repo.name}:`, error);
+          console.warn(`Error fetching commits for ${repo.name}:`, error);
         }
       }
       
@@ -113,7 +138,7 @@ class GitHubApiService {
         .sort((a, b) => new Date(b.commit.author.date).getTime() - new Date(a.commit.author.date).getTime())
         .slice(0, limit);
     } catch (error) {
-      console.error('Error fetching commits:', error);
+      console.warn('Error fetching commits, returning empty array:', error);
       return [];
     }
   }
@@ -123,9 +148,12 @@ class GitHubApiService {
       const repos = await this.fetchWithCache(
         `${this.baseUrl}/users/${this.username}/repos?sort=updated&per_page=${limit}`
       );
+      if (!Array.isArray(repos)) {
+        return [];
+      }
       return repos.filter((repo: GitHubRepository) => !repo.name.includes('.github.io'));
     } catch (error) {
-      console.error('Error fetching repositories:', error);
+      console.warn('Error fetching repositories, returning empty array:', error);
       return [];
     }
   }
@@ -137,15 +165,22 @@ class GitHubApiService {
   }> {
     try {
       const user = await this.fetchWithCache(`${this.baseUrl}/users/${this.username}`);
+      if (!user || typeof user !== 'object') {
+        return { publicRepos: 0, followers: 0, following: 0 };
+      }
       return {
-        publicRepos: user.public_repos,
-        followers: user.followers,
-        following: user.following
+        publicRepos: user.public_repos || 0,
+        followers: user.followers || 0,
+        following: user.following || 0
       };
     } catch (error) {
-      console.error('Error fetching user stats:', error);
+      console.warn('Error fetching user stats, returning defaults:', error);
       return { publicRepos: 0, followers: 0, following: 0 };
     }
+  }
+
+  getIsApiAvailable(): boolean {
+    return this.isApiAvailable;
   }
 
   formatCommitActivity(commits: GitHubCommit[]): GitHubActivity[] {

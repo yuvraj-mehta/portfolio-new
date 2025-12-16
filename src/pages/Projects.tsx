@@ -156,7 +156,7 @@ const Projects = () => {
                         {project.demo && (
                           <Button
                             size="sm"
-                            className="bg-primary/90 hover:bg-primary text-white shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 backdrop-blur-sm"
+                            className="bg-primary/90 hover:bg-primary text-primary-foreground shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 backdrop-blur-sm"
                             asChild
                           >
                             <a href={project.demo} target="_blank" rel="noopener noreferrer">
@@ -168,7 +168,7 @@ const Projects = () => {
                         <Button
                           size="sm"
                           variant="outline"
-                          className="bg-white/10 backdrop-blur-sm border-white/20 text-white hover:bg-white/20 shadow-lg transform hover:scale-105 transition-all duration-200"
+                          className="bg-foreground/10 backdrop-blur-sm border-foreground/20 text-foreground hover:bg-foreground/20 shadow-lg transform hover:scale-105 transition-all duration-200"
                           asChild
                         >
                           <a href={project.github} target="_blank" rel="noopener noreferrer">

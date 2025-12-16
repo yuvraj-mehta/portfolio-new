@@ -22,10 +22,10 @@ const About = () => {
 
   // Use centralized interests data with actual icon components
   const pageInterests = [
-    { icon: FaRobot, name: "Robotics", description: "Building combat & soccer bots", color: "text-blue-500" },
-    { icon: FaRunning, name: "Athletics", description: "Bronze in 50m Hurdles", color: "text-green-500" },
-    { icon: FaPuzzlePiece, name: "Problem Solving", description: "Competitive programming", color: "text-purple-500" },
-    { icon: FaBullseye, name: "Mentoring", description: "Leading workshops", color: "text-red-500" },
+    { icon: FaRobot, name: "Robotics", description: "Building combat & soccer bots", color: "text-primary" },
+    { icon: FaRunning, name: "Athletics", description: "Bronze in 50m Hurdles", color: "text-accent" },
+    { icon: FaPuzzlePiece, name: "Problem Solving", description: "Competitive programming", color: "text-secondary" },
+    { icon: FaBullseye, name: "Mentoring", description: "Leading workshops", color: "text-destructive" },
   ];
 
   // Using centralized achievement stats
