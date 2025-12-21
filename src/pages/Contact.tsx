@@ -27,7 +27,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useState } from "react";
 import { toast } from "sonner";
-import { personalInfo, socialLinks, quickLinks } from "@/data/portfolioData";
+import { personalInfo, socialLinks, quickLinks, contactMethods, socialMediaLinks } from "@/data/portfolioData";
 import { motion, AnimatePresence } from "framer-motion";
 
 const contactSchema = z.object({
@@ -65,80 +65,6 @@ const Contact = () => {
       setIsSubmitting(false);
     }
   };
-
-  const contactMethods = [
-    {
-      icon: HiMail,
-      label: "Email",
-      value: personalInfo.email,
-      href: socialLinks.email.url,
-      preferred: true,
-      responseTime: "Within 24 hours"
-    },
-    {
-      icon: HiPhone,
-      label: "Phone",
-      value: personalInfo.phone,
-      href: `tel:${personalInfo.phone}`,
-      preferred: false,
-      responseTime: "For urgent matters"
-    },
-    {
-      icon: HiLocationMarker,
-      label: "Location",
-      value: personalInfo.location,
-      href: null,
-      preferred: false,
-      responseTime: "Available for meetings"
-    },
-    {
-      icon: FaLinkedin,
-      label: "LinkedIn",
-      value: socialLinks.linkedin.username,
-      href: socialLinks.linkedin.url,
-      preferred: true,
-      responseTime: "Within 12 hours"
-    }
-  ];
-
-  const socialMediaLinks = [
-    {
-      name: "GitHub",
-      icon: FaGithub,
-      href: socialLinks.github.url,
-      description: "Check out my code",
-      colorStyle: { color: 'hsl(var(--secondary))' },
-      bgColor: "bg-secondary/20",
-      borderColor: "border-secondary/30"
-    },
-    {
-      name: "LinkedIn",
-      icon: FaLinkedin,
-      href: socialLinks.linkedin.url,
-      description: "Let's connect professionally",
-      colorStyle: { color: 'hsl(var(--primary))' },
-      bgColor: "bg-primary/20",
-      borderColor: "border-primary/30"
-    },
-    {
-      name: "Instagram",
-      icon: FaInstagram,
-      href: socialLinks.instagram.url,
-      description: "Follow for updates",
-      colorStyle: { color: 'hsl(var(--accent))' },
-      bgColor: "bg-accent/20",
-      borderColor: "border-accent/30"
-    },
-    {
-      name: "Email",
-      icon: HiMail,
-      href: socialLinks.email.url,
-      description: "Send me a message",
-      colorStyle: { color: 'hsl(var(--destructive))' },
-      bgColor: "bg-destructive/20",
-      borderColor: "border-destructive/30"
-    }
-  ];
 
   const headerVariants = {
     hidden: { opacity: 0, y: 20 },

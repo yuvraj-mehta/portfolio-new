@@ -18,6 +18,9 @@ import {
   FaBook,
   FaReact,
   FaNodeJs,
+  FaBullseye,
+  FaInstagram,
+  FaGlobe,
 } from "react-icons/fa";
 import {
   SiTypescript,
@@ -25,6 +28,11 @@ import {
   SiNextdotjs,
   SiExpress,
 } from "react-icons/si";
+import {
+  HiMail,
+  HiPhone,
+  HiLocationMarker,
+} from "react-icons/hi";
 import { Download } from "lucide-react";
 import { HiChatBubbleLeftRight } from "react-icons/hi2";
 import { BiGitCommit } from "react-icons/bi";
@@ -38,10 +46,10 @@ export const personalInfo = {
   email: "yuvraj.mehta532@gmail.com",
   phone: "+91-9334083113",
   location: "Gaya, Bihar, India",
-  currentLocation: "New Delhi, India",
+  currentLocation: "Patna, India",
   timezone: "IST (UTC +5:30)",
   university: "NIT Patna",
-  course: "Computer Science",
+  course: "Computer Science and Engineering",
   bio: {
     intro:
       "B.Tech CS student at NIT Patna passionate about building full stack applications with a focus on user-friendly interfaces. Skilled in MERN Stack.",
@@ -66,11 +74,11 @@ export const socialLinks = {
     username: "yuvraj-mehta",
   },
   linkedin: {
-    url: "https://www.linkedin.com/in/yuvraj-mehta-a0274528a/",
+    url: "https://www.linkedin.com/in/mehta-yuvraj",
     username: "yuvraj-mehta-a0274528a",
   },
   leetcode: {
-    url: "https://leetcode.com/u/mythical-UV/",
+    url: "https://leetcode.com/u/holaGuy/",
     username: "mythical-UV",
   },
   geeksforgeeks: {
@@ -101,11 +109,11 @@ export const socialLinks = {
 
 export const achievements = {
   leetcode: {
-    rating: "1649",
-    maxRating: "1649",
-    problemsSolved: "277",
-    globalRanking: "125365",
-    percentile: "Top 17.36%",
+    rating: "1659",
+    maxRating: "1693",
+    problemsSolved: "371",
+    globalRanking: "128980",
+    percentile: "Top 16.4%",
   },
   codechef: {
     rating: "1451",
@@ -377,7 +385,7 @@ export const certifications = [
   {
     title: "Web Development Bootcamp",
     issuer: "Udemy",
-    year: "2023",
+    year: "2024",
     description:
       "Comprehensive full-stack web development course covering HTML, CSS, JavaScript, complete MERN stack, and deployment.",
     featured: true,
@@ -515,7 +523,7 @@ export const quickLinks = [
   },
   {
     name: "LeetCode",
-    href: "https://leetcode.com/u/mythical-UV/",
+    href: "https://leetcode.com/u/holaGuy/",
     icon: "⚡",
     external: true,
   },
@@ -795,6 +803,147 @@ export const overviewData = {
     ],
   },
 };
+
+export const pageInterests = [
+  { icon: FaRobot, name: "Robotics", description: "Building combat & soccer bots", color: "text-primary" },
+  { icon: FaRunning, name: "Athletics", description: "Bronze in 50m Hurdles", color: "text-accent" },
+  { icon: FaPuzzlePiece, name: "Problem Solving", description: "Competitive programming", color: "text-secondary" },
+  { icon: FaBullseye, name: "Mentoring", description: "Leading workshops", color: "text-destructive" },
+];
+
+export const educationTimeline = [
+  {
+    id: 0,
+    status: "Currently Pursuing",
+    type: "Bachelor of Technology",
+    period: "2023 - 2027",
+    institution: "National Institute of Technology, Patna",
+    degree: "B.Tech in Computer Science and Engineering",
+    location: "Patna, Bihar",
+    description: "Pursuing comprehensive computer science education with focus on algorithms, data structures, and modern software development practices. Active participant in technical clubs and research projects.",
+    keyPoints: {
+      courses: ["Data Structures & Algorithms", "Database Management Systems", "Operating Systems", "Computer Networks"],
+      achievements: ["Maintaining CGPA of 7.69/10", "Merit List Recognition", "Technical Workshop Facilitation", "Competitive Programming Participant"],
+      activities: [
+        { role: "Class Representative", detail: "CSE Department" },
+        { role: "Competitive Programming Participant", detail: "Multiple Contests" },
+        { role: "Robotics Club Member", detail: "Building Combat & Soccer Bots" },
+        { role: "MUN 2023", detail: "Best Delegate Award" }
+      ]
+    }
+  },
+  {
+    id: 1,
+    type: "Higher Secondary",
+    period: "2021 - 2022",
+    institution: "Pragya Bharti Public School, Gaya",
+    degree: "Class XII (CBSE)",
+    location: "Gaya, Bihar",
+    description: "Completed higher secondary education with focus on science and mathematics subjects.",
+    keyPoints: {
+      courses: ["Physics", "Chemistry", "Mathematics", "Computer Science"],
+      achievements: ["Scored 88.8% in CBSE Class 12", "School Merit List", "Perfect Attendance", "Academic Excellence Award"]
+    }
+  },
+  {
+    id: 2,
+    type: "Secondary",
+    period: "2019 - 2020",
+    institution: "Pragya Bharti Public School, Gaya",
+    degree: "Class X (CBSE)",
+    location: "Gaya, Bihar",
+    description: "Completed secondary education with strong foundation in core subjects.",
+    keyPoints: {
+      courses: ["Science", "Mathematics", "Social Studies", "English", "Hindi"],
+      achievements: ["Scored 90% in CBSE Class 10", "Academic Excellence Award"]
+    }
+  }
+];
+
+export const certificationsList = [
+  {
+    title: "Web Development Bootcamp",
+    issuer: "Udemy",
+    year: "2023",
+    description: "Comprehensive full-stack web development course covering HTML, CSS, JavaScript, React, and Node.js",
+    badge: FaGlobe,
+    colorStyle: { color: 'hsl(var(--primary))' }
+  }
+];
+
+export const contactMethods = [
+  {
+    icon: HiMail,
+    label: "Email",
+    value: personalInfo.email,
+    href: socialLinks.email.url,
+    preferred: true,
+    responseTime: "Within 24 hours"
+  },
+  {
+    icon: HiPhone,
+    label: "Phone",
+    value: personalInfo.phone,
+    href: `tel:${personalInfo.phone}`,
+    preferred: false,
+    responseTime: "For urgent matters"
+  },
+  {
+    icon: HiLocationMarker,
+    label: "Location",
+    value: personalInfo.location,
+    href: null,
+    preferred: false,
+    responseTime: "Available for meetings"
+  },
+  {
+    icon: FaLinkedin,
+    label: "LinkedIn",
+    value: socialLinks.linkedin.username,
+    href: socialLinks.linkedin.url,
+    preferred: true,
+    responseTime: "Within 12 hours"
+  }
+];
+
+export const socialMediaLinks = [
+  {
+    name: "GitHub",
+    icon: FaGithub,
+    href: socialLinks.github.url,
+    description: "Check out my code",
+    colorStyle: { color: 'hsl(var(--secondary))' },
+    bgColor: "bg-secondary/20",
+    borderColor: "border-secondary/30"
+  },
+  {
+    name: "LinkedIn",
+    icon: FaLinkedin,
+    href: socialLinks.linkedin.url,
+    description: "Let's connect professionally",
+    colorStyle: { color: 'hsl(var(--primary))' },
+    bgColor: "bg-primary/20",
+    borderColor: "border-primary/30"
+  },
+  {
+    name: "Instagram",
+    icon: FaInstagram,
+    href: socialLinks.instagram.url,
+    description: "Follow for updates",
+    colorStyle: { color: 'hsl(var(--accent))' },
+    bgColor: "bg-accent/20",
+    borderColor: "border-accent/30"
+  },
+  {
+    name: "Email",
+    icon: HiMail,
+    href: socialLinks.email.url,
+    description: "Send me a message",
+    colorStyle: { color: 'hsl(var(--destructive))' },
+    bgColor: "bg-destructive/20",
+    borderColor: "border-destructive/30"
+  }
+];
 
 export const footerData = {
   brand: {

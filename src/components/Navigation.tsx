@@ -49,7 +49,7 @@ const Navigation = () => {
                 <HiCode className="w-4 h-4" />
               </AvatarFallback>
             </Avatar>
-            <span className="text-lg font-bold bg-gradient-to-r from-primary to-primary-glow bg-clip-text text-transparent group-hover:from-primary-glow group-hover:to-primary transition-all duration-300">{personalInfo.name.split(' ')[0]}</span>
+            <span className="text-xl font-extrabold bg-gradient-to-r from-primary to-primary-glow bg-clip-text text-transparent group-hover:from-primary-glow group-hover:to-primary transition-all duration-300">{personalInfo.name.split(' ')[0]}.</span>
           </Link>
 
           {/* Enhanced Desktop Navigation */}

@@ -10,23 +10,16 @@ import {
   HiHand,
   HiSparkles
 } from "react-icons/hi";
-import { FaGithub, FaLinkedin, FaTrophy, FaRobot, FaRunning, FaPuzzlePiece, FaBullseye } from "react-icons/fa";
+import { FaGithub, FaLinkedin, FaTrophy } from "react-icons/fa";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import ThemeSwitcher from "@/components/ThemeSwitcher";
 import { useNavigate } from "react-router-dom";
-import { personalInfo, socialLinks, achievements, interests, aboutPageData } from "@/data/portfolioData";
+import { personalInfo, socialLinks, achievements, pageInterests, aboutPageData } from "@/data/portfolioData";
 import { motion } from "framer-motion";
 
 const About = () => {
   const navigate = useNavigate();
-
-  const pageInterests = [
-    { icon: FaRobot, name: "Robotics", description: "Building combat & soccer bots", color: "text-primary" },
-    { icon: FaRunning, name: "Athletics", description: "Bronze in 50m Hurdles", color: "text-accent" },
-    { icon: FaPuzzlePiece, name: "Problem Solving", description: "Competitive programming", color: "text-secondary" },
-    { icon: FaBullseye, name: "Mentoring", description: "Leading workshops", color: "text-destructive" },
-  ];
 
   const achievementStats = aboutPageData.achievementStats;
 

@@ -15,16 +15,16 @@ import {
   HiSparkles,
   HiBadgeCheck
 } from "react-icons/hi";
-import { FaTrophy, FaGlobe, FaChartBar, FaRobot } from "react-icons/fa";
-import { personalInfo } from "@/data/portfolioData";
+import { FaTrophy, FaChartBar, FaRobot } from "react-icons/fa";
+import { personalInfo, educationTimeline, certificationsList } from "@/data/portfolioData";
 import { motion, AnimatePresence } from "framer-motion";
 
 const Education = () => {
   const [expandedCards, setExpandedCards] = useState<number[]>([]);
 
   const toggleCard = (index: number) => {
-    setExpandedCards(prev => 
-      prev.includes(index) 
+    setExpandedCards(prev =>
+      prev.includes(index)
         ? prev.filter(i => i !== index)
         : [...prev, index]
     );
@@ -92,66 +92,6 @@ const Education = () => {
     })
   };
 
-  const educationEntries = [
-    {
-      id: 0,
-      status: "Currently Pursuing",
-      type: "Bachelor of Technology",
-      period: "2023 - 2027",
-      institution: "National Institute of Technology, Patna",
-      degree: "B.Tech in Computer Science and Engineering",
-      location: "Patna, Bihar",
-      description: "Pursuing comprehensive computer science education with focus on algorithms, data structures, and modern software development practices. Active participant in technical clubs and research projects.",
-      keyPoints: {
-        courses: ["Data Structures & Algorithms", "Database Management Systems", "Operating Systems", "Computer Networks"],
-        achievements: ["Maintaining CGPA of 7.69/10", "Merit List Recognition", "Technical Workshop Facilitation", "Competitive Programming Participant"],
-        activities: [
-          { role: "Class Representative", detail: "CSE Department" },
-          { role: "Competitive Programming Participant", detail: "Multiple Contests" },
-          { role: "Robotics Club Member", detail: "Building Combat & Soccer Bots" },
-          { role: "MUN 2023", detail: "Best Delegate Award" }
-        ]
-      }
-    },
-    {
-      id: 1,
-      type: "Higher Secondary",
-      period: "2021 - 2022",
-      institution: "Pragya Bharti Public School, Gaya",
-      degree: "Class XII (CBSE)",
-      location: "Gaya, Bihar",
-      description: "Completed higher secondary education with focus on science and mathematics subjects.",
-      keyPoints: {
-        courses: ["Physics", "Chemistry", "Mathematics", "Computer Science"],
-        achievements: ["Scored 88.8% in CBSE Class 12", "School Merit List", "Perfect Attendance", "Academic Excellence Award"]
-      }
-    },
-    {
-      id: 2,
-      type: "Secondary",
-      period: "2019 - 2020",
-      institution: "Pragya Bharti Public School, Gaya",
-      degree: "Class X (CBSE)",
-      location: "Gaya, Bihar",
-      description: "Completed secondary education with strong foundation in core subjects.",
-      keyPoints: {
-        courses: ["Science", "Mathematics", "Social Studies", "English", "Hindi"],
-        achievements: ["Scored 90% in CBSE Class 10", "Academic Excellence Award"]
-      }
-    }
-  ];
-
-  const certifications = [
-    {
-      title: "Web Development Bootcamp",
-      issuer: "Udemy",
-      year: "2023",
-      description: "Comprehensive full-stack web development course covering HTML, CSS, JavaScript, React, and Node.js",
-      badge: FaGlobe,
-      colorStyle: { color: 'hsl(var(--primary))' }
-    }
-  ];
-
   return (
     <div className="min-h-screen bg-background">
       <Navigation />
@@ -207,7 +147,7 @@ const Education = () => {
                 <div className="absolute left-4 top-8 bottom-8 w-0.5 bg-gradient-to-b from-primary/60 via-primary/30 to-transparent hidden sm:block"></div>
                 
                 <motion.div className="space-y-8" variants={containerVariants} initial="hidden" animate="visible">
-                  {educationEntries.map((entry, index) => (
+                  {educationTimeline.map((entry, index) => (
                     <motion.div key={entry.id} className="relative" variants={cardVariants}>
                       <div className="absolute left-2 top-6 w-4 h-4 bg-primary rounded-full border-2 border-background shadow-lg hidden sm:block z-10">
                         <motion.div
@@ -422,7 +362,7 @@ const Education = () => {
                 </motion.div>
 
                 <motion.div className="space-y-6" variants={containerVariants} initial="hidden" animate="visible">
-                  {certifications.map((cert, index) => (
+                  {certificationsList.map((cert, index) => (
                     <motion.div
                       key={index}
                       variants={cardVariants}
