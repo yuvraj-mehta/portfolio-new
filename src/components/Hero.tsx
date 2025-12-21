@@ -1,17 +1,28 @@
-import { motion } from 'framer-motion'
-import { Menu, X, Github, Linkedin, Mail, MapPin, Download, ChevronDown, Code, Target } from 'lucide-react'
-import { useState, useEffect } from 'react'
-import { personalInfo, socialLinks, achievements, techStack } from '@/data/portfolioData'
-import ThemeSwitcher from './ThemeSwitcher'
-import { FaReact, FaNodeJs, FaGitAlt } from 'react-icons/fa'
-import { SiTypescript, SiMongodb, SiNextdotjs } from 'react-icons/si'
+import { motion } from "framer-motion";
+import {
+  Menu,
+  X,
+  Github,
+  Linkedin,
+  Mail,
+  MapPin,
+  Download,
+  ChevronDown,
+  Code,
+  Target,
+} from "lucide-react";
+import { useState, useEffect } from "react";
+import { personalInfo, socialLinks, achievements, techStack } from "@/data";
+import ThemeSwitcher from "./ThemeSwitcher";
+import { FaReact, FaNodeJs, FaGitAlt } from "react-icons/fa";
+import { SiTypescript, SiMongodb, SiNextdotjs } from "react-icons/si";
 
 export function Hero() {
   const nameVariants = {
     hidden: {
       opacity: 0,
       y: 20,
-      rotateZ: -10
+      rotateZ: -10,
     },
     visible: (i: number) => ({
       opacity: 1,
@@ -20,40 +31,57 @@ export function Hero() {
       transition: {
         delay: 0.5 + i * 0.06,
         duration: 0.6,
-        type: 'spring',
+        type: "spring",
         stiffness: 120,
         damping: 12,
-        mass: 1
-      }
-    })
+        mass: 1,
+      },
+    }),
   };
 
   const statBadges = [
-    { label: 'Projects', value: achievements.stats.totalProjects, icon: <Code className="w-5 h-5" /> },
-    { label: 'Problems', value: achievements.leetcode.problemsSolved, icon: <Target className="w-5 h-5" /> },
-    { label: 'Commits', value: achievements.stats.commits, icon: <FaGitAlt className="w-5 h-5" /> },
-  ]
+    {
+      label: "Projects",
+      value: achievements.stats.totalProjects,
+      icon: <Code className="w-5 h-5" />,
+    },
+    {
+      label: "Problems",
+      value: achievements.leetcode.problemsSolved,
+      icon: <Target className="w-5 h-5" />,
+    },
+    {
+      label: "Commits",
+      value: achievements.stats.commits,
+      icon: <FaGitAlt className="w-5 h-5" />,
+    },
+  ];
 
   return (
     <div className="relative h-screen flex items-center overflow-hidden bg-gradient-to-br from-background via-background to-card pt-16">
       {/* Animated Background Elements */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute top-20 left-10 w-72 h-72 bg-primary/10 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-20 right-10 w-96 h-96 bg-accent/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
+        <div
+          className="absolute bottom-20 right-10 w-96 h-96 bg-accent/10 rounded-full blur-3xl animate-pulse"
+          style={{ animationDelay: "1s" }}
+        />
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary-glow/5 rounded-full blur-3xl" />
       </div>
 
       {/* Grid Pattern Overlay */}
-      <div className="absolute inset-0 opacity-[0.02]" style={{
-        backgroundImage: `radial-gradient(circle at 1px 1px, currentColor 1px, transparent 0)`,
-        backgroundSize: '40px 40px'
-      }} />
+      <div
+        className="absolute inset-0 opacity-[0.02]"
+        style={{
+          backgroundImage: `radial-gradient(circle at 1px 1px, currentColor 1px, transparent 0)`,
+          backgroundSize: "40px 40px",
+        }}
+      />
 
       {/* Hero Content */}
       <div className="relative z-10 w-full">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-            
             {/* Left Content */}
             <motion.div
               initial={{ opacity: 0, x: -50 }}
@@ -64,7 +92,8 @@ export function Hero() {
               {/* Status Badge */}
               <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium">
                 <span className="w-2 h-2 bg-primary rounded-full animate-pulse" />
-                {personalInfo.status.availability} for {personalInfo.status.workMode} Work
+                {personalInfo.status.availability} for{" "}
+                {personalInfo.status.workMode} Work
               </div>
 
               {/* Name & Title */}
@@ -72,7 +101,7 @@ export function Hero() {
                 <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black leading-tight text-foreground">
                   <div>Hi, I'm</div>
                   <motion.span className="bg-gradient-to-r from-primary via-primary-glow to-accent bg-clip-text text-transparent whitespace-nowrap inline-block">
-                    {personalInfo.name.split('').map((char, i) => (
+                    {personalInfo.name.split("").map((char, i) => (
                       <motion.span
                         key={i}
                         custom={i}
@@ -81,7 +110,7 @@ export function Hero() {
                         animate="visible"
                         className="inline"
                       >
-                        {char === ' ' ? '\u00A0' : char}
+                        {char === " " ? "\u00A0" : char}
                       </motion.span>
                     ))}
                   </motion.span>
@@ -123,8 +152,12 @@ export function Hero() {
                         whileHover={{ scale: 1.05 }}
                         className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-primary/10 border border-primary/20 whitespace-nowrap flex-shrink-0 cursor-pointer"
                       >
-                        <span className="text-xs font-semibold text-primary">{tech.icon}</span>
-                        <span className="text-xs font-medium text-foreground">{tech.name}</span>
+                        <span className="text-xs font-semibold text-primary">
+                          {tech.icon}
+                        </span>
+                        <span className="text-xs font-medium text-foreground">
+                          {tech.name}
+                        </span>
                       </motion.div>
                     ))
                   )}
@@ -193,13 +226,22 @@ export function Hero() {
               {/* Profile Image Container */}
               <div className="relative mx-auto w-96 h-96 lg:w-[28rem] lg:h-[28rem]">
                 {/* Decorative Rings */}
-                <div className="absolute inset-0 rounded-full border-2 border-dashed border-primary/30 animate-spin" style={{ animationDuration: '20s' }} />
-                <div className="absolute inset-4 rounded-full border-2 border-dashed border-accent/20 animate-spin" style={{ animationDuration: '15s', animationDirection: 'reverse' }} />
-                
+                <div
+                  className="absolute inset-0 rounded-full border-2 border-dashed border-primary/30 animate-spin"
+                  style={{ animationDuration: "20s" }}
+                />
+                <div
+                  className="absolute inset-4 rounded-full border-2 border-dashed border-accent/20 animate-spin"
+                  style={{
+                    animationDuration: "15s",
+                    animationDirection: "reverse",
+                  }}
+                />
+
                 {/* Profile Image */}
                 <motion.div
                   whileHover={{ scale: 1.05 }}
-                  transition={{ duration: 0.3, ease: 'easeOut' }}
+                  transition={{ duration: 0.3, ease: "easeOut" }}
                   className="absolute inset-8 rounded-full overflow-hidden border-4 border-background shadow-2xl cursor-pointer"
                 >
                   <img
@@ -212,10 +254,10 @@ export function Hero() {
                 {/* Floating Stat Badges */}
                 {statBadges.map((badge, index) => {
                   const positions = [
-                    { top: '10%', right: '-30px' }, // top-right
-                    { bottom: '10%', left: '-30px' }, // bottom-left
-                    { bottom: '10%', right: '-30px' }, // bottom-right
-                  ]
+                    { top: "10%", right: "-30px" }, // top-right
+                    { bottom: "10%", left: "-30px" }, // bottom-left
+                    { bottom: "10%", right: "-30px" }, // bottom-right
+                  ];
                   return (
                     <motion.div
                       key={badge.label}
@@ -228,7 +270,12 @@ export function Hero() {
                       transition={{
                         opacity: { delay: 1.2 + index * 0.1 },
                         scale: { delay: 1.2 + index * 0.1 },
-                        y: { delay: 1.5 + index * 0.1, duration: 3, repeat: Infinity, ease: 'easeInOut' }
+                        y: {
+                          delay: 1.5 + index * 0.1,
+                          duration: 3,
+                          repeat: Infinity,
+                          ease: "easeInOut",
+                        },
                       }}
                       whileHover={{ scale: 1.1, y: -8 }}
                       className="absolute bg-background/80 backdrop-blur-sm border border-primary/40 rounded-lg px-3 py-2 shadow-lg hover:shadow-xl transition-shadow duration-300"
@@ -237,12 +284,16 @@ export function Hero() {
                       <div className="flex items-center gap-2">
                         <span className="text-primary">{badge.icon}</span>
                         <div className="text-right">
-                          <div className="text-sm font-bold text-foreground">{badge.value}</div>
-                          <div className="text-xs text-muted-foreground">{badge.label}</div>
+                          <div className="text-sm font-bold text-foreground">
+                            {badge.value}
+                          </div>
+                          <div className="text-xs text-muted-foreground">
+                            {badge.label}
+                          </div>
                         </div>
                       </div>
                     </motion.div>
-                  )
+                  );
                 })}
               </div>
             </motion.div>
@@ -266,5 +317,5 @@ export function Hero() {
         </motion.div>
       </motion.div>
     </div>
-  )
+  );
 }

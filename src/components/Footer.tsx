@@ -5,21 +5,30 @@ import {
   MapPin,
   Heart,
   FileText,
-  Zap
+  Zap,
 } from "lucide-react";
 import { FaStar, FaMagic, FaLaptopCode } from "react-icons/fa";
-import { SiLeetcode, SiGeeksforgeeks, SiCodechef, SiCodeforces } from "react-icons/si";
+import {
+  SiLeetcode,
+  SiGeeksforgeeks,
+  SiCodechef,
+  SiCodeforces,
+} from "react-icons/si";
 import { Link } from "react-router-dom";
-import { footerData, socialLinks, personalInfo } from "@/data/portfolioData";
+import { footerData, socialLinks, personalInfo } from "@/data";
 
 const Footer = () => {
   return (
-    <footer className="text-foreground mt-20" style={{ backgroundColor: 'hsl(var(--card))' }}>
+    <footer
+      className="text-foreground mt-20"
+      style={{ backgroundColor: "hsl(var(--card))" }}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-8 py-6 sm:py-12">
-
         {/* Mobile-First: Simplified Brand Section */}
         <div className="text-center mb-6 sm:hidden">
-          <h3 className="text-xl font-bold text-foreground mb-3">{footerData.brand.name}</h3>
+          <h3 className="text-xl font-bold text-foreground mb-3">
+            {footerData.brand.name}
+          </h3>
           <p className="text-muted-foreground text-sm mb-4 leading-relaxed">
             {footerData.brand.title} specializing in modern web technologies
           </p>
@@ -33,7 +42,7 @@ const Footer = () => {
               className="w-10 h-10 rounded-lg flex items-center justify-center transition-all duration-200"
               style={{
                 backgroundColor: `hsl(var(--primary) / 0.2)`,
-                color: 'hsl(var(--muted-foreground))',
+                color: "hsl(var(--muted-foreground))",
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.backgroundColor = `hsl(var(--primary) / 0.3)`;
@@ -53,7 +62,7 @@ const Footer = () => {
               className="w-10 h-10 rounded-lg flex items-center justify-center transition-all duration-200"
               style={{
                 backgroundColor: `hsl(var(--primary) / 0.2)`,
-                color: 'hsl(var(--muted-foreground))',
+                color: "hsl(var(--muted-foreground))",
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.backgroundColor = `hsl(var(--primary) / 0.3)`;
@@ -71,7 +80,7 @@ const Footer = () => {
               className="w-10 h-10 rounded-lg flex items-center justify-center transition-all duration-200"
               style={{
                 backgroundColor: `hsl(var(--primary) / 0.2)`,
-                color: 'hsl(var(--muted-foreground))',
+                color: "hsl(var(--muted-foreground))",
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.backgroundColor = `hsl(var(--primary) / 0.3)`;
@@ -104,10 +113,16 @@ const Footer = () => {
             >
               Resume
             </a>
-            <Link to="/projects" className="text-muted-foreground hover:text-foreground transition-colors">
+            <Link
+              to="/projects"
+              className="text-muted-foreground hover:text-foreground transition-colors"
+            >
               Projects
             </Link>
-            <Link to="/contact" className="text-muted-foreground hover:text-foreground transition-colors">
+            <Link
+              to="/contact"
+              className="text-muted-foreground hover:text-foreground transition-colors"
+            >
               Contact
             </Link>
           </div>
@@ -118,7 +133,9 @@ const Footer = () => {
           <div className="grid grid-cols-2 gap-8 mb-10">
             {/* Brand Section - Simplified */}
             <div className="space-y-5">
-              <h3 className="text-xl font-bold text-foreground">{footerData.brand.name}</h3>
+              <h3 className="text-xl font-bold text-foreground">
+                {footerData.brand.name}
+              </h3>
               <p className="text-muted-foreground text-sm leading-relaxed">
                 {footerData.brand.title} specializing in modern web technologies
               </p>
@@ -153,7 +170,9 @@ const Footer = () => {
 
             {/* Essential Links Only */}
             <div className="space-y-5">
-              <h4 className="text-foreground font-semibold text-lg">Quick Links</h4>
+              <h4 className="text-foreground font-semibold text-lg">
+                Quick Links
+              </h4>
               <div className="space-y-4 text-sm">
                 <a
                   href={footerData.sections.quickLinks[0].href}
@@ -171,10 +190,16 @@ const Footer = () => {
                   <Zap className="w-4 h-4 mr-3" />
                   Projects
                 </Link>
-                <Link to="/about" className="block text-muted-foreground hover:text-foreground transition-colors">
+                <Link
+                  to="/about"
+                  className="block text-muted-foreground hover:text-foreground transition-colors"
+                >
                   About
                 </Link>
-                <Link to="/contact" className="block text-muted-foreground hover:text-foreground transition-colors">
+                <Link
+                  to="/contact"
+                  className="block text-muted-foreground hover:text-foreground transition-colors"
+                >
                   Contact
                 </Link>
               </div>
@@ -185,20 +210,36 @@ const Footer = () => {
           <div className="grid grid-cols-2 gap-8 py-8 border-t border-border border-b border-border mb-6">
             <div className="text-center">
               <div className="flex items-center justify-center mb-4">
-                <FaStar className="w-5 h-5" style={{ color: `hsl(var(--primary))` }} />
-                <span className="text-xs text-muted-foreground uppercase tracking-wider font-medium ml-2">Total Visitors</span>
+                <FaStar
+                  className="w-5 h-5"
+                  style={{ color: `hsl(var(--primary))` }}
+                />
+                <span className="text-xs text-muted-foreground uppercase tracking-wider font-medium ml-2">
+                  Total Visitors
+                </span>
               </div>
-              <div className="text-2xl font-bold text-foreground">{footerData.stats.totalVisitors}</div>
+              <div className="text-2xl font-bold text-foreground">
+                {footerData.stats.totalVisitors}
+              </div>
             </div>
 
             <div className="text-center">
               <div className="flex items-center justify-center mb-4">
-                <FaLaptopCode className="w-5 h-5" style={{ color: `hsl(var(--accent))` }} />
-                <span className="text-xs text-muted-foreground uppercase tracking-wider font-medium ml-2">DSA Skills</span>
+                <FaLaptopCode
+                  className="w-5 h-5"
+                  style={{ color: `hsl(var(--accent))` }}
+                />
+                <span className="text-xs text-muted-foreground uppercase tracking-wider font-medium ml-2">
+                  DSA Skills
+                </span>
               </div>
               <div className="flex items-center justify-center space-x-1">
                 {[1, 2, 3, 4, 5].map((star) => (
-                  <FaStar key={star} className="w-5 h-5" style={{ color: `hsl(var(--accent))` }} />
+                  <FaStar
+                    key={star}
+                    className="w-5 h-5"
+                    style={{ color: `hsl(var(--accent))` }}
+                  />
                 ))}
               </div>
             </div>
@@ -210,9 +251,12 @@ const Footer = () => {
           <div className="grid grid-cols-4 gap-6 mb-12">
             {/* Left Column - Brand & Social */}
             <div>
-              <h1 className="text-2xl font-bold text-foreground mb-3">{footerData.brand.name}.</h1>
+              <h1 className="text-2xl font-bold text-foreground mb-3">
+                {footerData.brand.name}.
+              </h1>
               <p className="text-muted-foreground text-base leading-relaxed mb-4">
-                Full Stack Developer passionate about creating impactful digital solutions and continuously learning new technologies.
+                Full Stack Developer passionate about creating impactful digital
+                solutions and continuously learning new technologies.
               </p>
               <div className="flex gap-2">
                 <a
@@ -242,7 +286,9 @@ const Footer = () => {
 
             {/* Second Column - Quick Links */}
             <div>
-              <h4 className="text-lg font-semibold text-foreground mb-3">Quick Links</h4>
+              <h4 className="text-lg font-semibold text-foreground mb-3">
+                Quick Links
+              </h4>
               <div className="space-y-2">
                 <Link
                   to="/"
@@ -279,7 +325,9 @@ const Footer = () => {
 
             {/* Third Column - Coding Profiles */}
             <div>
-              <h4 className="text-lg font-semibold text-foreground mb-3">Coding Profiles</h4>
+              <h4 className="text-lg font-semibold text-foreground mb-3">
+                Coding Profiles
+              </h4>
               <div className="space-y-2">
                 <a
                   href={socialLinks.leetcode.url}
@@ -322,7 +370,9 @@ const Footer = () => {
 
             {/* Fourth Column - Contact */}
             <div>
-              <h4 className="text-lg font-semibold text-foreground mb-3">Contact</h4>
+              <h4 className="text-lg font-semibold text-foreground mb-3">
+                Contact
+              </h4>
               <div className="space-y-2 text-base">
                 <div className="flex items-start gap-2 text-muted-foreground">
                   <Mail className="w-4 h-4 mt-0.5 flex-shrink-0" />
@@ -348,28 +398,51 @@ const Footer = () => {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8 py-6 lg:py-8 border-t border-border border-b border-border">
             <div className="text-center py-2 lg:py-3">
               <div className="flex items-center justify-center mb-3 lg:mb-4">
-                <FaStar className="w-4 h-4 lg:w-5 lg:h-5 mr-2" style={{ color: `hsl(var(--primary))` }} />
-                <span className="text-xs lg:text-sm text-muted-foreground uppercase tracking-wider font-medium">Total Visitors</span>
+                <FaStar
+                  className="w-4 h-4 lg:w-5 lg:h-5 mr-2"
+                  style={{ color: `hsl(var(--primary))` }}
+                />
+                <span className="text-xs lg:text-sm text-muted-foreground uppercase tracking-wider font-medium">
+                  Total Visitors
+                </span>
               </div>
-              <div className="text-xl lg:text-2xl font-bold text-foreground">{footerData.stats.totalVisitors}</div>
+              <div className="text-xl lg:text-2xl font-bold text-foreground">
+                {footerData.stats.totalVisitors}
+              </div>
             </div>
 
             <div className="text-center py-2 lg:py-3">
               <div className="flex items-center justify-center mb-3 lg:mb-4">
-                <FaMagic className="w-4 h-4 lg:w-5 lg:h-5 mr-2" style={{ color: `hsl(var(--primary))` }} />
-                <span className="text-xs lg:text-sm text-muted-foreground uppercase tracking-wider font-medium">Last Updated</span>
+                <FaMagic
+                  className="w-4 h-4 lg:w-5 lg:h-5 mr-2"
+                  style={{ color: `hsl(var(--primary))` }}
+                />
+                <span className="text-xs lg:text-sm text-muted-foreground uppercase tracking-wider font-medium">
+                  Last Updated
+                </span>
               </div>
-              <div className="text-lg lg:text-2xl font-bold text-foreground">{footerData.stats.lastUpdated}</div>
+              <div className="text-lg lg:text-2xl font-bold text-foreground">
+                {footerData.stats.lastUpdated}
+              </div>
             </div>
 
             <div className="text-center py-2 lg:py-3">
               <div className="flex items-center justify-center mb-3 lg:mb-4">
-                <FaLaptopCode className="w-4 h-4 lg:w-5 lg:h-5 mr-2" style={{ color: `hsl(var(--accent))` }} />
-                <span className="text-xs lg:text-sm text-muted-foreground uppercase tracking-wider font-medium">DSA Skills</span>
+                <FaLaptopCode
+                  className="w-4 h-4 lg:w-5 lg:h-5 mr-2"
+                  style={{ color: `hsl(var(--accent))` }}
+                />
+                <span className="text-xs lg:text-sm text-muted-foreground uppercase tracking-wider font-medium">
+                  DSA Skills
+                </span>
               </div>
               <div className="flex items-center justify-center space-x-1">
                 {[1, 2, 3, 4, 5].map((star) => (
-                  <FaStar key={star} className="w-4 h-4 lg:w-5 lg:h-5" style={{ color: `hsl(var(--accent))` }} />
+                  <FaStar
+                    key={star}
+                    className="w-4 h-4 lg:w-5 lg:h-5"
+                    style={{ color: `hsl(var(--accent))` }}
+                  />
                 ))}
               </div>
             </div>
@@ -380,15 +453,21 @@ const Footer = () => {
         <div className="sm:hidden border-t border-border py-4 mb-4">
           <div className="flex justify-center gap-6 text-center">
             <div>
-              <div className="text-lg font-bold text-foreground">{footerData.stats.totalProblems}</div>
+              <div className="text-lg font-bold text-foreground">
+                {footerData.stats.totalProblems}
+              </div>
               <div className="text-xs text-muted-foreground">Problems</div>
             </div>
             <div>
-              <div className="text-lg font-bold text-foreground">{footerData.stats.totalProjects}</div>
+              <div className="text-lg font-bold text-foreground">
+                {footerData.stats.totalProjects}
+              </div>
               <div className="text-xs text-muted-foreground">Projects</div>
             </div>
             <div>
-              <div className="text-lg font-bold text-foreground">{footerData.stats.yearsExperience}</div>
+              <div className="text-lg font-bold text-foreground">
+                {footerData.stats.yearsExperience}
+              </div>
               <div className="text-xs text-muted-foreground">Years</div>
             </div>
           </div>
@@ -397,11 +476,15 @@ const Footer = () => {
         {/* Copyright Section */}
         <div className="pt-4 md:pt-8 text-center">
           <p className="text-muted-foreground text-sm mb-1">
-            © {footerData.copyright.year} {footerData.copyright.owner}. All rights reserved.
+            © {footerData.copyright.year} {footerData.copyright.owner}. All
+            rights reserved.
           </p>
           <p className="text-muted-foreground text-xs flex items-center justify-center space-x-1">
             <span>Crafted with</span>
-            <Heart className="w-3 h-3" style={{ color: 'hsl(var(--destructive))' }} />
+            <Heart
+              className="w-3 h-3"
+              style={{ color: "hsl(var(--destructive))" }}
+            />
             <span>using {footerData.copyright.tech}</span>
           </p>
         </div>

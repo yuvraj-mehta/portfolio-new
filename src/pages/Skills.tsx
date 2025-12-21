@@ -5,40 +5,40 @@ import { useState } from "react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import ThemeSwitcher from "@/components/ThemeSwitcher";
-import { personalInfo, skills } from "@/data/portfolioData";
+import { personalInfo, skills } from "@/data";
 import { motion } from "framer-motion";
 
-import { 
-  FaReact, 
-  FaNodeJs, 
-  FaJs, 
-  FaHtml5, 
-  FaCss3Alt, 
-  FaPython, 
-  FaJava, 
-  FaGitAlt, 
+import {
+  FaReact,
+  FaNodeJs,
+  FaJs,
+  FaHtml5,
+  FaCss3Alt,
+  FaPython,
+  FaJava,
+  FaGitAlt,
   FaDocker,
-  FaDatabase
+  FaDatabase,
 } from "react-icons/fa";
-import { 
-  SiTypescript, 
-  SiTailwindcss, 
-  SiNextdotjs, 
-  SiRedux, 
-  SiVuedotjs, 
-  SiMongodb, 
-  SiMysql, 
+import {
+  SiTypescript,
+  SiTailwindcss,
+  SiNextdotjs,
+  SiRedux,
+  SiVuedotjs,
+  SiMongodb,
+  SiMysql,
   SiWebpack,
-  SiExpress
+  SiExpress,
 } from "react-icons/si";
-import { 
-  TbApi, 
-  TbBrandCpp, 
+import {
+  TbApi,
+  TbBrandCpp,
   TbDatabase,
   TbTool,
   TbCode,
   TbWorld,
-  TbServer
+  TbServer,
 } from "react-icons/tb";
 import { MdWeb, MdStorage, MdCode, MdBuild } from "react-icons/md";
 import { VscCode } from "react-icons/vsc";
@@ -50,85 +50,85 @@ const Skills = () => {
     { name: "Web Development", icon: MdWeb },
     { name: "Database", icon: MdStorage },
     { name: "Languages", icon: MdCode },
-    { name: "Tools", icon: MdBuild }
+    { name: "Tools", icon: MdBuild },
   ];
 
   const iconMap = {
-    "React": FaReact,
-    "JavaScript": FaJs,
-    "TypeScript": SiTypescript,
-    "HTML5": FaHtml5,
-    "CSS3": FaCss3Alt,
+    React: FaReact,
+    JavaScript: FaJs,
+    TypeScript: SiTypescript,
+    HTML5: FaHtml5,
+    CSS3: FaCss3Alt,
     "Tailwind CSS": SiTailwindcss,
     "Next.js": SiNextdotjs,
-    "Redux": SiRedux,
-    "Vue": SiVuedotjs,
+    Redux: SiRedux,
+    Vue: SiVuedotjs,
     "Node.js": FaNodeJs,
     "RESTful APIs": TbApi,
     "Express.js": SiExpress,
-    "MongoDB": SiMongodb,
-    "SQL": SiMysql,
+    MongoDB: SiMongodb,
+    SQL: SiMysql,
     "Database Design": TbDatabase,
     "C++": TbBrandCpp,
-    "Java": FaJava,
-    "Python": FaPython,
+    Java: FaJava,
+    Python: FaPython,
     "Git & GitHub": FaGitAlt,
     "VS Code": VscCode,
-    "Webpack": SiWebpack,
-    "Docker": FaDocker
+    Webpack: SiWebpack,
+    Docker: FaDocker,
   };
 
   const skillsData = skills;
 
   const getLevelColor = (level: string): React.CSSProperties => {
-    switch(level) {
+    switch (level) {
       case "Frontend":
         return {
-          backgroundColor: 'hsl(var(--primary) / 0.15)',
-          color: 'hsl(var(--primary))',
-          borderColor: 'hsl(var(--primary) / 0.4)',
-          borderWidth: '1px',
-          borderStyle: 'solid'
+          backgroundColor: "hsl(var(--primary) / 0.15)",
+          color: "hsl(var(--primary))",
+          borderColor: "hsl(var(--primary) / 0.4)",
+          borderWidth: "1px",
+          borderStyle: "solid",
         };
       case "Backend":
         return {
-          backgroundColor: 'hsl(var(--accent) / 0.15)',
-          color: 'hsl(var(--accent))',
-          borderColor: 'hsl(var(--accent) / 0.4)',
-          borderWidth: '1px',
-          borderStyle: 'solid'
+          backgroundColor: "hsl(var(--accent) / 0.15)",
+          color: "hsl(var(--accent))",
+          borderColor: "hsl(var(--accent) / 0.4)",
+          borderWidth: "1px",
+          borderStyle: "solid",
         };
       case "Database":
         return {
-          backgroundColor: 'hsl(var(--skill-database) / 0.15)',
-          color: 'hsl(var(--skill-database))',
-          borderColor: 'hsl(var(--skill-database) / 0.4)',
-          borderWidth: '1px',
-          borderStyle: 'solid'
+          backgroundColor: "hsl(var(--skill-database) / 0.15)",
+          color: "hsl(var(--skill-database))",
+          borderColor: "hsl(var(--skill-database) / 0.4)",
+          borderWidth: "1px",
+          borderStyle: "solid",
         };
       case "Languages":
         return {
-          backgroundColor: 'hsl(var(--skill-languages) / 0.15)',
-          color: 'hsl(var(--skill-languages))',
-          borderColor: 'hsl(var(--skill-languages) / 0.4)',
-          borderWidth: '1px',
-          borderStyle: 'solid'
+          backgroundColor: "hsl(var(--skill-languages) / 0.15)",
+          color: "hsl(var(--skill-languages))",
+          borderColor: "hsl(var(--skill-languages) / 0.4)",
+          borderWidth: "1px",
+          borderStyle: "solid",
         };
       case "Tools":
         return {
-          backgroundColor: 'hsl(var(--skill-tools) / 0.15)',
-          color: 'hsl(var(--skill-tools))',
-          borderColor: 'hsl(var(--skill-tools) / 0.4)',
-          borderWidth: '1px',
-          borderStyle: 'solid'
+          backgroundColor: "hsl(var(--skill-tools) / 0.15)",
+          color: "hsl(var(--skill-tools))",
+          borderColor: "hsl(var(--skill-tools) / 0.4)",
+          borderWidth: "1px",
+          borderStyle: "solid",
         };
       default:
         return {
-          backgroundColor: 'hsl(var(--muted) / 0.3)',
-          color: 'hsl(var(--muted-foreground))',
-          borderColor: 'hsl(var(--muted) / 0.4)',
-          borderWidth: '1px',
-          borderStyle: 'solid'
+          backgroundColor: "hsl(var(--muted) / 0.3)",
+          color: "hsl(var(--muted-foreground))",
+          borderColor: "hsl(var(--muted) / 0.4)",
+          borderWidth: "1px",
+          borderStyle: "solid",
         };
     }
   };
@@ -138,8 +138,8 @@ const Skills = () => {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.6, ease: "easeOut" }
-    }
+      transition: { duration: 0.6, ease: "easeOut" },
+    },
   };
 
   const badgeVariants = {
@@ -147,28 +147,33 @@ const Skills = () => {
     visible: {
       opacity: 1,
       scale: 1,
-      transition: { duration: 0.5, delay: 0.1 }
+      transition: { duration: 0.5, delay: 0.1 },
     },
-    whileHover: { scale: 1.05 }
+    whileHover: { scale: 1.05 },
   };
 
   const backgroundVariants = {
     animate: {
       y: [0, -15, 0],
-      transition: { duration: 4, repeat: Infinity, ease: "easeInOut" }
-    }
+      transition: { duration: 4, repeat: Infinity, ease: "easeInOut" },
+    },
   };
 
   const backgroundVariants2 = {
     animate: {
       y: [0, 15, 0],
-      transition: { duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }
-    }
+      transition: {
+        duration: 5,
+        repeat: Infinity,
+        ease: "easeInOut",
+        delay: 1,
+      },
+    },
   };
 
   const buttonVariants = {
     whileHover: { scale: 1.05 },
-    whileTap: { scale: 0.95 }
+    whileTap: { scale: 0.95 },
   };
 
   const containerVariants = {
@@ -177,9 +182,9 @@ const Skills = () => {
       opacity: 1,
       transition: {
         staggerChildren: 0.1,
-        delayChildren: 0.2
-      }
-    }
+        delayChildren: 0.2,
+      },
+    },
   };
 
   const sectionVariants = {
@@ -187,8 +192,8 @@ const Skills = () => {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.5, ease: "easeOut" }
-    }
+      transition: { duration: 0.5, ease: "easeOut" },
+    },
   };
 
   const skillCardVariants = {
@@ -196,19 +201,19 @@ const Skills = () => {
     visible: {
       opacity: 1,
       scale: 1,
-      transition: { duration: 0.4 }
+      transition: { duration: 0.4 },
     },
     whileHover: {
       y: -4,
-      boxShadow: "0 10px 25px -5px hsl(var(--primary) / 0.1)"
-    }
+      boxShadow: "0 10px 25px -5px hsl(var(--primary) / 0.1)",
+    },
   };
 
   return (
     <div className="min-h-screen bg-background">
       <Navigation />
       <ThemeSwitcher />
-      
+
       <div className="relative pt-32 pb-16 px-4 sm:px-6 lg:px-8 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-primary/5"></div>
         <motion.div
@@ -221,7 +226,7 @@ const Skills = () => {
           variants={backgroundVariants2}
           animate="animate"
         />
-        
+
         <div className="relative max-w-7xl mx-auto">
           <motion.div
             className="text-center mb-16"
@@ -246,7 +251,8 @@ const Skills = () => {
               </span>
             </h1>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              {personalInfo.tagline} • Modern technologies and tools for scalable applications
+              {personalInfo.tagline} • Modern technologies and tools for
+              scalable applications
             </p>
           </motion.div>
 
@@ -267,12 +273,15 @@ const Skills = () => {
                 >
                   <Button
                     onClick={() => setActiveCategory(category.name)}
-                    variant={activeCategory === category.name ? "default" : "outline"}
+                    variant={
+                      activeCategory === category.name ? "default" : "outline"
+                    }
                     className={`
                       px-6 py-3 rounded-lg text-sm font-medium transition-all duration-300
-                      ${activeCategory === category.name 
-                        ? "bg-primary text-primary-foreground shadow-lg" 
-                        : "border-border hover:border-primary/50 hover:bg-primary/5 text-muted-foreground hover:text-foreground"
+                      ${
+                        activeCategory === category.name
+                          ? "bg-primary text-primary-foreground shadow-lg"
+                          : "border-border hover:border-primary/50 hover:bg-primary/5 text-muted-foreground hover:text-foreground"
                       }
                     `}
                   >
@@ -290,68 +299,72 @@ const Skills = () => {
             initial="hidden"
             animate="visible"
           >
-            {Object.entries(skillsData[activeCategory] || {}).map(([sectionName, skills], sectionIndex) => (
-              <motion.div key={sectionName} variants={sectionVariants}>
-                <motion.div
-                  className="flex items-center gap-4 mb-8"
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.5, delay: sectionIndex * 0.1 }}
-                >
+            {Object.entries(skillsData[activeCategory] || {}).map(
+              ([sectionName, skills], sectionIndex) => (
+                <motion.div key={sectionName} variants={sectionVariants}>
                   <motion.div
-                    className="w-3 h-3 bg-primary rounded-full"
-                    animate={{ scale: [1, 1.2, 1] }}
-                    transition={{ duration: 2, repeat: Infinity }}
-                  />
-                  <h3 className="text-xl sm:text-2xl font-bold text-foreground">{sectionName}</h3>
-                </motion.div>
+                    className="flex items-center gap-4 mb-8"
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.5, delay: sectionIndex * 0.1 }}
+                  >
+                    <motion.div
+                      className="w-3 h-3 bg-primary rounded-full"
+                      animate={{ scale: [1, 1.2, 1] }}
+                      transition={{ duration: 2, repeat: Infinity }}
+                    />
+                    <h3 className="text-xl sm:text-2xl font-bold text-foreground">
+                      {sectionName}
+                    </h3>
+                  </motion.div>
 
-                <motion.div
-                  className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4"
-                  variants={containerVariants}
-                  initial="hidden"
-                  animate="visible"
-                >
-                  {skills.map((skill, index) => {
-                    const IconComponent = iconMap[skill.name] || TbCode;
-                    return (
-                      <motion.div
-                        key={`${sectionName}-${index}`}
-                        variants={skillCardVariants}
-                        whileHover="whileHover"
-                      >
-                        <Card className="portfolio-card !p-3 sm:!p-4">
-                          <div className="flex items-center gap-3 mb-3">
+                  <motion.div
+                    className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4"
+                    variants={containerVariants}
+                    initial="hidden"
+                    animate="visible"
+                  >
+                    {skills.map((skill, index) => {
+                      const IconComponent = iconMap[skill.name] || TbCode;
+                      return (
+                        <motion.div
+                          key={`${sectionName}-${index}`}
+                          variants={skillCardVariants}
+                          whileHover="whileHover"
+                        >
+                          <Card className="portfolio-card !p-3 sm:!p-4">
+                            <div className="flex items-center gap-3 mb-3">
+                              <motion.div
+                                style={skill.style}
+                                whileHover={{ scale: 1.2, rotate: 10 }}
+                                transition={{ duration: 0.3 }}
+                              >
+                                <IconComponent className="w-6 h-6" />
+                              </motion.div>
+                              <h4 className="font-medium text-foreground text-sm group-hover:text-primary transition-colors duration-300">
+                                {skill.name}
+                              </h4>
+                            </div>
+
                             <motion.div
-                              style={skill.style}
-                              whileHover={{ scale: 1.2, rotate: 10 }}
-                              transition={{ duration: 0.3 }}
+                              whileHover={{ scale: 1.05 }}
+                              transition={{ duration: 0.2 }}
                             >
-                              <IconComponent className="w-6 h-6" />
+                              <Badge
+                                style={getLevelColor(sectionName)}
+                                className="text-xs font-medium px-2 py-1 rounded-md w-full justify-center"
+                              >
+                                {skill.level || sectionName}
+                              </Badge>
                             </motion.div>
-                            <h4 className="font-medium text-foreground text-sm group-hover:text-primary transition-colors duration-300">
-                              {skill.name}
-                            </h4>
-                          </div>
-
-                          <motion.div
-                            whileHover={{ scale: 1.05 }}
-                            transition={{ duration: 0.2 }}
-                          >
-                            <Badge
-                              style={getLevelColor(sectionName)}
-                              className="text-xs font-medium px-2 py-1 rounded-md w-full justify-center"
-                            >
-                              {skill.level || sectionName}
-                            </Badge>
-                          </motion.div>
-                        </Card>
-                      </motion.div>
-                    );
-                  })}
+                          </Card>
+                        </motion.div>
+                      );
+                    })}
+                  </motion.div>
                 </motion.div>
-              </motion.div>
-            ))}
+              )
+            )}
           </motion.div>
         </div>
       </div>

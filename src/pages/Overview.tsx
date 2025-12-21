@@ -69,7 +69,7 @@ import {
   projects,
   interests,
   overviewData,
-} from "@/data/portfolioData";
+} from "@/data";
 
 // Animation Variants
 const containerVariants = {
@@ -299,7 +299,7 @@ const Overview = () => {
                         <div
                           className="w-10 h-10 rounded-xl flex items-center justify-center mr-3 shadow-lg"
                           style={{
-                            background: `linear-gradient(135deg, hsl(var(--accent) / 0.3) 0%, hsl(var(--primary) / 0.3) 100%)`
+                            background: `linear-gradient(135deg, hsl(var(--accent) / 0.3) 0%, hsl(var(--primary) / 0.3) 100%)`,
                           }}
                         >
                           <Activity
@@ -364,7 +364,7 @@ const Overview = () => {
                         <div
                           className="w-10 h-10 rounded-xl flex items-center justify-center mr-3 shadow-lg"
                           style={{
-                            background: `linear-gradient(135deg, hsl(var(--accent) / 0.3) 0%, hsl(var(--primary) / 0.3) 100%)`
+                            background: `linear-gradient(135deg, hsl(var(--accent) / 0.3) 0%, hsl(var(--primary) / 0.3) 100%)`,
                           }}
                         >
                           <FaTrophy
@@ -389,7 +389,10 @@ const Overview = () => {
                           </span>
                           <Badge className="bg-primary/20 text-primary border-primary/30 font-bold">
                             {parseInt(
-                              achievements.leetcode.problemsSolved.replace("+", "")
+                              achievements.leetcode.problemsSolved.replace(
+                                "+",
+                                ""
+                              )
                             ) +
                               parseInt(
                                 achievements.codechef.problemsSolved.replace(
@@ -500,7 +503,10 @@ const Overview = () => {
                       </div>
                       <div className="space-y-3">
                         <div className="flex items-center gap-2">
-                          <Zap className="w-4 h-4" style={{ color: `hsl(var(--accent))` }} />
+                          <Zap
+                            className="w-4 h-4"
+                            style={{ color: `hsl(var(--accent))` }}
+                          />
                           <span className="text-sm font-medium text-foreground">
                             Learning:
                           </span>
@@ -510,7 +516,10 @@ const Overview = () => {
                         </p>
 
                         <div className="flex items-center gap-2">
-                          <MapPin className="w-4 h-4" style={{ color: `hsl(var(--primary))` }} />
+                          <MapPin
+                            className="w-4 h-4"
+                            style={{ color: `hsl(var(--primary))` }}
+                          />
                           <span className="text-sm font-medium text-foreground">
                             Location:
                           </span>
@@ -536,10 +545,13 @@ const Overview = () => {
                       <div
                         className="w-8 h-8 rounded-lg flex items-center justify-center mr-2 shadow-lg"
                         style={{
-                          background: `linear-gradient(135deg, hsl(var(--primary) / 0.3) 0%, hsl(var(--accent) / 0.3) 100%)`
+                          background: `linear-gradient(135deg, hsl(var(--primary) / 0.3) 0%, hsl(var(--accent) / 0.3) 100%)`,
                         }}
                       >
-                        <FaEnvelope className="w-4 h-4" style={{ color: `hsl(var(--primary))` }} />
+                        <FaEnvelope
+                          className="w-4 h-4"
+                          style={{ color: `hsl(var(--primary))` }}
+                        />
                       </div>
                       <h3 className="text-base font-semibold text-foreground">
                         Contact
@@ -550,7 +562,7 @@ const Overview = () => {
                       className="flex items-center gap-2 mb-3 p-2 rounded-lg border"
                       style={{
                         background: `linear-gradient(90deg, hsl(var(--accent) / 0.1) 0%, hsl(var(--primary) / 0.1) 100%)`,
-                        borderColor: `hsl(var(--accent) / 0.3)`
+                        borderColor: `hsl(var(--accent) / 0.3)`,
                       }}
                       animate={{ opacity: [0.6, 1, 0.6] }}
                       transition={{ duration: 2, repeat: Infinity }}
@@ -561,7 +573,10 @@ const Overview = () => {
                         variants={pulseVariants}
                         animate="animate"
                       ></motion.div>
-                      <span className="text-xs font-medium" style={{ color: `hsl(var(--accent))` }}>
+                      <span
+                        className="text-xs font-medium"
+                        style={{ color: `hsl(var(--accent))` }}
+                      >
                         Available • {contactInfo.location}
                       </span>
                     </motion.div>
@@ -607,14 +622,30 @@ const Overview = () => {
 
                 {/* Interests Card */}
                 <motion.div variants={itemVariants}>
-                  <motion.div whileHover={cardHoverVariants.hover} className="p-6 border-2 border-primary/30 rounded-lg shadow-lg backdrop-blur-sm bg-gradient-to-br from-card/95 to-card/80 relative overflow-hidden group">
-                    <div className="absolute top-0 right-0 w-20 h-20 rounded-full -translate-y-10 translate-x-10 group-hover:scale-150 transition-transform duration-700" style={{ background: `linear-gradient(135deg, hsl(var(--primary) / 0.1) 0%, hsl(var(--accent) / 0.05) 100%)` }}></div>
+                  <motion.div
+                    whileHover={cardHoverVariants.hover}
+                    className="p-6 border-2 border-primary/30 rounded-lg shadow-lg backdrop-blur-sm bg-gradient-to-br from-card/95 to-card/80 relative overflow-hidden group"
+                  >
+                    <div
+                      className="absolute top-0 right-0 w-20 h-20 rounded-full -translate-y-10 translate-x-10 group-hover:scale-150 transition-transform duration-700"
+                      style={{
+                        background: `linear-gradient(135deg, hsl(var(--primary) / 0.1) 0%, hsl(var(--accent) / 0.05) 100%)`,
+                      }}
+                    ></div>
                     <div className="absolute bottom-0 left-0 w-16 h-16 bg-gradient-to-tr from-primary/10 to-primary-glow/5 rounded-full translate-y-8 -translate-x-8 group-hover:scale-125 transition-transform duration-700"></div>
 
                     <div className="relative z-10">
                       <div className="flex items-center mb-4">
-                        <div className="w-8 h-8 rounded-lg flex items-center justify-center mr-3 shadow-lg group-hover:scale-110 transition-transform duration-300" style={{ background: `linear-gradient(135deg, hsl(var(--primary) / 0.3) 0%, hsl(var(--accent) / 0.3) 100%)` }}>
-                          <FaStar className="w-4 h-4" style={{ color: `hsl(var(--primary))` }} />
+                        <div
+                          className="w-8 h-8 rounded-lg flex items-center justify-center mr-3 shadow-lg group-hover:scale-110 transition-transform duration-300"
+                          style={{
+                            background: `linear-gradient(135deg, hsl(var(--primary) / 0.3) 0%, hsl(var(--accent) / 0.3) 100%)`,
+                          }}
+                        >
+                          <FaStar
+                            className="w-4 h-4"
+                            style={{ color: `hsl(var(--primary))` }}
+                          />
                         </div>
                         <h3 className="text-base font-semibold text-foreground">
                           Interests & Hobbies
@@ -660,19 +691,24 @@ const Overview = () => {
                         className="mt-4 p-3 rounded-lg border"
                         style={{
                           background: `linear-gradient(90deg, hsl(var(--primary) / 0.1) 0%, hsl(var(--accent) / 0.1) 100%)`,
-                          borderColor: `hsl(var(--primary) / 0.3)`
+                          borderColor: `hsl(var(--primary) / 0.3)`,
                         }}
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.5 }}
                       >
-                        <div className="flex items-center gap-2 text-xs mb-1" style={{ color: `hsl(var(--primary))` }}>
+                        <div
+                          className="flex items-center gap-2 text-xs mb-1"
+                          style={{ color: `hsl(var(--primary))` }}
+                        >
                           <FaTrophy className="w-3 h-3" />
-                          <span className="font-medium">Recent Achievement</span>
+                          <span className="font-medium">
+                            Recent Achievement
+                          </span>
                         </div>
                         <p className="text-xs text-foreground/80">
-                          Bronze medal in 50m Hurdles at {personalInfo.university}{" "}
-                          Intramurals
+                          Bronze medal in 50m Hurdles at{" "}
+                          {personalInfo.university} Intramurals
                         </p>
                       </motion.div>
                     </div>
@@ -703,7 +739,7 @@ const Overview = () => {
                         <div className="flex items-center gap-2">
                           <motion.div
                             className="w-2 h-2 rounded-full"
-                            style={{ backgroundColor: 'hsl(var(--accent))' }}
+                            style={{ backgroundColor: "hsl(var(--accent))" }}
                             animate={{ scale: [1, 1.2, 1] }}
                             transition={{ duration: 1.5, repeat: Infinity }}
                           ></motion.div>
@@ -724,7 +760,10 @@ const Overview = () => {
                             key={index}
                             variants={listItemVariants}
                             custom={index}
-                            whileHover={{ x: 5, backgroundColor: 'var(--hover-bg)' }}
+                            whileHover={{
+                              x: 5,
+                              backgroundColor: "var(--hover-bg)",
+                            }}
                             className="flex items-start gap-3 p-3 rounded-lg hover:bg-primary/5 transition-all cursor-pointer"
                           >
                             <motion.div
@@ -741,7 +780,9 @@ const Overview = () => {
                               {activity.isLive && (
                                 <motion.div
                                   className="absolute -top-1 -right-1 w-3 h-3 rounded-full"
-                                  style={{ backgroundColor: `hsl(var(--accent))` }}
+                                  style={{
+                                    backgroundColor: `hsl(var(--accent))`,
+                                  }}
                                   animate={{ scale: [1, 1.2, 1] }}
                                   transition={{ duration: 2, repeat: Infinity }}
                                 ></motion.div>
@@ -860,15 +901,23 @@ const Overview = () => {
                                     </div>
                                   </motion.div>
                                   <div className="absolute top-2 right-2 flex items-center gap-2">
-                                    <Badge variant="secondary" className="text-xs">
+                                    <Badge
+                                      variant="secondary"
+                                      className="text-xs"
+                                    >
                                       {project.category}
                                     </Badge>
                                     {project.status === "Live" && (
                                       <motion.div
                                         className="w-2 h-2 rounded-full"
-                                        style={{ backgroundColor: `hsl(var(--accent))` }}
+                                        style={{
+                                          backgroundColor: `hsl(var(--accent))`,
+                                        }}
                                         animate={{ scale: [1, 1.3, 1] }}
-                                        transition={{ duration: 2, repeat: Infinity }}
+                                        transition={{
+                                          duration: 2,
+                                          repeat: Infinity,
+                                        }}
                                       ></motion.div>
                                     )}
                                   </div>
@@ -986,19 +1035,35 @@ const Overview = () => {
                       whileHover={cardHoverVariants.hover}
                       className="p-6 border-2 border-primary/40 rounded-lg shadow-xl backdrop-blur-sm bg-gradient-to-br from-card/90 to-card/70 relative overflow-hidden group"
                     >
-                      <div className="absolute top-0 right-0 w-20 h-20 rounded-full -translate-y-10 translate-x-10 group-hover:scale-150 transition-transform duration-700" style={{ background: `linear-gradient(135deg, hsl(var(--primary) / 0.1) 0%, hsl(var(--accent) / 0.05) 100%)` }}></div>
+                      <div
+                        className="absolute top-0 right-0 w-20 h-20 rounded-full -translate-y-10 translate-x-10 group-hover:scale-150 transition-transform duration-700"
+                        style={{
+                          background: `linear-gradient(135deg, hsl(var(--primary) / 0.1) 0%, hsl(var(--accent) / 0.05) 100%)`,
+                        }}
+                      ></div>
                       <div className="absolute bottom-0 left-0 w-16 h-16 bg-gradient-to-tr from-primary/10 to-primary-glow/5 rounded-full translate-y-8 -translate-x-8 group-hover:scale-125 transition-transform duration-700"></div>
 
                       <div className="relative z-10">
                         <div className="flex items-center mb-6">
-                          <div className="w-10 h-10 rounded-xl flex items-center justify-center mr-3 shadow-lg group-hover:scale-110 transition-transform duration-300" style={{ background: `linear-gradient(135deg, hsl(var(--accent) / 0.3) 0%, hsl(var(--primary) / 0.3) 100%)` }}>
-                            <FaGraduationCap className="w-5 h-5" style={{ color: `hsl(var(--accent))` }} />
+                          <div
+                            className="w-10 h-10 rounded-xl flex items-center justify-center mr-3 shadow-lg group-hover:scale-110 transition-transform duration-300"
+                            style={{
+                              background: `linear-gradient(135deg, hsl(var(--accent) / 0.3) 0%, hsl(var(--primary) / 0.3) 100%)`,
+                            }}
+                          >
+                            <FaGraduationCap
+                              className="w-5 h-5"
+                              style={{ color: `hsl(var(--accent))` }}
+                            />
                           </div>
                           <div>
                             <h3 className="text-lg font-bold text-foreground">
                               About Me
                             </h3>
-                            <p className="text-xs font-medium" style={{ color: `hsl(var(--accent))` }}>
+                            <p
+                              className="text-xs font-medium"
+                              style={{ color: `hsl(var(--accent))` }}
+                            >
                               Developer & Problem Solver
                             </p>
                           </div>
@@ -1023,8 +1088,14 @@ const Overview = () => {
                         >
                           {[
                             { icon: MapPin, text: personalInfo.location },
-                            { icon: Calendar, text: "Graduating 2027 • Current Year • CGPA: 7.68/10" },
-                            { icon: CircleDot, text: `${personalInfo.status.availability} for opportunities` },
+                            {
+                              icon: Calendar,
+                              text: "Graduating 2027 • Current Year • CGPA: 7.68/10",
+                            },
+                            {
+                              icon: CircleDot,
+                              text: `${personalInfo.status.availability} for opportunities`,
+                            },
                           ].map((item, idx) => (
                             <motion.div
                               key={idx}
@@ -1032,7 +1103,10 @@ const Overview = () => {
                               custom={idx}
                               className="flex items-center gap-2 text-xs text-foreground/70"
                             >
-                              <item.icon className="w-3 h-3" style={{ color: `hsl(var(--accent))` }} />
+                              <item.icon
+                                className="w-3 h-3"
+                                style={{ color: `hsl(var(--accent))` }}
+                              />
                               <span>{item.text}</span>
                             </motion.div>
                           ))}
@@ -1058,19 +1132,35 @@ const Overview = () => {
                       whileHover={cardHoverVariants.hover}
                       className="p-6 border-2 border-primary/30 rounded-lg shadow-lg backdrop-blur-sm bg-gradient-to-br from-card/95 to-card/80 relative overflow-hidden group"
                     >
-                      <div className="absolute top-0 left-0 w-24 h-24 rounded-full -translate-y-12 -translate-x-12 group-hover:scale-150 transition-transform duration-700" style={{ background: `linear-gradient(135deg, hsl(var(--primary) / 0.1) 0%, hsl(var(--accent) / 0.05) 100%)` }}></div>
+                      <div
+                        className="absolute top-0 left-0 w-24 h-24 rounded-full -translate-y-12 -translate-x-12 group-hover:scale-150 transition-transform duration-700"
+                        style={{
+                          background: `linear-gradient(135deg, hsl(var(--primary) / 0.1) 0%, hsl(var(--accent) / 0.05) 100%)`,
+                        }}
+                      ></div>
                       <div className="absolute bottom-0 right-0 w-20 h-20 bg-gradient-to-tl from-primary/10 to-accent/5 rounded-full translate-y-10 translate-x-10 group-hover:scale-125 transition-transform duration-700"></div>
 
                       <div className="relative z-10">
                         <div className="flex items-center mb-6">
-                          <div className="w-10 h-10 rounded-xl flex items-center justify-center mr-3 shadow-lg group-hover:scale-110 transition-transform duration-300" style={{ background: `linear-gradient(135deg, hsl(var(--primary) / 0.3) 0%, hsl(var(--accent) / 0.3) 100%)` }}>
-                            <FaGraduationCap className="w-5 h-5" style={{ color: `hsl(var(--primary))` }} />
+                          <div
+                            className="w-10 h-10 rounded-xl flex items-center justify-center mr-3 shadow-lg group-hover:scale-110 transition-transform duration-300"
+                            style={{
+                              background: `linear-gradient(135deg, hsl(var(--primary) / 0.3) 0%, hsl(var(--accent) / 0.3) 100%)`,
+                            }}
+                          >
+                            <FaGraduationCap
+                              className="w-5 h-5"
+                              style={{ color: `hsl(var(--primary))` }}
+                            />
                           </div>
                           <div>
                             <h3 className="text-lg font-bold text-foreground">
                               Education
                             </h3>
-                            <p className="text-xs font-medium" style={{ color: `hsl(var(--primary))` }}>
+                            <p
+                              className="text-xs font-medium"
+                              style={{ color: `hsl(var(--primary))` }}
+                            >
                               Academic Journey
                             </p>
                           </div>
@@ -1115,7 +1205,7 @@ const Overview = () => {
                                     style={{
                                       backgroundColor: `hsl(var(--accent) / 0.2)`,
                                       color: `hsl(var(--accent))`,
-                                      borderColor: `hsl(var(--accent) / 0.3)`
+                                      borderColor: `hsl(var(--accent) / 0.3)`,
                                     }}
                                   >
                                     CGPA: 7.68
@@ -1175,11 +1265,7 @@ const Overview = () => {
                             whileHover={{ scale: 1.05 }}
                             className="flex-1"
                           >
-                            <Button
-                              asChild
-                              size="sm"
-                              className="w-full"
-                            >
+                            <Button asChild size="sm" className="w-full">
                               <a
                                 href={personalInfo.resume}
                                 target="_blank"

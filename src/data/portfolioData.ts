@@ -103,6 +103,40 @@ export const socialLinks = {
   },
 };
 
+// Centralized interest and hobby definitions
+export const interestData = {
+  robotics: {
+    name: "Robotics",
+    description: "Building combat & soccer bots",
+    icon: FaRobot,
+    color: "text-primary",
+  },
+  athletics: {
+    name: "Athletics",
+    description: "Bronze in 50m Hurdles",
+    icon: FaRunning,
+    color: "text-accent",
+  },
+  problemSolving: {
+    name: "Problem Solving",
+    description: "Competitive programming",
+    icon: FaPuzzlePiece,
+    color: "text-secondary",
+  },
+  mentoring: {
+    name: "Mentoring",
+    description: "Leading workshops",
+    icon: FaBullseye,
+    color: "text-destructive",
+  },
+  competitiveProgramming: {
+    name: "Competitive Programming",
+    description: "LeetCode, Codeforces & more",
+    icon: FaPuzzlePiece,
+    color: "text-warning",
+  },
+};
+
 export const achievements = {
   leetcode: {
     rating: "1659",
@@ -405,21 +439,9 @@ export const skills = {
 };
 
 export const interests = [
-  {
-    icon: FaPuzzlePiece,
-    name: "Competitive Programming",
-    description: "LeetCode, Codeforces & more",
-  },
-  {
-    icon: FaRunning,
-    name: "Athletics",
-    description: "Bronze in 50m Hurdles",
-  },
-  {
-    icon: FaPuzzlePiece,
-    name: "Problem Solving",
-    description: "Analytical thinking and solutions",
-  },
+  interestData.competitiveProgramming,
+  interestData.athletics,
+  interestData.problemSolving,
 ];
 
 export const education = [
@@ -698,29 +720,29 @@ export const aboutPageData = {
   interests: [
     {
       icon: "FaRobot",
-      name: "Robotics",
-      description: "Building combat & soccer bots",
+      name: interestData.robotics.name,
+      description: interestData.robotics.description,
       colorKey: "primary",
       style: getThemeColor("primary"),
     },
     {
       icon: "FaRunning",
-      name: "Athletics",
-      description: "Bronze in 50m Hurdles",
+      name: interestData.athletics.name,
+      description: interestData.athletics.description,
       colorKey: "success",
       style: getThemeColor("success"),
     },
     {
       icon: "FaPuzzlePiece",
-      name: "Problem Solving",
-      description: "Competitive programming",
+      name: interestData.problemSolving.name,
+      description: interestData.problemSolving.description,
       colorKey: "accent",
       style: getThemeColor("accent"),
     },
     {
       icon: "FaBullseye",
-      name: "Mentoring",
-      description: "Leading workshops",
+      name: interestData.mentoring.name,
+      description: interestData.mentoring.description,
       colorKey: "danger",
       style: getThemeColor("danger"),
     },
@@ -916,28 +938,28 @@ export const overviewData = {
 
 export const pageInterests = [
   {
-    icon: FaRobot,
-    name: "Robotics",
-    description: "Building combat & soccer bots",
-    color: "text-primary",
+    icon: interestData.robotics.icon,
+    name: interestData.robotics.name,
+    description: interestData.robotics.description,
+    color: interestData.robotics.color,
   },
   {
-    icon: FaRunning,
-    name: "Athletics",
-    description: "Bronze in 50m Hurdles",
-    color: "text-accent",
+    icon: interestData.athletics.icon,
+    name: interestData.athletics.name,
+    description: interestData.athletics.description,
+    color: interestData.athletics.color,
   },
   {
-    icon: FaPuzzlePiece,
-    name: "Problem Solving",
-    description: "Competitive programming",
-    color: "text-secondary",
+    icon: interestData.problemSolving.icon,
+    name: interestData.problemSolving.name,
+    description: interestData.problemSolving.description,
+    color: interestData.problemSolving.color,
   },
   {
-    icon: FaBullseye,
-    name: "Mentoring",
-    description: "Leading workshops",
-    color: "text-destructive",
+    icon: interestData.mentoring.icon,
+    name: interestData.mentoring.name,
+    description: interestData.mentoring.description,
+    color: interestData.mentoring.color,
   },
 ];
 
@@ -960,7 +982,7 @@ export const educationTimeline = [
         "Computer Networks",
       ],
       achievements: [
-        "Maintaining CGPA of 7.69/10",
+        "Maintaining CGPA of 7.68/10",
         "Merit List Recognition",
         "Technical Workshop Facilitation",
         "Competitive Programming Participant",

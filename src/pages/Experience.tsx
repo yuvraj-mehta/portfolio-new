@@ -15,17 +15,15 @@ import {
   ChevronUp,
 } from "lucide-react";
 import { FaTools } from "react-icons/fa";
-import { personalInfo, experiences, achievements } from "@/data/portfolioData";
+import { personalInfo, experiences, achievements } from "@/data";
 import { motion, AnimatePresence } from "framer-motion";
 
 const Experience = () => {
   const [expandedCards, setExpandedCards] = useState<number[]>([]);
 
   const toggleCard = (index: number) => {
-    setExpandedCards(prev =>
-      prev.includes(index)
-        ? prev.filter(i => i !== index)
-        : [...prev, index]
+    setExpandedCards((prev) =>
+      prev.includes(index) ? prev.filter((i) => i !== index) : [...prev, index]
     );
   };
 
@@ -34,8 +32,8 @@ const Experience = () => {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.6, ease: "easeOut" }
-    }
+      transition: { duration: 0.6, ease: "easeOut" },
+    },
   };
 
   const badgeVariants = {
@@ -43,23 +41,28 @@ const Experience = () => {
     visible: {
       opacity: 1,
       scale: 1,
-      transition: { duration: 0.5, delay: 0.1 }
+      transition: { duration: 0.5, delay: 0.1 },
     },
-    whileHover: { scale: 1.05 }
+    whileHover: { scale: 1.05 },
   };
 
   const backgroundVariants = {
     animate: {
       y: [0, -15, 0],
-      transition: { duration: 4, repeat: Infinity, ease: "easeInOut" }
-    }
+      transition: { duration: 4, repeat: Infinity, ease: "easeInOut" },
+    },
   };
 
   const backgroundVariants2 = {
     animate: {
       y: [0, 15, 0],
-      transition: { duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }
-    }
+      transition: {
+        duration: 5,
+        repeat: Infinity,
+        ease: "easeInOut",
+        delay: 1,
+      },
+    },
   };
 
   const containerVariants = {
@@ -68,9 +71,9 @@ const Experience = () => {
       opacity: 1,
       transition: {
         staggerChildren: 0.15,
-        delayChildren: 0.2
-      }
-    }
+        delayChildren: 0.2,
+      },
+    },
   };
 
   const cardVariants = {
@@ -78,8 +81,8 @@ const Experience = () => {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.6, ease: "easeOut" }
-    }
+      transition: { duration: 0.6, ease: "easeOut" },
+    },
   };
 
   const expandedContentVariants = {
@@ -87,13 +90,13 @@ const Experience = () => {
     visible: {
       opacity: 1,
       height: "auto",
-      transition: { duration: 0.3, ease: "easeOut" }
+      transition: { duration: 0.3, ease: "easeOut" },
     },
     exit: {
       opacity: 0,
       height: 0,
-      transition: { duration: 0.3, ease: "easeIn" }
-    }
+      transition: { duration: 0.3, ease: "easeIn" },
+    },
   };
 
   const highlightItemVariants = {
@@ -101,8 +104,8 @@ const Experience = () => {
     visible: (i: number) => ({
       opacity: 1,
       x: 0,
-      transition: { duration: 0.3, delay: i * 0.05 }
-    })
+      transition: { duration: 0.3, delay: i * 0.05 },
+    }),
   };
 
   const badgeItemVariants = {
@@ -110,8 +113,8 @@ const Experience = () => {
     visible: (i: number) => ({
       opacity: 1,
       scale: 1,
-      transition: { duration: 0.3, delay: i * 0.05 }
-    })
+      transition: { duration: 0.3, delay: i * 0.05 },
+    }),
   };
 
   const achievementVariants = {
@@ -119,15 +122,15 @@ const Experience = () => {
     visible: (i: number) => ({
       opacity: 1,
       y: 0,
-      transition: { duration: 0.5, delay: i * 0.1 }
-    })
+      transition: { duration: 0.5, delay: i * 0.1 },
+    }),
   };
 
   return (
     <div className="min-h-screen bg-background">
       <Navigation />
       <ThemeSwitcher />
-      
+
       <div className="relative pt-28 pb-8 px-4 sm:px-6 lg:px-8 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-primary/8"></div>
         <div className="absolute inset-0 opacity-5">
@@ -147,7 +150,7 @@ const Experience = () => {
           variants={backgroundVariants2}
           animate="animate"
         />
-        
+
         <div className="relative max-w-7xl mx-auto">
           <motion.div
             className="text-center mb-16"
@@ -172,7 +175,8 @@ const Experience = () => {
               </span>
             </h1>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              {personalInfo.tagline} • Leadership roles and technical contributions
+              {personalInfo.tagline} • Leadership roles and technical
+              contributions
             </p>
           </motion.div>
 
@@ -183,7 +187,10 @@ const Experience = () => {
               initial="hidden"
               animate="visible"
             >
-              <motion.div className="flex items-center mb-8" variants={cardVariants}>
+              <motion.div
+                className="flex items-center mb-8"
+                variants={cardVariants}
+              >
                 <motion.div
                   className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary/20 to-primary-glow/20 flex items-center justify-center mr-4"
                   whileHover={{ scale: 1.1 }}
@@ -191,15 +198,26 @@ const Experience = () => {
                 >
                   <Briefcase className="w-6 h-6 text-primary" />
                 </motion.div>
-                <h2 className="text-2xl sm:text-3xl font-bold">Professional Experience</h2>
+                <h2 className="text-2xl sm:text-3xl font-bold">
+                  Professional Experience
+                </h2>
               </motion.div>
 
               <div className="relative">
                 <div className="absolute left-4 top-8 bottom-8 w-0.5 bg-gradient-to-b from-primary/60 via-primary/30 to-transparent hidden sm:block"></div>
-                
-                <motion.div className="space-y-8" variants={containerVariants} initial="hidden" animate="visible">
+
+                <motion.div
+                  className="space-y-8"
+                  variants={containerVariants}
+                  initial="hidden"
+                  animate="visible"
+                >
                   {experiences.map((exp, index) => (
-                    <motion.div key={index} className="relative" variants={cardVariants}>
+                    <motion.div
+                      key={index}
+                      className="relative"
+                      variants={cardVariants}
+                    >
                       <div className="absolute left-2 top-6 w-4 h-4 bg-primary rounded-full border-2 border-background shadow-lg hidden sm:block z-10">
                         <motion.div
                           className="absolute inset-1 bg-primary/60 rounded-full"
@@ -207,10 +225,11 @@ const Experience = () => {
                           transition={{ duration: 2, repeat: Infinity }}
                         />
                       </div>
-                      
+
                       <motion.div
                         whileHover={{
-                          boxShadow: "0 10px 25px -5px hsl(var(--primary) / 0.1)"
+                          boxShadow:
+                            "0 10px 25px -5px hsl(var(--primary) / 0.1)",
                         }}
                         transition={{ duration: 0.3 }}
                       >
@@ -226,8 +245,16 @@ const Experience = () => {
                                   transition={{ duration: 0.2 }}
                                 >
                                   <Badge
-                                    variant={exp.status === "Currently Active" ? "default" : "secondary"}
-                                    className={`text-xs ${exp.status === "Currently Active" ? "bg-green-500/10 text-green-500 border-green-500/20" : ""}`}
+                                    variant={
+                                      exp.status === "Currently Active"
+                                        ? "default"
+                                        : "secondary"
+                                    }
+                                    className={`text-xs ${
+                                      exp.status === "Currently Active"
+                                        ? "bg-green-500/10 text-green-500 border-green-500/20"
+                                        : ""
+                                    }`}
                                   >
                                     {exp.status || exp.type}
                                   </Badge>
@@ -242,8 +269,12 @@ const Experience = () => {
                                 </motion.div>
                               </div>
 
-                              <h3 className="text-lg sm:text-xl font-bold leading-tight">{exp.title}</h3>
-                              <p className="text-primary font-semibold text-sm sm:text-base">{exp.company}</p>
+                              <h3 className="text-lg sm:text-xl font-bold leading-tight">
+                                {exp.title}
+                              </h3>
+                              <p className="text-primary font-semibold text-sm sm:text-base">
+                                {exp.company}
+                              </p>
                               <motion.p
                                 className="text-xs sm:text-sm text-muted-foreground flex items-center gap-2 mt-1"
                                 whileHover={{ x: 4 }}
@@ -255,15 +286,27 @@ const Experience = () => {
                             </div>
 
                             <div className="mt-2 sm:mt-0 flex items-center gap-2">
-                              <motion.div whileHover={{ backgroundColor: "hsl(var(--primary) / 0.1)" }} transition={{ duration: 0.2 }}>
-                                <Badge variant="outline" className="text-primary border-primary/40 text-xs">
+                              <motion.div
+                                whileHover={{
+                                  backgroundColor: "hsl(var(--primary) / 0.1)",
+                                }}
+                                transition={{ duration: 0.2 }}
+                              >
+                                <Badge
+                                  variant="outline"
+                                  className="text-primary border-primary/40 text-xs"
+                                >
                                   <span className="mr-1">📅</span>
                                   <span>{exp.period}</span>
                                 </Badge>
                               </motion.div>
                               <motion.div
                                 className="text-muted-foreground"
-                                animate={{ color: expandedCards.includes(index) ? "hsl(var(--primary))" : "hsl(var(--muted-foreground))" }}
+                                animate={{
+                                  color: expandedCards.includes(index)
+                                    ? "hsl(var(--primary))"
+                                    : "hsl(var(--muted-foreground))",
+                                }}
                                 transition={{ duration: 0.2 }}
                               >
                                 {expandedCards.includes(index) ? (
@@ -282,7 +325,7 @@ const Experience = () => {
                               exit={{ opacity: 0 }}
                               transition={{ duration: 0.2 }}
                             >
-                              {exp.description.split('.')[0]}.
+                              {exp.description.split(".")[0]}.
                             </motion.p>
                           )}
 
@@ -310,7 +353,15 @@ const Experience = () => {
                                   transition={{ duration: 0.3, delay: 0.15 }}
                                 >
                                   <h4 className="font-semibold mb-3 flex items-center text-sm sm:text-base">
-                                    <span className="mr-2" style={{ color: 'hsl(var(--highlight-achievement))' }}>⭐</span>
+                                    <span
+                                      className="mr-2"
+                                      style={{
+                                        color:
+                                          "hsl(var(--highlight-achievement))",
+                                      }}
+                                    >
+                                      ⭐
+                                    </span>
                                     <span>Key Highlights</span>
                                   </h4>
                                   <motion.ul
@@ -325,10 +376,21 @@ const Experience = () => {
                                         className="text-xs sm:text-sm text-muted-foreground flex items-start p-2 rounded-lg"
                                         custom={idx}
                                         variants={highlightItemVariants}
-                                        whileHover={{ backgroundColor: "hsl(var(--primary) / 0.05)" }}
+                                        whileHover={{
+                                          backgroundColor:
+                                            "hsl(var(--primary) / 0.05)",
+                                        }}
                                         transition={{ duration: 0.2 }}
                                       >
-                                        <span className="mr-2 mt-0.5" style={{ color: 'hsl(var(--highlight-achievement))' }}>⭐</span>
+                                        <span
+                                          className="mr-2 mt-0.5"
+                                          style={{
+                                            color:
+                                              "hsl(var(--highlight-achievement))",
+                                          }}
+                                        >
+                                          ⭐
+                                        </span>
                                         <span>{highlight}</span>
                                       </motion.li>
                                     ))}
@@ -356,12 +418,16 @@ const Experience = () => {
                                         custom={idx}
                                         variants={badgeItemVariants}
                                         whileHover={{
-                                          backgroundColor: "hsl(var(--primary) / 0.2)",
-                                          color: "hsl(var(--primary))"
+                                          backgroundColor:
+                                            "hsl(var(--primary) / 0.2)",
+                                          color: "hsl(var(--primary))",
                                         }}
                                         transition={{ duration: 0.2 }}
                                       >
-                                        <Badge variant="secondary" className="text-xs">
+                                        <Badge
+                                          variant="secondary"
+                                          className="text-xs"
+                                        >
                                           {skill}
                                         </Badge>
                                       </motion.div>
@@ -385,14 +451,22 @@ const Experience = () => {
               initial="hidden"
               animate="visible"
             >
-              <motion.div className="flex items-center mb-6 sm:mb-8" variants={cardVariants}>
+              <motion.div
+                className="flex items-center mb-6 sm:mb-8"
+                variants={cardVariants}
+              >
                 <motion.div
                   className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center mr-4"
-                  style={{ backgroundColor: `hsl(var(--highlight-achievement) / 0.2)` }}
+                  style={{
+                    backgroundColor: `hsl(var(--highlight-achievement) / 0.2)`,
+                  }}
                   whileHover={{ scale: 1.1 }}
                   transition={{ duration: 0.2 }}
                 >
-                  <Trophy className="w-5 h-5 sm:w-6 sm:h-6" style={{ color: 'hsl(var(--highlight-achievement))' }} />
+                  <Trophy
+                    className="w-5 h-5 sm:w-6 sm:h-6"
+                    style={{ color: "hsl(var(--highlight-achievement))" }}
+                  />
                 </motion.div>
                 <h2 className="text-xl sm:text-2xl font-bold">Achievements</h2>
               </motion.div>
@@ -410,7 +484,7 @@ const Experience = () => {
                     variants={achievementVariants}
                     whileHover={{
                       boxShadow: "0 10px 25px -5px hsl(var(--primary) / 0.1)",
-                      y: -2
+                      y: -2,
                     }}
                     transition={{ duration: 0.3 }}
                   >
@@ -418,25 +492,47 @@ const Experience = () => {
                       <div className="flex items-start gap-2 sm:gap-3">
                         <motion.div
                           className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-gradient-to-br from-primary/10 to-primary-glow/10 flex items-center justify-center flex-shrink-0 mt-1"
-                          whileHover={{ backgroundColor: "hsl(var(--primary) / 0.2)" }}
+                          whileHover={{
+                            backgroundColor: "hsl(var(--primary) / 0.2)",
+                          }}
                           transition={{ duration: 0.2 }}
                         >
-                          {achievement.category === "competition" && <Trophy className="w-3 h-3 sm:w-4 sm:h-4 text-yellow-500" />}
-                          {achievement.category === "technical" && <Code2 className="w-3 h-3 sm:w-4 sm:h-4 text-blue-500" />}
-                          {achievement.category === "leadership" && <Users className="w-3 h-3 sm:w-4 sm:h-4 text-purple-500" />}
-                          {achievement.category === "sports" && <Medal className="w-3 h-3 sm:w-4 sm:h-4 text-orange-500" />}
+                          {achievement.category === "competition" && (
+                            <Trophy className="w-3 h-3 sm:w-4 sm:h-4 text-yellow-500" />
+                          )}
+                          {achievement.category === "technical" && (
+                            <Code2 className="w-3 h-3 sm:w-4 sm:h-4 text-blue-500" />
+                          )}
+                          {achievement.category === "leadership" && (
+                            <Users className="w-3 h-3 sm:w-4 sm:h-4 text-purple-500" />
+                          )}
+                          {achievement.category === "sports" && (
+                            <Medal className="w-3 h-3 sm:w-4 sm:h-4 text-orange-500" />
+                          )}
                         </motion.div>
 
                         <div className="flex-1 min-w-0">
                           <div className="flex items-start justify-between mb-2 gap-2">
-                            <h3 className="font-semibold text-xs sm:text-sm leading-tight flex-1">{achievement.title}</h3>
-                            <motion.div whileHover={{ backgroundColor: "hsl(var(--primary) / 0.1)" }} transition={{ duration: 0.2 }}>
-                              <Badge variant="outline" className="text-[10px] sm:text-xs flex-shrink-0">
+                            <h3 className="font-semibold text-xs sm:text-sm leading-tight flex-1">
+                              {achievement.title}
+                            </h3>
+                            <motion.div
+                              whileHover={{
+                                backgroundColor: "hsl(var(--primary) / 0.1)",
+                              }}
+                              transition={{ duration: 0.2 }}
+                            >
+                              <Badge
+                                variant="outline"
+                                className="text-[10px] sm:text-xs flex-shrink-0"
+                              >
                                 {achievement.year}
                               </Badge>
                             </motion.div>
                           </div>
-                          <p className="text-[10px] sm:text-xs text-muted-foreground leading-relaxed">{achievement.description}</p>
+                          <p className="text-[10px] sm:text-xs text-muted-foreground leading-relaxed">
+                            {achievement.description}
+                          </p>
                         </div>
                       </div>
                     </Card>

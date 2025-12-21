@@ -66,7 +66,7 @@ yarn preview
 
 ## Customization
 
-- Update your info in `src/data/portfolioData.ts`
+- Update your info in `src/data/*.ts`
 - Add/edit projects, skills, and achievements
 - Customize themes in `tailwind.config.ts` and CSS files
 

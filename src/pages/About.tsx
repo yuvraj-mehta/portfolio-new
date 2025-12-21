@@ -8,14 +8,20 @@ import {
   HiLocationMarker,
   HiCalendar,
   HiHand,
-  HiSparkles
+  HiSparkles,
 } from "react-icons/hi";
 import { FaGithub, FaLinkedin, FaTrophy } from "react-icons/fa";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import ThemeSwitcher from "@/components/ThemeSwitcher";
 import { useNavigate } from "react-router-dom";
-import { personalInfo, socialLinks, achievements, pageInterests, aboutPageData } from "@/data/portfolioData";
+import {
+  personalInfo,
+  socialLinks,
+  achievements,
+  pageInterests,
+  aboutPageData,
+} from "@/data";
 import { motion } from "framer-motion";
 
 const About = () => {
@@ -24,11 +30,11 @@ const About = () => {
   const achievementStats = aboutPageData.achievementStats;
 
   const handleContactClick = () => {
-    navigate('/contact');
+    navigate("/contact");
   };
 
   const handleResumeDownload = () => {
-    window.open(personalInfo.resume, '_blank');
+    window.open(personalInfo.resume, "_blank");
   };
 
   const headerVariants = {
@@ -36,8 +42,8 @@ const About = () => {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.6, ease: "easeOut" }
-    }
+      transition: { duration: 0.6, ease: "easeOut" },
+    },
   };
 
   const badgeVariants = {
@@ -45,23 +51,28 @@ const About = () => {
     visible: {
       opacity: 1,
       scale: 1,
-      transition: { duration: 0.5, delay: 0.1 }
+      transition: { duration: 0.5, delay: 0.1 },
     },
-    whileHover: { scale: 1.05 }
+    whileHover: { scale: 1.05 },
   };
 
   const backgroundVariants = {
     animate: {
       y: [0, -10, 0],
-      transition: { duration: 4, repeat: Infinity, ease: "easeInOut" }
-    }
+      transition: { duration: 4, repeat: Infinity, ease: "easeInOut" },
+    },
   };
 
   const backgroundVariants2 = {
     animate: {
       y: [0, 10, 0],
-      transition: { duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }
-    }
+      transition: {
+        duration: 5,
+        repeat: Infinity,
+        ease: "easeInOut",
+        delay: 1,
+      },
+    },
   };
 
   const containerVariants = {
@@ -70,9 +81,9 @@ const About = () => {
       opacity: 1,
       transition: {
         staggerChildren: 0.2,
-        delayChildren: 0.1
-      }
-    }
+        delayChildren: 0.1,
+      },
+    },
   };
 
   const cardVariants = {
@@ -80,8 +91,8 @@ const About = () => {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.6, ease: "easeOut" }
-    }
+      transition: { duration: 0.6, ease: "easeOut" },
+    },
   };
 
   const interestItemVariants = {
@@ -89,8 +100,8 @@ const About = () => {
     visible: (i: number) => ({
       opacity: 1,
       x: 0,
-      transition: { duration: 0.4, delay: i * 0.05 }
-    })
+      transition: { duration: 0.4, delay: i * 0.05 },
+    }),
   };
 
   const statItemVariants = {
@@ -98,29 +109,29 @@ const About = () => {
     visible: (i: number) => ({
       opacity: 1,
       scale: 1,
-      transition: { duration: 0.4, delay: i * 0.05 }
-    })
+      transition: { duration: 0.4, delay: i * 0.05 },
+    }),
   };
 
   const profileImageVariants = {
     whileHover: {
       scale: 1.05,
-      transition: { duration: 0.3 }
-    }
+      transition: { duration: 0.3 },
+    },
   };
 
   const socialLinkVariants = {
     whileHover: {
       color: "hsl(var(--primary))",
-      transition: { duration: 0.2 }
-    }
+      transition: { duration: 0.2 },
+    },
   };
 
   return (
     <div className="min-h-screen bg-background">
       <Navigation />
       <ThemeSwitcher />
-      
+
       <div className="relative pt-28 pb-8 px-4 sm:px-6 lg:px-8 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-primary/8"></div>
         <div className="absolute inset-0 opacity-5">
@@ -175,14 +186,11 @@ const About = () => {
             initial="hidden"
             animate="visible"
           >
-            <motion.div
-              className="lg:col-span-5"
-              variants={cardVariants}
-            >
+            <motion.div className="lg:col-span-5" variants={cardVariants}>
               <motion.div
                 whileHover={{
                   boxShadow: "0 25px 50px -12px hsl(var(--primary) / 0.05)",
-                  y: -4
+                  y: -4,
                 }}
                 transition={{ duration: 0.3 }}
               >
@@ -195,7 +203,7 @@ const About = () => {
                       variants={profileImageVariants}
                       whileHover="whileHover"
                     />
-                    
+
                     <motion.div
                       className="absolute top-3 left-3 bg-gradient-to-r from-primary to-primary-glow text-primary-foreground px-2 py-1 rounded-full text-xs font-medium shadow-lg backdrop-blur-sm flex items-center gap-1"
                       whileHover={{ scale: 1.1 }}
@@ -204,7 +212,7 @@ const About = () => {
                       <FaTrophy className="w-3 h-3" />
                       <span>{achievements.leetcode.percentile}</span>
                     </motion.div>
-                    
+
                     <motion.div
                       className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent rounded-xl"
                       initial={{ opacity: 0 }}
@@ -215,8 +223,12 @@ const About = () => {
 
                   <div className="space-y-4">
                     <div>
-                      <h2 className="text-lg sm:text-xl font-bold mb-1">{personalInfo.name}</h2>
-                      <p className="text-sm text-muted-foreground">{personalInfo.title} & {personalInfo.course} Student</p>
+                      <h2 className="text-lg sm:text-xl font-bold mb-1">
+                        {personalInfo.name}
+                      </h2>
+                      <p className="text-sm text-muted-foreground">
+                        {personalInfo.title} & {personalInfo.course} Student
+                      </p>
                     </div>
 
                     <div className="space-y-2 text-sm">
@@ -226,7 +238,10 @@ const About = () => {
                         transition={{ duration: 0.2 }}
                       >
                         <HiLocationMarker className="w-4 h-4 text-primary" />
-                        <span>{personalInfo.university}, {personalInfo.location.split(',')[1]}</span>
+                        <span>
+                          {personalInfo.university},{" "}
+                          {personalInfo.location.split(",")[1]}
+                        </span>
                       </motion.div>
                       <motion.div
                         className="flex items-center gap-2"
@@ -247,14 +262,31 @@ const About = () => {
                     </div>
 
                     <div className="flex gap-2 pt-2">
-                      <motion.div className="flex-1" whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                        <Button size="sm" className="w-full" onClick={handleContactClick}>
+                      <motion.div
+                        className="flex-1"
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                      >
+                        <Button
+                          size="sm"
+                          className="w-full"
+                          onClick={handleContactClick}
+                        >
                           <HiMail className="w-4 h-4 mr-2" />
                           Contact
                         </Button>
                       </motion.div>
-                      <motion.div className="flex-1" whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                        <Button variant="outline" size="sm" className="w-full" onClick={handleResumeDownload}>
+                      <motion.div
+                        className="flex-1"
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                      >
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          className="w-full"
+                          onClick={handleResumeDownload}
+                        >
                           <HiDownload className="w-4 h-4 mr-2" />
                           Resume
                         </Button>
@@ -301,13 +333,10 @@ const About = () => {
               </motion.div>
             </motion.div>
 
-            <motion.div
-              className="lg:col-span-7"
-              variants={cardVariants}
-            >
+            <motion.div className="lg:col-span-7" variants={cardVariants}>
               <motion.div
                 whileHover={{
-                  boxShadow: "0 25px 50px -12px hsl(var(--primary) / 0.05)"
+                  boxShadow: "0 25px 50px -12px hsl(var(--primary) / 0.05)",
                 }}
                 transition={{ duration: 0.3 }}
               >
@@ -317,7 +346,7 @@ const About = () => {
                       <HiSparkles className="w-5 h-5 text-primary" />
                       <h3 className="text-lg font-bold">My Journey</h3>
                     </div>
-                    
+
                     <div className="space-y-3 text-sm leading-relaxed">
                       <motion.p
                         className="text-muted-foreground"
@@ -351,7 +380,9 @@ const About = () => {
                     </div>
 
                     <div className="pt-4 border-t">
-                      <h4 className="font-semibold mb-3 text-sm">What Drives Me</h4>
+                      <h4 className="font-semibold mb-3 text-sm">
+                        What Drives Me
+                      </h4>
                       <motion.div
                         className="grid grid-cols-2 gap-3 mb-6"
                         variants={containerVariants}
@@ -365,20 +396,30 @@ const About = () => {
                             className="flex items-start gap-2 p-2 rounded-lg"
                             custom={index}
                             variants={interestItemVariants}
-                            whileHover={{ backgroundColor: "hsl(var(--primary) / 0.05)" }}
+                            whileHover={{
+                              backgroundColor: "hsl(var(--primary) / 0.05)",
+                            }}
                             transition={{ duration: 0.2 }}
                           >
-                            <interest.icon className={`w-4 h-4 ${interest.color} mt-0.5`} />
+                            <interest.icon
+                              className={`w-4 h-4 ${interest.color} mt-0.5`}
+                            />
                             <div>
-                              <div className="font-medium text-xs">{interest.name}</div>
-                              <div className="text-xs text-muted-foreground">{interest.description}</div>
+                              <div className="font-medium text-xs">
+                                {interest.name}
+                              </div>
+                              <div className="text-xs text-muted-foreground">
+                                {interest.description}
+                              </div>
                             </div>
                           </motion.div>
                         ))}
                       </motion.div>
 
                       <div className="pt-4 border-t">
-                        <h4 className="font-semibold mb-3 text-sm">Achievements</h4>
+                        <h4 className="font-semibold mb-3 text-sm">
+                          Achievements
+                        </h4>
                         <motion.div
                           className="grid grid-cols-2 gap-3"
                           variants={containerVariants}
@@ -394,7 +435,7 @@ const About = () => {
                               variants={statItemVariants}
                               whileHover={{
                                 backgroundColor: "hsl(var(--primary) / 0.1)",
-                                scale: 1.05
+                                scale: 1.05,
                               }}
                               transition={{ duration: 0.3 }}
                             >
@@ -408,7 +449,9 @@ const About = () => {
                               </motion.div>
                               <motion.div
                                 className="text-xs text-muted-foreground"
-                                initial={{ color: "hsl(var(--muted-foreground))" }}
+                                initial={{
+                                  color: "hsl(var(--muted-foreground))",
+                                }}
                                 whileHover={{ color: "hsl(var(--primary))" }}
                                 transition={{ duration: 0.2 }}
                               >

@@ -16,9 +16,9 @@ import {
   HiFolder,
   HiMail,
   HiHome,
-  HiEye
+  HiEye,
 } from "react-icons/hi";
-import { personalInfo } from "@/data/portfolioData";
+import { personalInfo } from "@/data";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -42,14 +42,22 @@ const Navigation = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Enhanced Logo */}
-          <Link to="/" className="flex items-center space-x-3 group transition-all duration-200 hover:scale-105">
+          <Link
+            to="/"
+            className="flex items-center space-x-3 group transition-all duration-200 hover:scale-105"
+          >
             <Avatar className="h-8 w-8 ring-2 ring-primary/30 group-hover:ring-primary/60 transition-all duration-200">
-              <AvatarImage src={personalInfo.profileImage} alt={personalInfo.name} />
+              <AvatarImage
+                src={personalInfo.profileImage}
+                alt={personalInfo.name}
+              />
               <AvatarFallback className="bg-gradient-to-br from-primary to-primary-glow text-primary-foreground font-bold text-sm">
                 <HiCode className="w-4 h-4" />
               </AvatarFallback>
             </Avatar>
-            <span className="text-xl font-extrabold bg-gradient-to-r from-primary to-primary-glow bg-clip-text text-transparent group-hover:from-primary-glow group-hover:to-primary transition-all duration-300">{personalInfo.name.split(' ')[0]}.</span>
+            <span className="text-xl font-extrabold bg-gradient-to-r from-primary to-primary-glow bg-clip-text text-transparent group-hover:from-primary-glow group-hover:to-primary transition-all duration-300">
+              {personalInfo.name.split(" ")[0]}.
+            </span>
           </Link>
 
           {/* Enhanced Desktop Navigation */}
@@ -81,7 +89,11 @@ const Navigation = () => {
               className="text-sm font-semibold hover:border-primary/80 hover:bg-primary/5 group transition-all duration-200"
               asChild
             >
-              <a href={personalInfo.resume} target="_blank" rel="noopener noreferrer">
+              <a
+                href={personalInfo.resume}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <HiDownload className="w-4 h-4 mr-2 group-hover:animate-bounce" />
                 Resume
               </a>
@@ -96,16 +108,22 @@ const Navigation = () => {
               onClick={() => setIsOpen(!isOpen)}
               className="p-2"
             >
-              {isOpen ? <HiX className="h-5 w-5" /> : <HiMenuAlt3 className="h-5 w-5" />}
+              {isOpen ? (
+                <HiX className="h-5 w-5" />
+              ) : (
+                <HiMenuAlt3 className="h-5 w-5" />
+              )}
             </Button>
           </div>
         </div>
       </div>
 
       {/* Mobile Navigation */}
-      <div className={`lg:hidden transition-all duration-300 overflow-hidden ${
-        isOpen ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0'
-      }`}>
+      <div
+        className={`lg:hidden transition-all duration-300 overflow-hidden ${
+          isOpen ? "max-h-screen opacity-100" : "max-h-0 opacity-0"
+        }`}
+      >
         <div className="px-6 pt-4 pb-6 space-y-1 bg-card border-t border-border">
           {navigation.map((item, index) => {
             const Icon = item.icon;
@@ -126,13 +144,12 @@ const Navigation = () => {
             );
           })}
           <div className="px-4 pt-4 border-t border-border mt-4">
-            <Button
-              variant="outline"
-              size="sm"
-              className="w-full"
-              asChild
-            >
-              <a href={personalInfo.resume} target="_blank" rel="noopener noreferrer">
+            <Button variant="outline" size="sm" className="w-full" asChild>
+              <a
+                href={personalInfo.resume}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <HiDownload className="w-4 h-4 mr-2" />
                 Download Resume
               </a>

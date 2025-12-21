@@ -1,0 +1,188 @@
+import {
+  FaGraduationCap,
+  FaCode,
+  FaTrophy,
+  FaBriefcase,
+  FaEnvelope,
+  FaGithub,
+  FaReact,
+  FaNodeJs,
+  FaLinkedin,
+  FaTwitter,
+} from "react-icons/fa";
+import {
+  SiTypescript,
+  SiMongodb,
+  SiNextdotjs,
+  SiExpress,
+} from "react-icons/si";
+import { Download } from "lucide-react";
+import { HiChatBubbleLeftRight } from "react-icons/hi2";
+import { BiGitCommit } from "react-icons/bi";
+
+import {
+  personalInfo,
+  socialLinks,
+  achievements,
+  getThemeColor,
+} from "./commonData";
+
+export const overviewData = {
+  highlights: [
+    {
+      icon: FaGraduationCap,
+      title: "B.Tech CS",
+      subtitle: "NIT Patna",
+      year: "2025",
+      progress: 75,
+      trend: "+5%",
+      isLive: false,
+    },
+    {
+      icon: FaCode,
+      title: achievements.stats.totalProjects,
+      subtitle: "Full Stack",
+      year: achievements.stats.yearsExperience,
+      progress: 85,
+      trend: "+3 this month",
+      isLive: true,
+    },
+    {
+      icon: FaTrophy,
+      title: "DSA Expert",
+      subtitle: achievements.leetcode.problemsSolved + " Problems",
+      year: "LeetCode",
+      progress: 90,
+      trend: "+50 this week",
+      isLive: true,
+    },
+    {
+      icon: FaBriefcase,
+      title: "Experience",
+      subtitle: "Internships & Projects",
+      year: "Active",
+      progress: 80,
+      trend: "Growing",
+      isLive: false,
+    },
+  ],
+  quickActions: [
+    {
+      icon: FaEnvelope,
+      label: "Send Email",
+      href: socialLinks.email.url,
+      type: "external",
+    },
+    {
+      icon: Download,
+      label: "Download Resume",
+      href: personalInfo.resume,
+      type: "download",
+    },
+    {
+      icon: HiChatBubbleLeftRight,
+      label: "Schedule Call",
+      href: "/contact",
+      type: "internal",
+    },
+    {
+      icon: FaGithub,
+      label: "View GitHub",
+      href: socialLinks.github.url,
+      type: "external",
+    },
+  ],
+  recentActivities: [
+    {
+      icon: BiGitCommit,
+      title: "Portfolio Enhancement",
+      description: "Updated portfolio with modern design and better UX",
+      time: "2 days ago",
+      type: "project",
+      isLive: true,
+      badge: "Live",
+    },
+    {
+      icon: FaTrophy,
+      title: "LeetCode Milestone",
+      description: "Solved 50+ problems this month, reached 500+ total",
+      time: "1 week ago",
+      type: "achievement",
+      isLive: false,
+      badge: "Achievement",
+    },
+    {
+      icon: FaCode,
+      title: "Project Deployment",
+      description: "Deployed E-commerce platform with CI/CD pipeline",
+      time: "3 days ago",
+      type: "deployment",
+      isLive: true,
+      badge: "Deployed",
+    },
+    {
+      icon: FaCode,
+      title: "Learning Next.js 14",
+      description: "Completed advanced Next.js course with App Router",
+      time: "2 weeks ago",
+      type: "learning",
+      isLive: false,
+      badge: "Completed",
+    },
+  ],
+  skillLevels: [
+    { name: "React", level: 90, icon: FaReact, category: "Frontend" },
+    { name: "Node.js", level: 85, icon: FaNodeJs, category: "Backend" },
+    { name: "TypeScript", level: 80, icon: SiTypescript, category: "Language" },
+    { name: "MongoDB", level: 75, icon: SiMongodb, category: "Database" },
+    { name: "Next.js", level: 85, icon: SiNextdotjs, category: "Framework" },
+    { name: "Express", level: 80, icon: SiExpress, category: "Backend" },
+  ],
+  currentStatus: {
+    availability: personalInfo.status.availability,
+    currentFocus: "Building Full-Stack Projects with Next.js",
+    learning: "Advanced React Patterns & System Design",
+    lookingFor: "Internships & Full-time Opportunities",
+    location: personalInfo.location + " (" + personalInfo.status.workMode + ")",
+    lastUpdated: "Updated 2 days ago",
+  },
+  contactInfo: {
+    email: personalInfo.email,
+    phone: personalInfo.phone,
+    location: personalInfo.location,
+    timezone: "IST (UTC +5:30)",
+    availability: personalInfo.status.availability,
+    preferredContact: "Email or LinkedIn",
+    responseTime: "Within 24 hours",
+    socialLinks: [
+      {
+        name: "GitHub",
+        icon: FaGithub,
+        url: socialLinks.github.url,
+        username: "@" + socialLinks.github.username,
+        color: "text-secondary hover:text-secondary-foreground",
+      },
+      {
+        name: "LinkedIn",
+        icon: FaLinkedin,
+        url: socialLinks.linkedin.url,
+        username: socialLinks.linkedin.username,
+        color: "text-primary hover:text-primary-foreground",
+      },
+      {
+        name: "Twitter",
+        icon: FaTwitter,
+        url: socialLinks.twitter.url,
+        username: socialLinks.twitter.username,
+        color: "text-accent hover:text-accent-foreground",
+      },
+      {
+        name: "Email",
+        icon: FaEnvelope,
+        url: socialLinks.email.url,
+        username: socialLinks.email.address,
+        color: "text-destructive hover:text-destructive-foreground",
+      },
+    ],
+  },
+};
