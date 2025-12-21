@@ -6,8 +6,8 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import ThemeSwitcher from "@/components/ThemeSwitcher";
 import { personalInfo, skills } from "@/data/portfolioData";
+import { motion } from "framer-motion";
 
-// React Icons imports
 import { 
   FaReact, 
   FaNodeJs, 
@@ -53,7 +53,6 @@ const Skills = () => {
     { name: "Tools", icon: MdBuild }
   ];
 
-  // Add icon mapping to skills data
   const iconMap = {
     "React": FaReact,
     "JavaScript": FaJs,
@@ -134,24 +133,112 @@ const Skills = () => {
     }
   };
 
+  const headerVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.6, ease: "easeOut" }
+    }
+  };
+
+  const badgeVariants = {
+    hidden: { opacity: 0, scale: 0.8 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      transition: { duration: 0.5, delay: 0.1 }
+    },
+    whileHover: { scale: 1.05 }
+  };
+
+  const backgroundVariants = {
+    animate: {
+      y: [0, -15, 0],
+      transition: { duration: 4, repeat: Infinity, ease: "easeInOut" }
+    }
+  };
+
+  const backgroundVariants2 = {
+    animate: {
+      y: [0, 15, 0],
+      transition: { duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }
+    }
+  };
+
+  const buttonVariants = {
+    whileHover: { scale: 1.05 },
+    whileTap: { scale: 0.95 }
+  };
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.2
+      }
+    }
+  };
+
+  const sectionVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.5, ease: "easeOut" }
+    }
+  };
+
+  const skillCardVariants = {
+    hidden: { opacity: 0, scale: 0.9 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      transition: { duration: 0.4 }
+    },
+    whileHover: {
+      y: -4,
+      boxShadow: "0 10px 25px -5px hsl(var(--primary) / 0.1)"
+    }
+  };
+
   return (
     <div className="min-h-screen bg-background">
       <Navigation />
       <ThemeSwitcher />
       
-      <div className="relative pt-32 pb-16 px-4 sm:px-6 lg:px-8">
-        {/* Background Effects */}
+      <div className="relative pt-32 pb-16 px-4 sm:px-6 lg:px-8 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-primary/5"></div>
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl opacity-30"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-primary-glow/10 rounded-full blur-3xl opacity-20"></div>
+        <motion.div
+          className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl opacity-30"
+          variants={backgroundVariants}
+          animate="animate"
+        />
+        <motion.div
+          className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-primary-glow/10 rounded-full blur-3xl opacity-20"
+          variants={backgroundVariants2}
+          animate="animate"
+        />
         
         <div className="relative max-w-7xl mx-auto">
-          {/* Enhanced Header Section */}
-          <div className="text-center mb-16">
-            <div className="inline-flex items-center px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-medium mb-4">
+          <motion.div
+            className="text-center mb-16"
+            variants={headerVariants}
+            initial="hidden"
+            animate="visible"
+          >
+            <motion.div
+              className="inline-flex items-center px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-medium mb-4"
+              variants={badgeVariants}
+              initial="hidden"
+              animate="visible"
+              whileHover="whileHover"
+            >
               <span className="mr-2">🚀</span>
               Technical Expertise
-            </div>
+            </motion.div>
             <h1 className="text-4xl md:text-5xl font-bold mb-4">
               <span className="text-foreground">Skills of</span>{" "}
               <span className="bg-gradient-to-r from-primary to-primary-glow bg-clip-text text-transparent">
@@ -161,76 +248,111 @@ const Skills = () => {
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
               {personalInfo.tagline} • Modern technologies and tools for scalable applications
             </p>
-          </div>
+          </motion.div>
 
-          {/* Category Filter Buttons */}
-          <div className="flex flex-wrap justify-center gap-4 mb-12">
+          <motion.div
+            className="flex flex-wrap justify-center gap-4 mb-12"
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+          >
             {skillCategories.map((category) => {
               const IconComponent = category.icon;
               return (
-                <Button
+                <motion.div
                   key={category.name}
-                  onClick={() => setActiveCategory(category.name)}
-                  variant={activeCategory === category.name ? "default" : "outline"}
-                  className={`
-                    px-6 py-3 rounded-lg text-sm font-medium transition-all duration-300
-                    ${activeCategory === category.name 
-                      ? "bg-primary text-primary-foreground shadow-lg" 
-                      : "border-border hover:border-primary/50 hover:bg-primary/5 text-muted-foreground hover:text-foreground"
-                    }
-                  `}
+                  variants={sectionVariants}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
                 >
-                  <IconComponent className="mr-2 w-4 h-4" />
-                  {category.name}
-                </Button>
+                  <Button
+                    onClick={() => setActiveCategory(category.name)}
+                    variant={activeCategory === category.name ? "default" : "outline"}
+                    className={`
+                      px-6 py-3 rounded-lg text-sm font-medium transition-all duration-300
+                      ${activeCategory === category.name 
+                        ? "bg-primary text-primary-foreground shadow-lg" 
+                        : "border-border hover:border-primary/50 hover:bg-primary/5 text-muted-foreground hover:text-foreground"
+                      }
+                    `}
+                  >
+                    <IconComponent className="mr-2 w-4 h-4" />
+                    {category.name}
+                  </Button>
+                </motion.div>
               );
             })}
-          </div>
+          </motion.div>
 
-          {/* Skills Sections */}
-          <div className="space-y-16">
-            {Object.entries(skillsData[activeCategory] || {}).map(([sectionName, skills]) => (
-              <div key={sectionName}>
-                {/* Section Header */}
-                <div className="flex items-center gap-4 mb-8">
-                  <div className="w-3 h-3 bg-primary rounded-full"></div>
+          <motion.div
+            className="space-y-16"
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+          >
+            {Object.entries(skillsData[activeCategory] || {}).map(([sectionName, skills], sectionIndex) => (
+              <motion.div key={sectionName} variants={sectionVariants}>
+                <motion.div
+                  className="flex items-center gap-4 mb-8"
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.5, delay: sectionIndex * 0.1 }}
+                >
+                  <motion.div
+                    className="w-3 h-3 bg-primary rounded-full"
+                    animate={{ scale: [1, 1.2, 1] }}
+                    transition={{ duration: 2, repeat: Infinity }}
+                  />
                   <h3 className="text-xl sm:text-2xl font-bold text-foreground">{sectionName}</h3>
-                </div>
+                </motion.div>
 
-                {/* Skills Grid */}
-                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+                <motion.div
+                  className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4"
+                  variants={containerVariants}
+                  initial="hidden"
+                  animate="visible"
+                >
                   {skills.map((skill, index) => {
                     const IconComponent = iconMap[skill.name] || TbCode;
                     return (
-                      <Card
+                      <motion.div
                         key={`${sectionName}-${index}`}
-                        className="group portfolio-card hover:border-primary/50 hover:-translate-y-0.5 transition-all duration-300 cursor-pointer !p-3 sm:!p-4"
+                        variants={skillCardVariants}
+                        whileHover="whileHover"
                       >
-                        {/* Icon and Name Row */}
-                        <div className="flex items-center gap-3 mb-3">
-                          <div style={skill.style} className="group-hover:scale-110 transition-transform duration-300">
-                            <IconComponent className="w-6 h-6" />
+                        <Card className="portfolio-card !p-3 sm:!p-4">
+                          <div className="flex items-center gap-3 mb-3">
+                            <motion.div
+                              style={skill.style}
+                              whileHover={{ scale: 1.2, rotate: 10 }}
+                              transition={{ duration: 0.3 }}
+                            >
+                              <IconComponent className="w-6 h-6" />
+                            </motion.div>
+                            <h4 className="font-medium text-foreground text-sm group-hover:text-primary transition-colors duration-300">
+                              {skill.name}
+                            </h4>
                           </div>
-                          <h4 className="font-medium text-foreground text-sm group-hover:text-primary transition-colors duration-300">
-                            {skill.name}
-                          </h4>
-                        </div>
 
-                        {/* Level Badge */}
-                        <Badge
-                          style={getLevelColor(sectionName)}
-                          className="text-xs font-medium px-2 py-1 rounded-md w-full justify-center transition-all duration-300 group-hover:scale-105"
-                        >
-                          {skill.level || sectionName}
-                        </Badge>
-                      </Card>
+                          <motion.div
+                            whileHover={{ scale: 1.05 }}
+                            transition={{ duration: 0.2 }}
+                          >
+                            <Badge
+                              style={getLevelColor(sectionName)}
+                              className="text-xs font-medium px-2 py-1 rounded-md w-full justify-center"
+                            >
+                              {skill.level || sectionName}
+                            </Badge>
+                          </motion.div>
+                        </Card>
+                      </motion.div>
                     );
                   })}
-                </div>
-              </div>
+                </motion.div>
+              </motion.div>
             ))}
-          </div>
-
+          </motion.div>
         </div>
       </div>
 

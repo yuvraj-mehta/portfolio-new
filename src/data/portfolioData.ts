@@ -128,7 +128,7 @@ export const achievements = {
     yearsExperience: "2+",
     totalProjects: "4",
     commits: "500+",
-    totalProblemsSolved: "459",
+    totalProblemsSolved: "500+",
   },
   awards: [
     {

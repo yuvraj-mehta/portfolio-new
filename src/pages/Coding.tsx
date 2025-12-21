@@ -7,8 +7,8 @@ import ThemeSwitcher from "@/components/ThemeSwitcher";
 import { useState, useEffect } from "react";
 import { codingPlatformsApi, AllPlatformStats } from "@/services/codingPlatformsApi";
 import { achievements, socialLinks } from "@/data/portfolioData";
+import { motion } from "framer-motion";
 
-// React Icons imports
 import {
   SiLeetcode,
   SiCodechef,
@@ -47,7 +47,6 @@ const Coding = () => {
   const [apiError, setApiError] = useState<string | null>(null);
   const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
 
-  // Fallback data from centralized achievements
   const fallbackData = {
     leetcode: {
       totalSolved: parseInt(achievements.leetcode.problemsSolved),
@@ -71,7 +70,6 @@ const Coding = () => {
     }
   };
 
-  // Fetch API data
   const fetchCodingData = async (isRefresh = false) => {
     if (isRefresh) {
       setIsRefreshing(true);
@@ -98,12 +96,10 @@ const Coding = () => {
     }
   };
 
-  // Initial data fetch
   useEffect(() => {
     fetchCodingData();
   }, []);
 
-  // Get current data (API data with fallback)
   const getCurrentData = () => {
     if (apiData) {
       return {
@@ -125,9 +121,8 @@ const Coding = () => {
   const targetTotal = currentData.leetcode + currentData.codeforces + currentData.codechef + currentData.gfg;
   const targetPlatforms = [currentData.leetcode, currentData.gfg, currentData.codechef, currentData.codeforces];
 
-  // Animated counter hook
   useEffect(() => {
-    const duration = 2000; // 2 seconds
+    const duration = 2000;
     const steps = 50;
     const stepDuration = duration / steps;
 
@@ -136,7 +131,7 @@ const Coding = () => {
     const timer = setInterval(() => {
       currentStep++;
       const progress = currentStep / steps;
-      const easeProgress = 1 - Math.pow(1 - progress, 3); // Ease out cubic
+      const easeProgress = 1 - Math.pow(1 - progress, 3);
 
       setAnimatedCounts({
         total: Math.round(targetTotal * easeProgress),
@@ -151,7 +146,6 @@ const Coding = () => {
     return () => clearInterval(timer);
   }, [targetTotal, ...targetPlatforms]);
 
-  // Generate coding stats with real-time data
   const codingStats = [
     {
       platform: "LeetCode",
@@ -215,10 +209,8 @@ const Coding = () => {
     }
   ];
 
-  // Calculate total dynamically
   const totalProblems = codingStats.reduce((sum, platform) => sum + platform.solved, 0);
 
-  // Enhanced coding achievements with real-time API data
   const codingAchievements = [
     {
       title: "LeetCode Consistency Champion",
@@ -258,44 +250,157 @@ const Coding = () => {
     }
   ];
 
+  const headerVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.6, ease: "easeOut" }
+    }
+  };
+
+  const backgroundVariants = {
+    animate: {
+      y: [0, -15, 0],
+      transition: { duration: 4, repeat: Infinity, ease: "easeInOut" }
+    }
+  };
+
+  const backgroundVariants2 = {
+    animate: {
+      y: [0, 15, 0],
+      transition: { duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }
+    }
+  };
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.15,
+        delayChildren: 0.1
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.5, ease: "easeOut" }
+    }
+  };
+
+  const platformCardVariants = {
+    hidden: { opacity: 0, scale: 0.9 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      transition: { duration: 0.5 }
+    },
+    whileHover: {
+      scale: 1.02,
+      boxShadow: "0 20px 25px -5px hsl(var(--primary) / 0.1)",
+      borderColor: "hsl(var(--primary) / 0.5)"
+    }
+  };
+
+  const achievementCardVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: (i: number) => ({
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.5, delay: i * 0.1 }
+    }),
+    whileHover: {
+      scale: 1.05,
+      y: -4,
+      transition: { duration: 0.3 }
+    }
+  };
+
   return (
     <div className="min-h-screen bg-background">
       <Navigation />
       <ThemeSwitcher />
       
       <div className="relative pt-20 pb-16 px-4 sm:px-6 lg:px-8 overflow-hidden">
-        {/* Enhanced Background Effects */}
         <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-primary/5"></div>
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl opacity-30"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-primary-glow/10 rounded-full blur-3xl opacity-20"></div>
+        <motion.div
+          className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl opacity-30"
+          variants={backgroundVariants}
+          animate="animate"
+        />
+        <motion.div
+          className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-primary-glow/10 rounded-full blur-3xl opacity-20"
+          variants={backgroundVariants2}
+          animate="animate"
+        />
         <div className="absolute top-3/4 left-1/2 w-64 h-64 bg-secondary/5 rounded-full blur-2xl opacity-15"></div>
         
         <div className="relative max-w-7xl mx-auto">
-          {/* Enhanced Header Section */}
-          <div className="text-center mb-12 fade-in">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-full text-primary text-sm font-medium mb-4 shadow-lg backdrop-blur-sm hover:shadow-xl hover:scale-105 transition-all duration-300">
-              <FaTrophy className="w-4 h-4 animate-pulse" />
+          <motion.div
+            className="text-center mb-12"
+            variants={headerVariants}
+            initial="hidden"
+            animate="visible"
+          >
+            <motion.div
+              className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-full text-primary text-sm font-medium mb-4 shadow-lg backdrop-blur-sm hover:shadow-xl hover:scale-105 transition-all duration-300"
+              whileHover={{ scale: 1.05 }}
+              transition={{ duration: 0.2 }}
+            >
+              <motion.div animate={{ rotate: 360 }} transition={{ duration: 2, repeat: Infinity }}>
+                <FaTrophy className="w-4 h-4" />
+              </motion.div>
               <span>Competitive Programming</span>
-              <div className="ml-1 w-2 h-2 bg-primary rounded-full animate-pulse"></div>
-            </div>
-            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 animate-fade-in-up">
+              <motion.div
+                className="ml-1 w-2 h-2 bg-primary rounded-full"
+                animate={{ opacity: [0.5, 1, 0.5] }}
+                transition={{ duration: 1.5, repeat: Infinity }}
+              />
+            </motion.div>
+            <motion.h1
+              className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+            >
               Algorithm <span className="gradient-text relative inline-block">
                 Mastery
-                <div className="absolute -bottom-1 left-0 right-0 h-0.5 bg-gradient-to-r from-primary to-primary-glow rounded-full opacity-60"></div>
+                <motion.div
+                  className="absolute -bottom-1 left-0 right-0 h-0.5 bg-gradient-to-r from-primary to-primary-glow rounded-full opacity-60"
+                  initial={{ scaleX: 0 }}
+                  animate={{ scaleX: 1 }}
+                  transition={{ duration: 0.8, delay: 0.3 }}
+                />
               </span>
-            </h1>
-            <p className="text-base text-muted-foreground max-w-2xl mx-auto leading-relaxed animate-fade-in-up animation-delay-300 mb-6">
+            </motion.h1>
+            <motion.p
+              className="text-base text-muted-foreground max-w-2xl mx-auto leading-relaxed mb-6"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+            >
               Solving <span className="text-primary font-semibold">{targetTotal}+ problems</span> across multiple platforms with{" "}
               <span className="text-primary font-semibold">consistent excellence</span> and{" "}
               <span className="text-primary font-semibold">competitive performance</span>
-            </p>
+            </motion.p>
 
-            {/* Data Status and Refresh */}
-            <div className="flex items-center justify-center gap-4 mb-6 animate-fade-in-up animation-delay-400">
+            <motion.div
+              className="flex items-center justify-center gap-4 mb-6"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+            >
               <div className="flex items-center gap-2 px-3 py-2 bg-card/50 rounded-lg border border-border/50">
                 {isLoading ? (
                   <>
-                    <FaSync className="w-4 h-4 text-muted-foreground animate-spin" />
+                    <motion.div animate={{ rotate: 360 }} transition={{ duration: 1, repeat: Infinity }}>
+                      <FaSync className="w-4 h-4 text-muted-foreground" />
+                    </motion.div>
                     <span className="text-sm text-muted-foreground">Loading...</span>
                   </>
                 ) : apiError ? (
@@ -312,208 +417,261 @@ const Coding = () => {
               </div>
 
               {lastUpdated && (
-                <div className="text-xs text-muted-foreground">
+                <motion.div className="text-xs text-muted-foreground" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
                   Updated: {lastUpdated.toLocaleTimeString()}
-                </div>
+                </motion.div>
               )}
 
-              <Button
-                onClick={() => fetchCodingData(true)}
-                disabled={isRefreshing}
-                size="sm"
-                variant="outline"
-                className="px-3 py-1"
-              >
-                {isRefreshing ? (
-                  <FaSync className="w-3 h-3 animate-spin" />
-                ) : (
-                  <FaSync className="w-3 h-3" />
-                )}
-              </Button>
-            </div>
+              <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }}>
+                <Button
+                  onClick={() => fetchCodingData(true)}
+                  disabled={isRefreshing}
+                  size="sm"
+                  variant="outline"
+                  className="px-3 py-1"
+                >
+                  {isRefreshing ? (
+                    <motion.div animate={{ rotate: 360 }} transition={{ duration: 1, repeat: Infinity }}>
+                      <FaSync className="w-3 h-3" />
+                    </motion.div>
+                  ) : (
+                    <FaSync className="w-3 h-3" />
+                  )}
+                </Button>
+              </motion.div>
+            </motion.div>
 
-            {/* Inline Stats Display */}
-            <div className="flex items-center justify-center gap-6 text-sm animate-fade-in-up animation-delay-600">
-              <div className="flex items-center gap-2 px-3 py-2 bg-primary/5 rounded-lg border border-primary/20">
+            <motion.div
+              className="flex items-center justify-center gap-6 text-sm"
+              variants={containerVariants}
+              initial="hidden"
+              animate="visible"
+            >
+              <motion.div variants={itemVariants} className="flex items-center gap-2 px-3 py-2 bg-primary/5 rounded-lg border border-primary/20">
                 <FaTrophy className="w-4 h-4 text-primary" />
                 <span className="text-muted-foreground font-medium">4 Platforms</span>
-              </div>
-              <div className="flex items-center gap-2 px-3 py-2 bg-primary/5 rounded-lg border border-primary/20">
+              </motion.div>
+              <motion.div variants={itemVariants} className="flex items-center gap-2 px-3 py-2 bg-primary/5 rounded-lg border border-primary/20">
                 <FaCode className="w-4 h-4 text-primary" />
                 <span className="text-2xl font-bold bg-gradient-to-r from-primary to-primary-glow bg-clip-text text-transparent">
                   {animatedCounts.total}
                 </span>
                 <span className="text-muted-foreground font-medium">Total Solved</span>
-              </div>
-              <div className="flex items-center gap-2 px-3 py-2 bg-accent/5 rounded-lg border border-accent/20">
+              </motion.div>
+              <motion.div variants={itemVariants} className="flex items-center gap-2 px-3 py-2 bg-accent/5 rounded-lg border border-accent/20">
                 <FaStar className="w-4 h-4 text-accent" />
                 <span className="text-muted-foreground font-medium">
                   LeetCode {apiData?.leetcode?.contests?.topPercentage ? `Top ${apiData.leetcode.contests.topPercentage}%` : achievements.leetcode.percentile}
                 </span>
-              </div>
-            </div>
-          </div>
+              </motion.div>
+            </motion.div>
+          </motion.div>
 
-          {/* Platform Statistics */}
-          <div className="mb-16">
-            <div className="flex items-center gap-3 mb-8">
+          <motion.div
+            className="mb-16"
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+          >
+            <motion.div className="flex items-center gap-3 mb-8" variants={itemVariants}>
               <FaChartLine className="w-6 h-6 text-primary" />
               <h2 className="text-2xl md:text-3xl font-bold text-foreground">Platform Statistics</h2>
-            </div>
+            </motion.div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <motion.div
+              className="grid grid-cols-1 md:grid-cols-2 gap-6"
+              variants={containerVariants}
+              initial="hidden"
+              animate="visible"
+            >
               {codingStats.map((platform, index) => {
                 const IconComponent = platform.icon;
                 return (
-                  <Card
+                  <motion.div
                     key={index}
-                    className="group relative overflow-hidden bg-card/70 border border-border/50 rounded-xl transition-all duration-300 hover:border-primary/50 hover:scale-[1.02] hover:shadow-lg hover:shadow-primary/15 backdrop-blur-sm"
+                    variants={platformCardVariants}
+                    whileHover="whileHover"
                   >
-                    <div className="p-6">
-                      {/* Header with platform icon and visit button */}
-                      <div className="flex items-start justify-between mb-4">
-                        <div className="flex items-center gap-3">
-                          <div className={`w-10 h-10 rounded-lg ${platform.bgColor} flex items-center justify-center`}>
-                            <IconComponent className={`w-6 h-6 ${platform.color}`} />
+                    <Card className="group relative overflow-hidden bg-card/70 border border-border/50 rounded-xl transition-all duration-300 backdrop-blur-sm">
+                      <div className="p-6">
+                        <div className="flex items-start justify-between mb-4">
+                          <div className="flex items-center gap-3">
+                            <motion.div
+                              className={`w-10 h-10 rounded-lg ${platform.bgColor} flex items-center justify-center`}
+                              whileHover={{ scale: 1.15, rotate: 10 }}
+                              transition={{ duration: 0.3 }}
+                            >
+                              <IconComponent className={`w-6 h-6 ${platform.color}`} />
+                            </motion.div>
+                            <div>
+                              <h3 className="text-lg font-semibold text-foreground mb-1">
+                                {platform.platform}
+                              </h3>
+                              <motion.div className="flex items-center gap-1 mt-1" whileHover={{ x: 2 }} transition={{ duration: 0.2 }}>
+                                <FaClock className="w-3 h-3 text-muted-foreground" />
+                                <span className="text-xs text-muted-foreground">Joined {platform.joinedDate}</span>
+                              </motion.div>
+                            </div>
                           </div>
-                          <div>
-                            <h3 className="text-lg font-semibold text-foreground mb-1">
-                              {platform.platform}
-                            </h3>
-                            <div className="flex items-center gap-1 mt-1">
-                              <FaClock className="w-3 h-3 text-muted-foreground" />
-                              <span className="text-xs text-muted-foreground">Joined {platform.joinedDate}</span>
+                          <div className="flex flex-col items-end gap-2">
+                            <motion.a href={platform.url} target="_blank" rel="noopener noreferrer" whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                              <Button
+                                size="sm"
+                                variant="outline"
+                                className="text-primary border-primary/50 hover:bg-primary/10 hover:border-primary text-xs px-3 py-1"
+                              >
+                                Visit
+                              </Button>
+                            </motion.a>
+                            <div className="flex items-center gap-1">
+                              <motion.div
+                                className="w-2 h-2 bg-primary rounded-full"
+                                animate={{ scale: [1, 1.3, 1] }}
+                                transition={{ duration: 1.5, repeat: Infinity }}
+                              />
+                              <span className="text-xs text-muted-foreground">Active</span>
                             </div>
                           </div>
                         </div>
-                        <div className="flex flex-col items-end gap-2">
-                          <a href={platform.url} target="_blank" rel="noopener noreferrer">
-                            <Button
-                              size="sm"
-                              variant="outline"
-                              className="text-primary border-primary/50 hover:bg-primary/10 hover:border-primary text-xs px-3 py-1"
+
+                        <div className="flex items-start justify-between mb-4">
+                          <div>
+                            <motion.div
+                              className="text-3xl font-bold text-foreground mb-1"
+                              initial={{ opacity: 0 }}
+                              animate={{ opacity: 1 }}
+                              transition={{ duration: 0.5, delay: index * 0.1 }}
                             >
-                              Visit
-                            </Button>
-                          </a>
-                          <div className="flex items-center gap-1">
-                            <div className="w-2 h-2 bg-primary rounded-full animate-pulse"></div>
-                            <span className="text-xs text-muted-foreground">Active</span>
+                              {animatedCounts.platforms[index]}
+                            </motion.div>
+                            <div className="text-sm text-muted-foreground">
+                              Problems Solved
+                            </div>
+                          </div>
+
+                          <div className="text-right space-y-2">
+                            <motion.div className="flex items-center justify-end gap-2" whileHover={{ x: -2 }} transition={{ duration: 0.2 }}>
+                              {platform.rating && (
+                                <>
+                                  <span className="text-xs text-foreground/70">Rating: {platform.rating}</span>
+                                  <MdTrendingUp className="w-3 h-3 text-primary-glow" />
+                                </>
+                              )}
+                            </motion.div>
+                            <motion.div className="flex items-center justify-end gap-2" whileHover={{ x: -2 }} transition={{ duration: 0.2 }}>
+                              <span className="text-xs text-foreground/70">
+                                {platform.platform === "LeetCode" && platform.rank}
+                                {platform.platform === "CodeChef" && platform.rank}
+                                {platform.platform === "GeeksforGeeks" && platform.streak}
+                                {platform.platform === "Codeforces" && platform.rank}
+                              </span>
+                              {platform.platform === "LeetCode" && <MdLeaderboard className="w-3 h-3 text-secondary" />}
+                              {platform.platform === "CodeChef" && <FaMedal className="w-3 h-3 text-accent" />}
+                              {platform.platform === "GeeksforGeeks" && <FaFire className="w-3 h-3 text-primary" />}
+                              {platform.platform === "Codeforces" && <FaBolt className="w-3 h-3 text-secondary" />}
+                            </motion.div>
                           </div>
                         </div>
-                      </div>
 
-                      <div className="flex items-start justify-between mb-4">
-                        {/* Main problem count */}
-                        <div>
-                          <div className="text-3xl font-bold text-foreground mb-1">
-                            {animatedCounts.platforms[index]}
-                          </div>
-                          <div className="text-sm text-muted-foreground">
-                            Problems Solved
-                          </div>
-                        </div>
-
-                        {/* Stats with icons */}
-                        <div className="text-right space-y-2">
-                          <div className="flex items-center justify-end gap-2">
-                            {platform.rating && (
-                              <>
-                                <span className="text-xs text-foreground/70">Rating: {platform.rating}</span>
-                                <MdTrendingUp className="w-3 h-3 text-primary-glow" />
-                              </>
-                            )}
-                          </div>
-                          <div className="flex items-center justify-end gap-2">
-                            <span className="text-xs text-foreground/70">
-                              {platform.platform === "LeetCode" && platform.rank}
-                              {platform.platform === "CodeChef" && platform.rank}
-                              {platform.platform === "GeeksforGeeks" && platform.streak}
-                              {platform.platform === "Codeforces" && platform.rank}
-                            </span>
-                            {platform.platform === "LeetCode" && <MdLeaderboard className="w-3 h-3 text-secondary" />}
-                            {platform.platform === "CodeChef" && <FaMedal className="w-3 h-3 text-accent" />}
-                            {platform.platform === "GeeksforGeeks" && <FaFire className="w-3 h-3 text-primary" />}
-                            {platform.platform === "Codeforces" && <FaBolt className="w-3 h-3 text-secondary" />}
-                          </div>
-                        </div>
+                        <motion.div className="text-xs text-muted-foreground border-t border-border/50 pt-3" whileHover={{ color: "hsl(var(--primary))" }} transition={{ duration: 0.2 }}>
+                          {platform.platform === "LeetCode" && `Solved ${platform.solved}+ problems across all difficulty levels`}
+                          {platform.platform === "CodeChef" && `${platform.rank} with ${apiData?.codechef?.contests?.attendedCount || 9} contests attended`}
+                          {platform.platform === "GeeksforGeeks" && `Solved ${platform.solved}+ problems with ${apiData?.gfg?.profile?.currentStreak || 7} day current streak`}
+                          {platform.platform === "Codeforces" && `${platform.rank} with ${apiData?.codeforces?.contests?.attendedCount || 7} contests attended`}
+                        </motion.div>
                       </div>
-
-                      {/* Bottom description text */}
-                      <div className="text-xs text-muted-foreground border-t border-border/50 pt-3">
-                        {platform.platform === "LeetCode" && `Solved ${platform.solved}+ problems across all difficulty levels`}
-                        {platform.platform === "CodeChef" && `${platform.rank} with ${apiData?.codechef?.contests?.attendedCount || 9} contests attended`}
-                        {platform.platform === "GeeksforGeeks" && `Solved ${platform.solved}+ problems with ${apiData?.gfg?.profile?.currentStreak || 7} day current streak`}
-                        {platform.platform === "Codeforces" && `${platform.rank} with ${apiData?.codeforces?.contests?.attendedCount || 7} contests attended`}
-                      </div>
-                    </div>
-                  </Card>
+                    </Card>
+                  </motion.div>
                 );
               })}
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
 
-
-          {/* Notable Achievements */}
-          <div>
-            <div className="flex items-center gap-3 mb-8">
+          <motion.div variants={containerVariants} initial="hidden" animate="visible">
+            <motion.div className="flex items-center gap-3 mb-8" variants={itemVariants}>
               <FaTrophy className="w-6 h-6 text-primary" />
               <h2 className="text-2xl md:text-3xl font-bold text-foreground">Notable Achievements</h2>
-            </div>
+            </motion.div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <motion.div
+              className="grid grid-cols-1 md:grid-cols-2 gap-4"
+              variants={containerVariants}
+              initial="hidden"
+              animate="visible"
+            >
               {codingAchievements.map((achievement, index) => {
                 const IconComponent = achievement.icon;
                 return (
-                  <Card
+                  <motion.div
                     key={index}
-                    className={`
-                      group bg-gradient-to-br ${achievement.bgColor}
-                      border ${achievement.borderColor}
-                      hover:border-primary/40 hover:bg-card/60
-                      transition-all duration-300 hover:scale-105 hover:-translate-y-1 cursor-pointer
-                      backdrop-blur-sm
-                    `}
+                    custom={index}
+                    variants={achievementCardVariants}
+                    whileHover="whileHover"
                   >
-                    <div className="p-4">
-                      <div className="flex items-start gap-3">
-                        <div className="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
-                          <IconComponent className={`w-5 h-5 ${achievement.color}`} />
-                        </div>
-                        <div className="flex-1">
-                          <div className="flex items-start justify-between mb-1">
-                            <h3 className="font-bold text-base text-foreground group-hover:text-primary transition-colors duration-300 leading-tight">
-                              {achievement.title}
-                            </h3>
-                            <Badge className={`
-                              ${achievement.color} bg-transparent border-current text-xs font-medium ml-2 flex-shrink-0
-                            `}>
-                              {achievement.metric}
-                            </Badge>
+                    <Card
+                      className={`
+                        group bg-gradient-to-br ${achievement.bgColor}
+                        border ${achievement.borderColor}
+                        hover:border-primary/40 hover:bg-card/60
+                        transition-all duration-300 cursor-pointer
+                        backdrop-blur-sm
+                      `}
+                    >
+                      <div className="p-4">
+                        <div className="flex items-start gap-3">
+                          <motion.div
+                            className="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center flex-shrink-0"
+                            whileHover={{ scale: 1.2, rotate: 10 }}
+                            transition={{ duration: 0.3 }}
+                          >
+                            <IconComponent className={`w-5 h-5 ${achievement.color}`} />
+                          </motion.div>
+                          <div className="flex-1">
+                            <div className="flex items-start justify-between mb-1">
+                              <h3 className="font-bold text-base text-foreground leading-tight">
+                                {achievement.title}
+                              </h3>
+                              <motion.div whileHover={{ scale: 1.1 }} transition={{ duration: 0.2 }}>
+                                <Badge className={`
+                                  ${achievement.color} bg-transparent border-current text-xs font-medium ml-2 flex-shrink-0
+                                `}>
+                                  {achievement.metric}
+                                </Badge>
+                              </motion.div>
+                            </div>
+                            <p className="text-sm text-muted-foreground leading-relaxed">
+                              {achievement.description}
+                            </p>
                           </div>
-                          <p className="text-sm text-muted-foreground leading-relaxed">
-                            {achievement.description}
-                          </p>
                         </div>
                       </div>
-                    </div>
-                  </Card>
+                    </Card>
+                  </motion.div>
                 );
               })}
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
 
-          {/* Progress Summary */}
-          <div className="mt-12 text-center">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-primary/10 rounded-full text-primary text-sm font-medium mb-4">
+          <motion.div
+            className="mt-12 text-center"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+          >
+            <motion.div
+              className="inline-flex items-center gap-2 px-3 py-1.5 bg-primary/10 rounded-full text-primary text-sm font-medium mb-4"
+              whileHover={{ scale: 1.05 }}
+              transition={{ duration: 0.2 }}
+            >
               <MdTrendingUp className="w-4 h-4" />
               <span>Continuous Growth</span>
-            </div>
+            </motion.div>
             <p className="text-sm text-muted-foreground max-w-2xl mx-auto">
               Actively solving problems and participating in contests to improve algorithmic thinking and competitive programming skills.
               Always looking for new challenges and opportunities to grow.
             </p>
-          </div>
+          </motion.div>
         </div>
       </div>
 

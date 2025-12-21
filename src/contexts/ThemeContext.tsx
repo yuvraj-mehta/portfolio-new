@@ -51,7 +51,7 @@ export const themes = [
 ];
 
 export const ThemeProvider = ({ children }: { children: ReactNode }) => {
-  const [theme, setTheme] = useState<Theme>('cyberpunk');
+  const [theme, setTheme] = useState<Theme>('cosmic-white');
 
   useEffect(() => {
     const savedTheme = localStorage.getItem('portfolio-theme') as Theme;
