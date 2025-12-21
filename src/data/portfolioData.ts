@@ -28,11 +28,7 @@ import {
   SiNextdotjs,
   SiExpress,
 } from "react-icons/si";
-import {
-  HiMail,
-  HiPhone,
-  HiLocationMarker,
-} from "react-icons/hi";
+import { HiMail, HiPhone, HiLocationMarker } from "react-icons/hi";
 import { Download } from "lucide-react";
 import { HiChatBubbleLeftRight } from "react-icons/hi2";
 import { BiGitCommit } from "react-icons/bi";
@@ -232,40 +228,110 @@ export const experiences = [
 // Helper function to get theme-aware color styles
 const getThemeColor = (colorName: string): React.CSSProperties => {
   const colorMap: { [key: string]: React.CSSProperties } = {
-    primary: { color: 'hsl(var(--primary))' },
-    accent: { color: 'hsl(var(--accent))' },
-    secondary: { color: 'hsl(var(--secondary))' },
-    success: { color: 'hsl(var(--skill-database))' },
-    info: { color: 'hsl(var(--skill-tools))' },
-    warning: { color: 'hsl(var(--skill-languages))' },
-    danger: { color: 'hsl(var(--destructive))' },
+    primary: { color: "hsl(var(--primary))" },
+    accent: { color: "hsl(var(--accent))" },
+    secondary: { color: "hsl(var(--secondary))" },
+    success: { color: "hsl(var(--skill-database))" },
+    info: { color: "hsl(var(--skill-tools))" },
+    warning: { color: "hsl(var(--skill-languages))" },
+    danger: { color: "hsl(var(--destructive))" },
   };
-  return colorMap[colorName] || { color: 'hsl(var(--primary))' };
+  return colorMap[colorName] || { color: "hsl(var(--primary))" };
 };
 
 export const skills = {
   "Web Development": {
     Frontend: [
-      { name: "React", level: "Advanced", colorKey: "primary", style: getThemeColor("primary") },
-      { name: "JavaScript", level: "Advanced", colorKey: "warning", style: getThemeColor("warning") },
-      { name: "TypeScript", level: "Intermediate", colorKey: "primary", style: getThemeColor("primary") },
-      { name: "HTML5", level: "Advanced", colorKey: "danger", style: getThemeColor("danger") },
-      { name: "CSS3", level: "Advanced", colorKey: "primary", style: getThemeColor("primary") },
-      { name: "Tailwind CSS", level: "Advanced", colorKey: "info", style: getThemeColor("info") },
-      { name: "Next.js", level: "Intermediate", colorKey: "secondary", style: getThemeColor("secondary") },
-      { name: "Redux", level: "Intermediate", colorKey: "accent", style: getThemeColor("accent") },
-      { name: "Vue", level: "Beginner", colorKey: "success", style: getThemeColor("success") },
+      {
+        name: "React",
+        level: "Advanced",
+        colorKey: "primary",
+        style: getThemeColor("primary"),
+      },
+      {
+        name: "JavaScript",
+        level: "Advanced",
+        colorKey: "warning",
+        style: getThemeColor("warning"),
+      },
+      {
+        name: "TypeScript",
+        level: "Intermediate",
+        colorKey: "primary",
+        style: getThemeColor("primary"),
+      },
+      {
+        name: "HTML5",
+        level: "Advanced",
+        colorKey: "danger",
+        style: getThemeColor("danger"),
+      },
+      {
+        name: "CSS3",
+        level: "Advanced",
+        colorKey: "primary",
+        style: getThemeColor("primary"),
+      },
+      {
+        name: "Tailwind CSS",
+        level: "Advanced",
+        colorKey: "info",
+        style: getThemeColor("info"),
+      },
+      {
+        name: "Next.js",
+        level: "Intermediate",
+        colorKey: "secondary",
+        style: getThemeColor("secondary"),
+      },
+      {
+        name: "Redux",
+        level: "Intermediate",
+        colorKey: "accent",
+        style: getThemeColor("accent"),
+      },
+      {
+        name: "Vue",
+        level: "Beginner",
+        colorKey: "success",
+        style: getThemeColor("success"),
+      },
     ],
     Backend: [
-      { name: "Node.js", level: "Intermediate", colorKey: "success", style: getThemeColor("success") },
-      { name: "RESTful APIs", level: "Intermediate", colorKey: "info", style: getThemeColor("info") },
-      { name: "Express.js", level: "Intermediate", colorKey: "secondary", style: getThemeColor("secondary") },
+      {
+        name: "Node.js",
+        level: "Intermediate",
+        colorKey: "success",
+        style: getThemeColor("success"),
+      },
+      {
+        name: "RESTful APIs",
+        level: "Intermediate",
+        colorKey: "info",
+        style: getThemeColor("info"),
+      },
+      {
+        name: "Express.js",
+        level: "Intermediate",
+        colorKey: "secondary",
+        style: getThemeColor("secondary"),
+      },
     ],
   },
   Database: {
     Database: [
-      { name: "MongoDB", level: "Intermediate", colorKey: "success", style: getThemeColor("success") },
-      { name: "SQL", level: "Intermediate", colorKey: "primary", style: getThemeColor("primary") },
+      {
+        name: "MongoDB",
+        level: "Intermediate",
+        colorKey: "success",
+        style: getThemeColor("success"),
+      },
+      {
+        name: "SQL",
+        level: "Intermediate",
+        colorKey: "primary",
+        style: getThemeColor("primary"),
+      },
       {
         name: "Database Design",
         level: "Intermediate",
@@ -276,19 +342,64 @@ export const skills = {
   },
   Languages: {
     Languages: [
-      { name: "JavaScript", level: "Advanced", colorKey: "warning", style: getThemeColor("warning") },
-      { name: "TypeScript", level: "Intermediate", colorKey: "primary", style: getThemeColor("primary") },
-      { name: "C++", level: "Advanced", colorKey: "primary", style: getThemeColor("primary") },
-      { name: "Java", level: "Intermediate", colorKey: "danger", style: getThemeColor("danger") },
-      { name: "Python", level: "Beginner", colorKey: "warning", style: getThemeColor("warning") },
+      {
+        name: "JavaScript",
+        level: "Advanced",
+        colorKey: "warning",
+        style: getThemeColor("warning"),
+      },
+      {
+        name: "TypeScript",
+        level: "Intermediate",
+        colorKey: "primary",
+        style: getThemeColor("primary"),
+      },
+      {
+        name: "C++",
+        level: "Advanced",
+        colorKey: "primary",
+        style: getThemeColor("primary"),
+      },
+      {
+        name: "Java",
+        level: "Intermediate",
+        colorKey: "danger",
+        style: getThemeColor("danger"),
+      },
+      {
+        name: "Python",
+        level: "Beginner",
+        colorKey: "warning",
+        style: getThemeColor("warning"),
+      },
     ],
   },
   Tools: {
     Tools: [
-      { name: "Git & GitHub", level: "Advanced", colorKey: "danger", style: getThemeColor("danger") },
-      { name: "VS Code", level: "Advanced", colorKey: "primary", style: getThemeColor("primary") },
-      { name: "Webpack", level: "Intermediate", colorKey: "primary", style: getThemeColor("primary") },
-      { name: "Docker", level: "Beginner", colorKey: "primary", style: getThemeColor("primary") },
+      {
+        name: "Git & GitHub",
+        level: "Advanced",
+        colorKey: "danger",
+        style: getThemeColor("danger"),
+      },
+      {
+        name: "VS Code",
+        level: "Advanced",
+        colorKey: "primary",
+        style: getThemeColor("primary"),
+      },
+      {
+        name: "Webpack",
+        level: "Intermediate",
+        colorKey: "primary",
+        style: getThemeColor("primary"),
+      },
+      {
+        name: "Docker",
+        level: "Beginner",
+        colorKey: "primary",
+        style: getThemeColor("primary"),
+      },
     ],
   },
 };
@@ -493,10 +604,9 @@ export const projects = [
 ];
 
 export const siteMetadata = {
-  title: "Yuvraj Mehta - Full Stack Developer",
-  titleTemplate: "%s | Yuvraj Mehta Portfolio",
-  description:
-    "Full Stack Developer • B.Tech CS Student • NIT Patna • Passionate about creating impactful digital solutions",
+  title: `${personalInfo.name} - ${personalInfo.title}`,
+  titleTemplate: `%s | ${personalInfo.name} Portfolio`,
+  description: personalInfo.tagline,
   ogImage: "",
   keywords: [
     "Full Stack Developer",
@@ -506,10 +616,10 @@ export const siteMetadata = {
     "Web Development",
     "NIT Patna",
   ],
-  author: "Yuvraj Mehta",
+  author: personalInfo.name,
   siteUrl: "https://yuvrajmehta.codes",
   image: "/public/yuvraj.png",
-  twitterUsername: "@yuvraj_mehta02",
+  twitterUsername: socialLinks.twitter.username,
   lang: "en",
   locale: "en_US",
 };
@@ -517,25 +627,25 @@ export const siteMetadata = {
 export const quickLinks = [
   {
     name: "Resume",
-    href: "/src/assets/Yuvraj_Resume.pdf",
+    href: personalInfo.resume,
     icon: "📄",
     external: true,
   },
   {
     name: "LeetCode",
-    href: "https://leetcode.com/u/holaGuy/",
+    href: socialLinks.leetcode.url,
     icon: "⚡",
     external: true,
   },
   {
     name: "GeeksforGeeks",
-    href: "https://www.geeksforgeeks.org/user/yuvrajmevbrx/",
+    href: socialLinks.geeksforgeeks.url,
     icon: "🟢",
     external: true,
   },
   {
     name: "CodeChef",
-    href: "https://www.codechef.com/users/quick_unity_53",
+    href: socialLinks.codechef.url,
     icon: "👨‍🍳",
     external: true,
   },
@@ -805,10 +915,30 @@ export const overviewData = {
 };
 
 export const pageInterests = [
-  { icon: FaRobot, name: "Robotics", description: "Building combat & soccer bots", color: "text-primary" },
-  { icon: FaRunning, name: "Athletics", description: "Bronze in 50m Hurdles", color: "text-accent" },
-  { icon: FaPuzzlePiece, name: "Problem Solving", description: "Competitive programming", color: "text-secondary" },
-  { icon: FaBullseye, name: "Mentoring", description: "Leading workshops", color: "text-destructive" },
+  {
+    icon: FaRobot,
+    name: "Robotics",
+    description: "Building combat & soccer bots",
+    color: "text-primary",
+  },
+  {
+    icon: FaRunning,
+    name: "Athletics",
+    description: "Bronze in 50m Hurdles",
+    color: "text-accent",
+  },
+  {
+    icon: FaPuzzlePiece,
+    name: "Problem Solving",
+    description: "Competitive programming",
+    color: "text-secondary",
+  },
+  {
+    icon: FaBullseye,
+    name: "Mentoring",
+    description: "Leading workshops",
+    color: "text-destructive",
+  },
 ];
 
 export const educationTimeline = [
@@ -820,17 +950,34 @@ export const educationTimeline = [
     institution: "National Institute of Technology, Patna",
     degree: "B.Tech in Computer Science and Engineering",
     location: "Patna, Bihar",
-    description: "Pursuing comprehensive computer science education with focus on algorithms, data structures, and modern software development practices. Active participant in technical clubs and research projects.",
+    description:
+      "Pursuing comprehensive computer science education with focus on algorithms, data structures, and modern software development practices. Active participant in technical clubs and research projects.",
     keyPoints: {
-      courses: ["Data Structures & Algorithms", "Database Management Systems", "Operating Systems", "Computer Networks"],
-      achievements: ["Maintaining CGPA of 7.69/10", "Merit List Recognition", "Technical Workshop Facilitation", "Competitive Programming Participant"],
+      courses: [
+        "Data Structures & Algorithms",
+        "Database Management Systems",
+        "Operating Systems",
+        "Computer Networks",
+      ],
+      achievements: [
+        "Maintaining CGPA of 7.69/10",
+        "Merit List Recognition",
+        "Technical Workshop Facilitation",
+        "Competitive Programming Participant",
+      ],
       activities: [
         { role: "Class Representative", detail: "CSE Department" },
-        { role: "Competitive Programming Participant", detail: "Multiple Contests" },
-        { role: "Robotics Club Member", detail: "Building Combat & Soccer Bots" },
-        { role: "MUN 2023", detail: "Best Delegate Award" }
-      ]
-    }
+        {
+          role: "Competitive Programming Participant",
+          detail: "Multiple Contests",
+        },
+        {
+          role: "Robotics Club Member",
+          detail: "Building Combat & Soccer Bots",
+        },
+        { role: "MUN 2023", detail: "Best Delegate Award" },
+      ],
+    },
   },
   {
     id: 1,
@@ -839,11 +986,17 @@ export const educationTimeline = [
     institution: "Pragya Bharti Public School, Gaya",
     degree: "Class XII (CBSE)",
     location: "Gaya, Bihar",
-    description: "Completed higher secondary education with focus on science and mathematics subjects.",
+    description:
+      "Completed higher secondary education with focus on science and mathematics subjects.",
     keyPoints: {
       courses: ["Physics", "Chemistry", "Mathematics", "Computer Science"],
-      achievements: ["Scored 88.8% in CBSE Class 12", "School Merit List", "Perfect Attendance", "Academic Excellence Award"]
-    }
+      achievements: [
+        "Scored 88.8% in CBSE Class 12",
+        "School Merit List",
+        "Perfect Attendance",
+        "Academic Excellence Award",
+      ],
+    },
   },
   {
     id: 2,
@@ -852,12 +1005,16 @@ export const educationTimeline = [
     institution: "Pragya Bharti Public School, Gaya",
     degree: "Class X (CBSE)",
     location: "Gaya, Bihar",
-    description: "Completed secondary education with strong foundation in core subjects.",
+    description:
+      "Completed secondary education with strong foundation in core subjects.",
     keyPoints: {
       courses: ["Science", "Mathematics", "Social Studies", "English", "Hindi"],
-      achievements: ["Scored 90% in CBSE Class 10", "Academic Excellence Award"]
-    }
-  }
+      achievements: [
+        "Scored 90% in CBSE Class 10",
+        "Academic Excellence Award",
+      ],
+    },
+  },
 ];
 
 export const certificationsList = [
@@ -865,10 +1022,11 @@ export const certificationsList = [
     title: "Web Development Bootcamp",
     issuer: "Udemy",
     year: "2023",
-    description: "Comprehensive full-stack web development course covering HTML, CSS, JavaScript, React, and Node.js",
+    description:
+      "Comprehensive full-stack web development course covering HTML, CSS, JavaScript, React, and Node.js",
     badge: FaGlobe,
-    colorStyle: { color: 'hsl(var(--primary))' }
-  }
+    colorStyle: { color: "hsl(var(--primary))" },
+  },
 ];
 
 export const contactMethods = [
@@ -878,7 +1036,7 @@ export const contactMethods = [
     value: personalInfo.email,
     href: socialLinks.email.url,
     preferred: true,
-    responseTime: "Within 24 hours"
+    responseTime: "Within 24 hours",
   },
   {
     icon: HiPhone,
@@ -886,7 +1044,7 @@ export const contactMethods = [
     value: personalInfo.phone,
     href: `tel:${personalInfo.phone}`,
     preferred: false,
-    responseTime: "For urgent matters"
+    responseTime: "For urgent matters",
   },
   {
     icon: HiLocationMarker,
@@ -894,7 +1052,7 @@ export const contactMethods = [
     value: personalInfo.location,
     href: null,
     preferred: false,
-    responseTime: "Available for meetings"
+    responseTime: "Available for meetings",
   },
   {
     icon: FaLinkedin,
@@ -902,8 +1060,8 @@ export const contactMethods = [
     value: socialLinks.linkedin.username,
     href: socialLinks.linkedin.url,
     preferred: true,
-    responseTime: "Within 12 hours"
-  }
+    responseTime: "Within 12 hours",
+  },
 ];
 
 export const socialMediaLinks = [
@@ -912,37 +1070,37 @@ export const socialMediaLinks = [
     icon: FaGithub,
     href: socialLinks.github.url,
     description: "Check out my code",
-    colorStyle: { color: 'hsl(var(--secondary))' },
+    colorStyle: { color: "hsl(var(--secondary))" },
     bgColor: "bg-secondary/20",
-    borderColor: "border-secondary/30"
+    borderColor: "border-secondary/30",
   },
   {
     name: "LinkedIn",
     icon: FaLinkedin,
     href: socialLinks.linkedin.url,
     description: "Let's connect professionally",
-    colorStyle: { color: 'hsl(var(--primary))' },
+    colorStyle: { color: "hsl(var(--primary))" },
     bgColor: "bg-primary/20",
-    borderColor: "border-primary/30"
+    borderColor: "border-primary/30",
   },
   {
     name: "Instagram",
     icon: FaInstagram,
     href: socialLinks.instagram.url,
     description: "Follow for updates",
-    colorStyle: { color: 'hsl(var(--accent))' },
+    colorStyle: { color: "hsl(var(--accent))" },
     bgColor: "bg-accent/20",
-    borderColor: "border-accent/30"
+    borderColor: "border-accent/30",
   },
   {
     name: "Email",
     icon: HiMail,
     href: socialLinks.email.url,
     description: "Send me a message",
-    colorStyle: { color: 'hsl(var(--destructive))' },
+    colorStyle: { color: "hsl(var(--destructive))" },
     bgColor: "bg-destructive/20",
-    borderColor: "border-destructive/30"
-  }
+    borderColor: "border-destructive/30",
+  },
 ];
 
 export const footerData = {
