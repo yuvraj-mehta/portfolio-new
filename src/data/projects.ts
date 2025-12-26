@@ -1,9 +1,19 @@
-export const projects = [
+import { Project } from "./types";
+
+const slugify = (s: string) =>
+  s
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
+
+export const projects: Project[] = [
   {
+    id: "proj-bookhive",
+    slug: "bookhive",
     title: "BookHive",
     name: "BookHive",
     description:
-      "BookNest is a full-stack library management system with distinct user and admin roles. It features book and PYQ management, a borrowing system, OTP-verified authentication, and separate dashboards. Built with React, Node.js, Express.js, and MongoDB.",
+      "BookHive is a full-stack library management system with distinct user and admin roles. It features book and PYQ management, a borrowing system, OTP-verified authentication, and separate dashboards. Built with React, Node.js, Express.js, and MongoDB.",
     image:
       "https://cdn.builder.io/api/v1/image/assets%2F911edf0abfc44540bba885225b62aa26%2F6aff8a4cc2a44603904ec06dfbd17734?format=webp&width=2880&height=1560",
     category: "Full Stack",
@@ -30,6 +40,8 @@ export const projects = [
     ],
   },
   {
+    id: "proj-portfolio",
+    slug: "portfolio-website",
     title: "Portfolio Website",
     name: "Portfolio Website",
     description:
@@ -52,6 +64,8 @@ export const projects = [
     ],
   },
   {
+    id: "proj-ecoguardian",
+    slug: "ecoguardian",
     title: "EcoGuardian",
     name: "EcoGuardian",
     description:
@@ -74,6 +88,8 @@ export const projects = [
     ],
   },
   {
+    id: "proj-stickify",
+    slug: "stickify",
     title: "Stickify",
     name: "Stickify",
     description:

@@ -1,5 +1,8 @@
-export const education = [
+import { EducationItem, EducationTimelineItem } from "./types";
+
+export const education: EducationItem[] = [
   {
+    id: "edu-btech-nitp",
     level: "Bachelor of Technology",
     title: "B.Tech in Computer Science and Engineering",
     institution: "National Institute of Technology, Patna",
@@ -26,6 +29,7 @@ export const education = [
     ],
   },
   {
+    id: "edu-class-xii",
     level: "Higher Secondary",
     title: "Class XII (CBSE)",
     institution: "Pragya Bharti Public School, Gaya",
@@ -44,6 +48,7 @@ export const education = [
     achievements: ["Scored 88.88% in CBSE Class 12", "School Merit List"],
   },
   {
+    id: "edu-class-x",
     level: "Secondary",
     title: "Class X (CBSE)",
     institution: "Pragya Bharti Public School, Gaya",
@@ -68,7 +73,7 @@ export const education = [
   },
 ];
 
-export const educationTimeline = [
+export const educationTimeline: EducationTimelineItem[] = [
   {
     id: 0,
     status: "Currently Pursuing",
@@ -94,10 +99,6 @@ export const educationTimeline = [
       ],
       activities: [
         { role: "Class Representative", detail: "CSE Department" },
-        {
-          role: "Competitive Programming Participant",
-          detail: "Multiple Contests",
-        },
         {
           role: "Robotics Club Member",
           detail: "Building Combat & Soccer Bots",
@@ -141,29 +142,5 @@ export const educationTimeline = [
         "Academic Excellence Award",
       ],
     },
-  },
-];
-
-export const certifications = [
-  {
-    title: "Web Development Bootcamp",
-    issuer: "Udemy",
-    year: "2024",
-    description:
-      "Comprehensive full-stack web development course covering HTML, CSS, JavaScript, complete MERN stack, and deployment.",
-    featured: true,
-    category: "technical",
-  },
-];
-
-export const certificationsList = [
-  {
-    title: "Web Development Bootcamp",
-    issuer: "Udemy",
-    year: "2023",
-    description:
-      "Comprehensive full-stack web development course covering HTML, CSS, JavaScript, React, and Node.js",
-    badge: "FaGlobe",
-    colorStyle: { color: "hsl(var(--primary))" },
   },
 ];

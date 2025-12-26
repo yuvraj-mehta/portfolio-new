@@ -65,8 +65,8 @@ import {
   personalInfo,
   socialLinks,
   achievements,
-  skills,
   projects,
+  skills,
   interests,
   overviewData,
 } from "@/data";

@@ -1,5 +1,8 @@
-export const experiences = [
+import { Experience } from "./types";
+
+export const experiences: Experience[] = [
   {
+    id: "exp-robotics-technical-member",
     title: "Technical Member",
     company: "Robotics Club, NIT Patna",
     location: "NIT Patna",
@@ -16,6 +19,7 @@ export const experiences = [
     skills: ["Arduino", "Mechanical Design", "Team Leadership"],
   },
   {
+    id: "exp-cse-class-representative",
     title: "Class Representative",
     company: "Computer Science Department, NIT Patna",
     location: "NIT Patna",
@@ -37,6 +41,7 @@ export const experiences = [
     ],
   },
   {
+    id: "exp-hackathons-team-leader",
     title: "Team Leader",
     company: "Hackathons (including Smart India Hackathon)",
     location: "NIT Patna & Remote",

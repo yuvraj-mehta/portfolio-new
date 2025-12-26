@@ -1,4 +1,4 @@
-import { personalInfo, socialLinks } from "./commonData";
+import { personalInfo, socialLinks } from "./common";
 import { HiMail, HiPhone, HiLocationMarker } from "react-icons/hi";
 import { FaLinkedin } from "react-icons/fa";
 
@@ -35,4 +35,32 @@ export const contactMethods = [
     preferred: true,
     responseTime: "Within 12 hours",
   },
+];
+
+export const quickLinks = [
+  {
+    name: "Resume",
+    href: personalInfo.resume,
+    icon: "📄",
+    external: true,
+  },
+  {
+    name: "LeetCode",
+    href: socialLinks.leetcode.url,
+    icon: "⚡",
+    external: true,
+  },
+  {
+    name: "GeeksforGeeks",
+    href: socialLinks.geeksforgeeks.url,
+    icon: "🟢",
+    external: true,
+  },
+  {
+    name: "CodeChef",
+    href: socialLinks.codechef.url,
+    icon: "👨‍🍳",
+    external: true,
+  },
+  { name: "Projects", href: "/projects", icon: "🚀", external: false },
 ];

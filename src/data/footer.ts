@@ -1,5 +1,17 @@
-import { personalInfo, socialLinks, footerStats } from "./commonData";
-import { FaGithub, FaLinkedin } from "react-icons/fa";
+import { FooterStats } from "./types";
+import { personalInfo, socialLinks } from "./common";
+import { projects } from "./projects";
+import { FaGithub, FaLinkedin, FaInstagram } from "react-icons/fa";
+import { HiMail } from "react-icons/hi";
+
+export const footerStats: FooterStats = {
+  totalVisitors: "15,475",
+  lastUpdated: "August 16, 2025",
+  dsaRating: 5,
+  totalProblems: "500+",
+  totalProjects: `${projects.length}+`,
+  yearsExperience: "2+",
+};
 
 export const footerData = {
   brand: {
@@ -58,34 +70,6 @@ export const footerData = {
   },
 };
 
-export const quickLinks = [
-  {
-    name: "Resume",
-    href: personalInfo.resume,
-    icon: "📄",
-    external: true,
-  },
-  {
-    name: "LeetCode",
-    href: socialLinks.leetcode.url,
-    icon: "⚡",
-    external: true,
-  },
-  {
-    name: "GeeksforGeeks",
-    href: socialLinks.geeksforgeeks.url,
-    icon: "🟢",
-    external: true,
-  },
-  {
-    name: "CodeChef",
-    href: socialLinks.codechef.url,
-    icon: "👨‍🍳",
-    external: true,
-  },
-  { name: "Projects", href: "/projects", icon: "🚀", external: false },
-];
-
 export const socialMediaLinks = [
   {
     name: "GitHub",
@@ -107,7 +91,7 @@ export const socialMediaLinks = [
   },
   {
     name: "Instagram",
-    icon: "FaInstagram",
+    icon: FaInstagram,
     href: socialLinks.instagram.url,
     description: "Follow for updates",
     colorStyle: { color: "hsl(var(--accent))" },
@@ -116,7 +100,7 @@ export const socialMediaLinks = [
   },
   {
     name: "Email",
-    icon: "HiMail",
+    icon: HiMail,
     href: socialLinks.email.url,
     description: "Send me a message",
     colorStyle: { color: "hsl(var(--destructive))" },
