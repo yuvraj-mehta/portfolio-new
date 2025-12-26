@@ -1,8 +1,15 @@
 import { FooterStats } from "./types";
 import { personalInfo, socialLinks } from "./common";
 import { projects } from "./projects";
-import { FaGithub, FaLinkedin, FaInstagram } from "react-icons/fa";
+import {
+  FaGithub,
+  FaLinkedin,
+  FaInstagram,
+  FaFile,
+  FaLightbulb,
+} from "react-icons/fa";
 import { HiMail } from "react-icons/hi";
+import { SiLeetcode } from "react-icons/si";
 
 export const footerStats: FooterStats = {
   totalVisitors: "15,475",
@@ -30,28 +37,33 @@ export const footerData = {
       {
         name: "Resume",
         href: personalInfo.resume,
-        icon: "FileText",
+        icon: FaFile,
         external: true,
       },
       {
         name: "LeetCode",
         href: socialLinks.leetcode.url,
-        icon: "SiLeetcode",
+        icon: SiLeetcode,
         external: true,
       },
       {
         name: "GeeksforGeeks",
         href: socialLinks.geeksforgeeks.url,
-        icon: "SiGeeksforgeeks",
+        icon: FaFile,
         external: true,
       },
       {
         name: "CodeChef",
         href: socialLinks.codechef.url,
-        icon: "SiCodechef",
+        icon: FaFile,
         external: true,
       },
-      { name: "Projects", href: "/projects", icon: "Zap", external: false },
+      {
+        name: "Projects",
+        href: "/projects",
+        icon: FaLightbulb,
+        external: false,
+      },
     ],
     navigation: [
       { name: "Home", href: "/" },

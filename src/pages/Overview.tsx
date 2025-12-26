@@ -658,7 +658,7 @@ const Overview = () => {
                         initial="hidden"
                         animate="visible"
                       >
-                        {interests.map((interest, index) => {
+                        {overviewData.interestsAndHobbies.map((interest, index) => {
                           const IconComponent = interest.icon;
                           return (
                             <motion.div

@@ -6,14 +6,26 @@ import {
   FaEnvelope,
   FaGithub,
   FaLinkedin,
+  FaReact,
+  FaNodeJs,
+  FaDatabase,
+  FaTwitter,
 } from "react-icons/fa";
 import { Download, MessageCircle } from "lucide-react";
 import { BiGitCommit } from "react-icons/bi";
+import {
+  SiTypescript,
+  SiMongodb,
+  SiNextdotjs,
+  SiExpress,
+} from "react-icons/si";
 import { projects } from "./projects";
 import { achievements } from "./achievements";
 import { personalInfo, socialLinks } from "./common";
+import { interests } from "./interests";
 
 export const overviewData = {
+  interestsAndHobbies: interests.slice(0, 3),
   highlights: [
     {
       icon: FaGraduationCap,
@@ -115,12 +127,12 @@ export const overviewData = {
     },
   ],
   skillLevels: [
-    { name: "React", level: 90, category: "Frontend" },
-    { name: "Node.js", level: 85, category: "Backend" },
-    { name: "TypeScript", level: 80, category: "Language" },
-    { name: "MongoDB", level: 75, category: "Database" },
-    { name: "Next.js", level: 85, category: "Framework" },
-    { name: "Express", level: 80, category: "Backend" },
+    { name: "React", level: 90, category: "Frontend", icon: FaReact },
+    { name: "Node.js", level: 85, category: "Backend", icon: FaNodeJs },
+    { name: "TypeScript", level: 80, category: "Language", icon: SiTypescript },
+    { name: "MongoDB", level: 75, category: "Database", icon: SiMongodb },
+    { name: "Next.js", level: 85, category: "Framework", icon: SiNextdotjs },
+    { name: "Express", level: 80, category: "Backend", icon: SiExpress },
   ],
   currentStatus: {
     availability: personalInfo.status.availability,
@@ -132,7 +144,8 @@ export const overviewData = {
   },
   contactInfo: {
     email: personalInfo.email,
-    location: personalInfo.currentLocation,
+    location: personalInfo.location,
+    availability: personalInfo.status.availability,
     socialLinks: [
       {
         name: "GitHub",
@@ -145,6 +158,18 @@ export const overviewData = {
         icon: FaLinkedin,
         url: socialLinks.linkedin.url,
         color: "text-primary",
+      },
+      {
+        name: "Twitter",
+        icon: FaTwitter,
+        url: socialLinks.twitter.url,
+        color: "text-info",
+      },
+      {
+        name: "Email",
+        icon: FaEnvelope,
+        url: socialLinks.email.url,
+        color: "text-destructive",
       },
     ],
   },

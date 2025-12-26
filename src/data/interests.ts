@@ -17,11 +17,11 @@ export const interests: Interest[] = [
     color: "text-accent",
   },
   {
-    id: "problem-solving",
-    name: "Problem Solving",
-    description: "Competitive programming",
+    id: "competitive-programming",
+    name: "Competitive Programming",
+    description: "LeetCode, Codeforces & more",
     icon: FaPuzzlePiece,
-    color: "text-secondary",
+    color: "text-warning",
   },
   {
     id: "mentoring",
@@ -29,12 +29,5 @@ export const interests: Interest[] = [
     description: "Leading workshops",
     icon: FaBullseye,
     color: "text-destructive",
-  },
-  {
-    id: "competitive-programming",
-    name: "Competitive Programming",
-    description: "LeetCode, Codeforces & more",
-    icon: FaPuzzlePiece,
-    color: "text-warning",
   },
 ];
