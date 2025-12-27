@@ -21,7 +21,7 @@ export default function ChatbotMotionFixed() {
   const OPEN_KEY = "portfolio_chat_open";
   const hasLoadedRef = useRef<boolean>(false);
 
-  const persistMessages = (next: Message[]) => {
+  const persistMessages = (next: Message[]): void => {
     try {
       if (typeof window !== "undefined") {
         window.localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
@@ -121,7 +121,8 @@ export default function ChatbotMotionFixed() {
     setError(null);
     setLoading(true);
     setMessages((m) => {
-      const next = [...m, { role: "user", content: q }];
+      const userMsg: Message = { role: "user", content: q };
+      const next: Message[] = [...m, userMsg];
       persistMessages(next);
       return next;
     });
@@ -129,7 +130,8 @@ export default function ChatbotMotionFixed() {
     try {
       const answer = await askPortfolio(q);
       setMessages((m) => {
-        const next = [...m, { role: "assistant", content: answer }];
+        const assistantMsg: Message = { role: "assistant", content: answer };
+        const next: Message[] = [...m, assistantMsg];
         persistMessages(next);
         return next;
       });
