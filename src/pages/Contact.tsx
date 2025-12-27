@@ -36,9 +36,9 @@ import { toast } from "sonner";
 import {
   personalInfo,
   socialLinks,
+  socialMediaLinks,
   quickLinks,
   contactMethods,
-  socialMediaLinks,
 } from "@/data";
 import { motion, AnimatePresence } from "framer-motion";
 

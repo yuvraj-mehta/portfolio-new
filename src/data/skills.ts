@@ -1,11 +1,4 @@
-import { getThemeColor } from "./commonData";
-import { FaReact, FaNodeJs } from "react-icons/fa";
-import {
-  SiTypescript,
-  SiMongodb,
-  SiNextdotjs,
-  SiExpress,
-} from "react-icons/si";
+import { getThemeColor } from "./common";
 
 export const skills = {
   "Web Development": {
@@ -173,34 +166,9 @@ export const skills = {
 };
 
 export const techStack = [
-  {
-    name: "React",
-    icon: "R",
-    color: "from-primary to-primary-glow",
-    textColor: getThemeColor("primary"),
-  },
-  {
-    name: "Node.js",
-    icon: "N",
-    color: "from-skill-database to-accent",
-    textColor: getThemeColor("success"),
-  },
-  {
-    name: "MongoDB",
-    icon: "M",
-    color: "from-skill-languages to-accent",
-    textColor: getThemeColor("warning"),
-  },
-  {
-    name: "TypeScript",
-    icon: "TS",
-    color: "from-accent to-primary",
-    textColor: getThemeColor("accent"),
-  },
-  {
-    name: "Tailwind",
-    icon: "TW",
-    color: "from-skill-tools to-primary",
-    textColor: getThemeColor("info"),
-  },
+  { name: "React", icon: "R", color: "from-primary to-primary-glow" },
+  { name: "Node.js", icon: "N", color: "from-skill-database to-accent" },
+  { name: "MongoDB", icon: "M", color: "from-skill-languages to-accent" },
+  { name: "TypeScript", icon: "TS", color: "from-accent to-primary" },
+  { name: "Tailwind", icon: "TW", color: "from-skill-tools to-primary" },
 ];

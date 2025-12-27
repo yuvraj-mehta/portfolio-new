@@ -5,29 +5,27 @@ import {
   FaBriefcase,
   FaEnvelope,
   FaGithub,
+  FaLinkedin,
   FaReact,
   FaNodeJs,
-  FaLinkedin,
+  FaDatabase,
   FaTwitter,
 } from "react-icons/fa";
+import { Download, MessageCircle } from "lucide-react";
+import { BiGitCommit } from "react-icons/bi";
 import {
   SiTypescript,
   SiMongodb,
   SiNextdotjs,
   SiExpress,
 } from "react-icons/si";
-import { Download } from "lucide-react";
-import { HiChatBubbleLeftRight } from "react-icons/hi2";
-import { BiGitCommit } from "react-icons/bi";
-
-import {
-  personalInfo,
-  socialLinks,
-  achievements,
-  getThemeColor,
-} from "./commonData";
+import { projects } from "./projects";
+import { achievements } from "./achievements";
+import { personalInfo, socialLinks } from "./common";
+import { interests } from "./interests";
 
 export const overviewData = {
+  interestsAndHobbies: interests.slice(0, 3),
   highlights: [
     {
       icon: FaGraduationCap,
@@ -40,7 +38,7 @@ export const overviewData = {
     },
     {
       icon: FaCode,
-      title: achievements.stats.totalProjects,
+      title: `${projects.length}`,
       subtitle: "Full Stack",
       year: achievements.stats.yearsExperience,
       progress: 85,
@@ -50,7 +48,7 @@ export const overviewData = {
     {
       icon: FaTrophy,
       title: "DSA Expert",
-      subtitle: achievements.leetcode.problemsSolved + " Problems",
+      subtitle: `${achievements.leetcode.problemsSolved} Problems`,
       year: "LeetCode",
       progress: 90,
       trend: "+50 this week",
@@ -80,7 +78,7 @@ export const overviewData = {
       type: "download",
     },
     {
-      icon: HiChatBubbleLeftRight,
+      icon: MessageCircle,
       label: "Schedule Call",
       href: "/contact",
       type: "internal",
@@ -108,7 +106,6 @@ export const overviewData = {
       description: "Solved 50+ problems this month, reached 500+ total",
       time: "1 week ago",
       type: "achievement",
-      isLive: false,
       badge: "Achievement",
     },
     {
@@ -126,62 +123,53 @@ export const overviewData = {
       description: "Completed advanced Next.js course with App Router",
       time: "2 weeks ago",
       type: "learning",
-      isLive: false,
       badge: "Completed",
     },
   ],
   skillLevels: [
-    { name: "React", level: 90, icon: FaReact, category: "Frontend" },
-    { name: "Node.js", level: 85, icon: FaNodeJs, category: "Backend" },
-    { name: "TypeScript", level: 80, icon: SiTypescript, category: "Language" },
-    { name: "MongoDB", level: 75, icon: SiMongodb, category: "Database" },
-    { name: "Next.js", level: 85, icon: SiNextdotjs, category: "Framework" },
-    { name: "Express", level: 80, icon: SiExpress, category: "Backend" },
+    { name: "React", level: 90, category: "Frontend", icon: FaReact },
+    { name: "Node.js", level: 85, category: "Backend", icon: FaNodeJs },
+    { name: "TypeScript", level: 80, category: "Language", icon: SiTypescript },
+    { name: "MongoDB", level: 75, category: "Database", icon: SiMongodb },
+    { name: "Next.js", level: 85, category: "Framework", icon: SiNextdotjs },
+    { name: "Express", level: 80, category: "Backend", icon: SiExpress },
   ],
   currentStatus: {
     availability: personalInfo.status.availability,
     currentFocus: "Building Full-Stack Projects with Next.js",
     learning: "Advanced React Patterns & System Design",
     lookingFor: "Internships & Full-time Opportunities",
-    location: personalInfo.location + " (" + personalInfo.status.workMode + ")",
+    location: personalInfo.location,
     lastUpdated: "Updated 2 days ago",
   },
   contactInfo: {
     email: personalInfo.email,
-    phone: personalInfo.phone,
     location: personalInfo.location,
-    timezone: "IST (UTC +5:30)",
     availability: personalInfo.status.availability,
-    preferredContact: "Email or LinkedIn",
-    responseTime: "Within 24 hours",
     socialLinks: [
       {
         name: "GitHub",
         icon: FaGithub,
         url: socialLinks.github.url,
-        username: "@" + socialLinks.github.username,
-        color: "text-secondary hover:text-secondary-foreground",
+        color: "text-secondary",
       },
       {
         name: "LinkedIn",
         icon: FaLinkedin,
         url: socialLinks.linkedin.url,
-        username: socialLinks.linkedin.username,
-        color: "text-primary hover:text-primary-foreground",
+        color: "text-primary",
       },
       {
         name: "Twitter",
         icon: FaTwitter,
         url: socialLinks.twitter.url,
-        username: socialLinks.twitter.username,
-        color: "text-accent hover:text-accent-foreground",
+        color: "text-info",
       },
       {
         name: "Email",
         icon: FaEnvelope,
         url: socialLinks.email.url,
-        username: socialLinks.email.address,
-        color: "text-destructive hover:text-destructive-foreground",
+        color: "text-destructive",
       },
     ],
   },

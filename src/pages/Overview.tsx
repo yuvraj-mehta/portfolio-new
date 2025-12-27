@@ -65,8 +65,8 @@ import {
   personalInfo,
   socialLinks,
   achievements,
-  skills,
   projects,
+  skills,
   interests,
   overviewData,
 } from "@/data";
@@ -658,33 +658,35 @@ const Overview = () => {
                         initial="hidden"
                         animate="visible"
                       >
-                        {interests.map((interest, index) => {
-                          const IconComponent = interest.icon;
-                          return (
-                            <motion.div
-                              key={index}
-                              variants={listItemVariants}
-                              custom={index}
-                              whileHover={{ x: 5 }}
-                              className="flex items-center gap-3 p-2 rounded-lg bg-primary/10 hover:bg-primary/15 transition-all cursor-pointer"
-                            >
+                        {overviewData.interestsAndHobbies.map(
+                          (interest, index) => {
+                            const IconComponent = interest.icon;
+                            return (
                               <motion.div
-                                whileHover={{ scale: 1.2, rotate: 10 }}
-                                style={{ color: `hsl(var(--primary))` }}
+                                key={index}
+                                variants={listItemVariants}
+                                custom={index}
+                                whileHover={{ x: 5 }}
+                                className="flex items-center gap-3 p-2 rounded-lg bg-primary/10 hover:bg-primary/15 transition-all cursor-pointer"
                               >
-                                <IconComponent className="w-4 h-4" />
-                              </motion.div>
-                              <div className="flex-1 min-w-0">
-                                <div className="font-semibold text-sm text-foreground">
-                                  {interest.name}
+                                <motion.div
+                                  whileHover={{ scale: 1.2, rotate: 10 }}
+                                  style={{ color: `hsl(var(--primary))` }}
+                                >
+                                  <IconComponent className="w-4 h-4" />
+                                </motion.div>
+                                <div className="flex-1 min-w-0">
+                                  <div className="font-semibold text-sm text-foreground">
+                                    {interest.name}
+                                  </div>
+                                  <p className="text-xs text-foreground/70 line-clamp-1">
+                                    {interest.description}
+                                  </p>
                                 </div>
-                                <p className="text-xs text-foreground/70 line-clamp-1">
-                                  {interest.description}
-                                </p>
-                              </div>
-                            </motion.div>
-                          );
-                        })}
+                              </motion.div>
+                            );
+                          }
+                        )}
                       </motion.div>
 
                       <motion.div
