@@ -13,6 +13,7 @@ import Coding from "./pages/Coding";
 import Projects from "./pages/Projects";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
+import ChatbotMotionFixed from "./components/ChatbotMotionFixed";
 
 const queryClient = new QueryClient();
 
@@ -36,6 +37,8 @@ const App = () => (
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
+          {/* Floating portfolio Q&A chat */}
+          <ChatbotMotionFixed />
         </BrowserRouter>
       </TooltipProvider>
     </ThemeProvider>

@@ -26,9 +26,7 @@ const Projects = () => {
     const stepDuration = duration / steps;
 
     const targetCounts = {
-      totalProjects: parseInt(
-        achievements.stats.totalProjects.replace("+", "")
-      ),
+      totalProjects: projects.length,
       technologies: 8,
       liveProjects: projects.filter((p) => p.status === "Live").length,
     };
@@ -280,7 +278,7 @@ const Projects = () => {
               initial="hidden"
               animate="visible"
             >
-              <AnimatePresence mode="wait">
+              <AnimatePresence initial={false}>
                 {filteredProjects.map((project, index) => (
                   <motion.div
                     key={`${filter}-${index}`}
