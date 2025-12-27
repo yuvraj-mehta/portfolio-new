@@ -1,23 +1,32 @@
-Directory structure:
-src/data/
-├── about.ts
-├── achievements.ts
-├── certifications.ts
-├── common.ts
-├── contact.ts
-├── education.ts
-├── experiences.ts
-├── footer.ts
-├── index.ts
-├── interests.ts
-├── overview.ts
-├── projects.ts
-├── skills.ts
-└── types.ts
+/**
+ * CONSOLIDATED DATA FILE
+ *
+ * Directory Structure: src/data/
+ *
+ * This file contains all consolidated data from the data directory.
+ * Original files:
+ * - about.ts
+ * - achievements.ts
+ * - certifications.ts
+ * - common.ts
+ * - contact.ts
+ * - education.ts
+ * - experiences.ts
+ * - footer.ts
+ * - index.ts (exports only, not included)
+ * - interests.ts
+ * - overview.ts
+ * - projects.ts
+ * - skills.ts
+ * - types.ts
+ *
+ * ============================================================================
+ */
 
-================================================================================
-=== src/data/types.ts ===
-================================================================================
+// ============================================================================
+// 1. TYPES (from types.ts)
+// ============================================================================
+
 // TypeScript interfaces for canonical data layer (no implementations)
 
 // Centralized icon type for consistency
@@ -197,10 +206,10 @@ export interface SiteMetadata {
   locale: string;
 }
 
-================================================================================
-=== src/data/common.ts ===
-================================================================================
-import { SiteMetadata, PersonalInfo, SocialLinks } from "./types";
+// ============================================================================
+// 2. COMMON DATA (from common.ts)
+// ============================================================================
+
 import {
   FaRobot,
   FaRunning,
@@ -306,11 +315,9 @@ export const getThemeColor = (colorName: string): React.CSSProperties => {
   return colorMap[colorName] || { color: "hsl(var(--primary))" };
 };
 
-================================================================================
-=== src/data/interests.ts ===
-================================================================================
-import { Interest } from "./types";
-import { FaRobot, FaRunning, FaPuzzlePiece, FaBullseye } from "react-icons/fa";
+// ============================================================================
+// 3. INTERESTS (from interests.ts)
+// ============================================================================
 
 export const interests: Interest[] = [
   {
@@ -328,11 +335,11 @@ export const interests: Interest[] = [
     color: "text-accent",
   },
   {
-    id: "problem-solving",
-    name: "Problem Solving",
-    description: "Competitive programming",
+    id: "competitive-programming",
+    name: "Competitive Programming",
+    description: "LeetCode, Codeforces & more",
     icon: FaPuzzlePiece,
-    color: "text-secondary",
+    color: "text-warning",
   },
   {
     id: "mentoring",
@@ -341,19 +348,11 @@ export const interests: Interest[] = [
     icon: FaBullseye,
     color: "text-destructive",
   },
-  {
-    id: "competitive-programming",
-    name: "Competitive Programming",
-    description: "LeetCode, Codeforces & more",
-    icon: FaPuzzlePiece,
-    color: "text-warning",
-  },
 ];
 
-================================================================================
-=== src/data/achievements.ts ===
-================================================================================
-import { AchievementStats } from "./types";
+// ============================================================================
+// 4. ACHIEVEMENTS (from achievements.ts)
+// ============================================================================
 
 export const achievements: AchievementStats = {
   leetcode: {
@@ -420,196 +419,98 @@ export const achievements: AchievementStats = {
   ],
 };
 
-================================================================================
-=== src/data/projects.ts ===
-================================================================================
-import { Project } from "./types";
+// ============================================================================
+// 5. CERTIFICATIONS (from certifications.ts)
+// ============================================================================
 
-const slugify = (s: string) =>
-  s
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/(^-|-$)/g, "");
+import { FaGlobe } from "react-icons/fa";
 
-export const projects: Project[] = [
+export const certificationsList = [
   {
-    id: "proj-bookhive",
-    slug: "bookhive",
-    title: "BookHive",
-    name: "BookHive",
+    title: "Web Development Bootcamp",
+    issuer: "Udemy",
+    year: "2023",
     description:
-      "BookHive is a full-stack library management system with distinct user and admin roles. It features book and PYQ management, a borrowing system, OTP-verified authentication, and separate dashboards. Built with React, Node.js, Express.js, and MongoDB.",
-    image:
-      "https://cdn.builder.io/api/v1/image/assets%2F911edf0abfc44540bba885225b62aa26%2F6aff8a4cc2a44603904ec06dfbd17734?format=webp&width=2880&height=1560",
-    category: "Full Stack",
-    featured: true,
-    tags: ["React", "Redux Toolkit", "Node.js", "Express", "MongoDB", "JWT"],
-    techStack: [
-      "React",
-      "Redux Toolkit",
-      "Node.js",
-      "Express",
-      "MongoDB",
-      "JWT",
-    ],
-    demo: "https://bookhive-manager.vercel.app",
-    live: "https://bookhive-manager.vercel.app",
-    github: "https://github.com/yuvraj-mehta/Byteverse_NandiNinjas",
-    status: "Live",
-    features: [
-      "Full-stack library management system",
-      "User and admin role management",
-      "Book and PYQ management",
-      "OTP-verified authentication",
-      "Separate user and admin dashboards",
-    ],
-  },
-  {
-    id: "proj-portfolio",
-    slug: "portfolio-website",
-    title: "Portfolio Website",
-    name: "Portfolio Website",
-    description:
-      "Personal developer portfolio showcasing projects and skills. Designed and built a responsive single-page portfolio with smooth animations and dynamic navigation. Integrated a contact form using EmailJS and added a downloadable resume feature.",
-    image:
-      "https://cdn.builder.io/api/v1/image/assets%2F911edf0abfc44540bba885225b62aa26%2F564561b9219a409f8cd1139440589eac?format=webp&width=2880&height=1560",
-    category: "Frontend",
-    featured: true,
-    tags: ["React", "Tailwind CSS", "Framer Motion", "Vite"],
-    techStack: ["React", "Tailwind CSS", "Framer Motion", "Vite"],
-    demo: "https://yuvrajmehta.codes",
-    live: "https://yuvrajmehta.codes",
-    github: "https://github.com/yuvraj-mehta/My-Portfolio",
-    status: "Live",
-    features: [
-      "Responsive single-page portfolio",
-      "Smooth animations and dynamic navigation",
-      "Integrated contact form with EmailJS",
-      "Downloadable resume feature",
-    ],
-  },
-  {
-    id: "proj-ecoguardian",
-    slug: "ecoguardian",
-    title: "EcoGuardian",
-    name: "EcoGuardian",
-    description:
-      "An online community platform empowering individuals to collaborate on environmental projects, report cleanliness issues, access educational resources, and drive positive change for a cleaner, greener future. 🌍",
-    image:
-      "https://cdn.builder.io/api/v1/image/assets%2F911edf0abfc44540bba885225b62aa26%2F2fbbcced95b94a128c0a7b5e14c085a0?format=webp&width=2880&height=1560",
-    category: "Full Stack",
-    featured: true,
-    tags: ["HTML", "CSS", "JavaScript", "Node.js", "Express", "MongoDB"],
-    techStack: ["HTML", "CSS", "JavaScript", "Node.js", "Express", "MongoDB"],
-    demo: "https://yuvraj-mehta.github.io/EcoGuardian_prototype/",
-    live: "https://yuvraj-mehta.github.io/EcoGuardian_prototype/",
-    github: "https://github.com/yuvraj-mehta/EcoGuardian_prototype",
-    status: "Live",
-    features: [
-      "Environmental community platform",
-      "Project collaboration features",
-      "Cleanliness issue reporting",
-      "Educational resources access",
-    ],
-  },
-  {
-    id: "proj-stickify",
-    slug: "stickify",
-    title: "Stickify",
-    name: "Stickify",
-    description:
-      "This is a simple notes application built with React and Vite. It allows users to create, update, delete, and manage notes with different colors. The application uses Appwrite as the backend service for managing notes.",
-    image:
-      "https://cdn.builder.io/api/v1/image/assets%2F911edf0abfc44540bba885225b62aa26%2F66d04f4d2b8f4683a586836a1645fcd0?format=webp&width=2880&height=1560",
-    category: "Frontend",
-    featured: false,
-    tags: ["React", "Vite", "Tailwind CSS", "Appwrite"],
-    techStack: ["React", "Vite", "Tailwind CSS", "Appwrite"],
-    demo: "https://stickify-git-master-yuvraj-mehtas-projects.vercel.app/",
-    live: "https://stickify-git-master-yuvraj-mehtas-projects.vercel.app/",
-    github: "https://github.com/yuvraj-mehta/Stickify",
-    status: "Live",
-    features: [
-      "Simple notes application",
-      "Create, update, delete notes",
-      "Color-coded note organization",
-      "Appwrite backend integration",
-    ],
+      "Comprehensive full-stack web development course covering HTML, CSS, JavaScript, React, and Node.js",
+    badge: FaGlobe,
+    colorStyle: { color: "hsl(var(--primary))" },
   },
 ];
 
-================================================================================
-=== src/data/experiences.ts ===
-================================================================================
-import { Experience } from "./types";
+// ============================================================================
+// 6. CONTACT (from contact.ts)
+// ============================================================================
 
-export const experiences: Experience[] = [
+import { HiMail, HiPhone, HiLocationMarker } from "react-icons/hi";
+import { FaLinkedin, FaFile, FaLightbulb } from "react-icons/fa";
+import { SiLeetcode } from "react-icons/si";
+
+export const contactMethods = [
   {
-    id: "exp-robotics-technical-member",
-    title: "Technical Member",
-    company: "Robotics Club, NIT Patna",
-    location: "NIT Patna",
-    period: "December 2023 - Present",
-    type: "Technical",
-    status: "Currently Active",
-    description:
-      "Organized and facilitated 3+ workshops on designing and building robotic bots. Led a team of 4 to build a combat-ready battle bot, achieving 4th place among 15+ teams at NIT Patna's tech fest. Directed a team of 3 in designing and developing a soccer bot for the annual tech fest, enhancing hands-on robotics and teamwork skills.",
-    highlights: [
-      "4th place in tech fest",
-      "3+ workshops organized",
-      "Team of 4-7 members",
-    ],
-    skills: ["Arduino", "Mechanical Design", "Team Leadership"],
+    icon: HiMail,
+    label: "Email",
+    value: personalInfo.email,
+    href: socialLinks.email.url,
+    preferred: true,
+    responseTime: "Within 24 hours",
   },
   {
-    id: "exp-cse-class-representative",
-    title: "Class Representative",
-    company: "Computer Science Department, NIT Patna",
-    location: "NIT Patna",
-    period: "2023 - 2024",
-    type: "Leadership",
-    status: "Completed",
-    description:
-      "Served as the official representative for the Computer Science Engineering department for 3 consecutive semesters. Coordinated communication between faculty and students, organized department events and academic activities. Facilitated student concerns and feedback to administration, contributing to improved academic environment and student satisfaction.",
-    highlights: [
-      "3 semesters of service",
-      "Faculty-student coordination",
-      "Department event organization",
-    ],
-    skills: [
-      "Communication",
-      "Leadership",
-      "Event Management",
-      "Problem Resolution",
-    ],
+    icon: HiPhone,
+    label: "Phone",
+    value: personalInfo.phone,
+    href: `tel:${personalInfo.phone}`,
+    preferred: false,
+    responseTime: "For urgent matters",
   },
   {
-    id: "exp-hackathons-team-leader",
-    title: "Team Leader",
-    company: "Hackathons (including Smart India Hackathon)",
-    location: "NIT Patna & Remote",
-    period: "2023",
-    type: "Leadership",
-    description:
-      "Led teams in 4 major hackathons, including the prestigious Smart India Hackathon. Guided my team to qualify at the internal NIT Patna hackathon and advance to the national level. Oversaw all phases from ideation to development and presentation, ensuring effective collaboration and timely delivery of innovative solutions.",
-    highlights: [
-      "National level qualification",
-      "4 major hackathons",
-      "End-to-end project management",
-    ],
-    skills: [
-      "Problem Solving",
-      "Team Management",
-      "Presentation",
-      "Innovation",
-    ],
+    icon: HiLocationMarker,
+    label: "Location",
+    value: personalInfo.location,
+    href: null,
+    preferred: false,
+    responseTime: "Available for meetings",
+  },
+  {
+    icon: FaLinkedin,
+    label: "LinkedIn",
+    value: socialLinks.linkedin.username,
+    href: socialLinks.linkedin.url,
+    preferred: true,
+    responseTime: "Within 12 hours",
   },
 ];
 
-================================================================================
-=== src/data/education.ts ===
-================================================================================
-import { EducationItem, EducationTimelineItem } from "./types";
+export const quickLinks = [
+  {
+    name: "Resume",
+    href: personalInfo.resume,
+    icon: FaFile,
+    external: true,
+  },
+  {
+    name: "LeetCode",
+    href: socialLinks.leetcode.url,
+    icon: SiLeetcode,
+    external: true,
+  },
+  {
+    name: "GeeksforGeeks",
+    href: socialLinks.geeksforgeeks.url,
+    icon: FaFile,
+    external: true,
+  },
+  {
+    name: "CodeChef",
+    href: socialLinks.codechef.url,
+    icon: FaFile,
+    external: true,
+  },
+  { name: "Projects", href: "/projects", icon: FaLightbulb, external: false },
+];
+
+// ============================================================================
+// 7. EDUCATION (from education.ts)
+// ============================================================================
 
 export const education: EducationItem[] = [
   {
@@ -756,10 +657,201 @@ export const educationTimeline: EducationTimelineItem[] = [
   },
 ];
 
-================================================================================
-=== src/data/skills.ts ===
-================================================================================
-import { getThemeColor } from "./common";
+// ============================================================================
+// 8. EXPERIENCES (from experiences.ts)
+// ============================================================================
+
+export const experiences: Experience[] = [
+  {
+    id: "exp-robotics-technical-member",
+    title: "Technical Member",
+    company: "Robotics Club, NIT Patna",
+    location: "NIT Patna",
+    period: "December 2023 - Present",
+    type: "Technical",
+    status: "Currently Active",
+    description:
+      "Organized and facilitated 3+ workshops on designing and building robotic bots. Led a team of 4 to build a combat-ready battle bot, achieving 4th place among 15+ teams at NIT Patna's tech fest. Directed a team of 3 in designing and developing a soccer bot for the annual tech fest, enhancing hands-on robotics and teamwork skills.",
+    highlights: [
+      "4th place in tech fest",
+      "3+ workshops organized",
+      "Team of 4-7 members",
+    ],
+    skills: ["Arduino", "Mechanical Design", "Team Leadership"],
+  },
+  {
+    id: "exp-cse-class-representative",
+    title: "Class Representative",
+    company: "Computer Science Department, NIT Patna",
+    location: "NIT Patna",
+    period: "2023 - 2024",
+    type: "Leadership",
+    status: "Completed",
+    description:
+      "Served as the official representative for the Computer Science Engineering department for 3 consecutive semesters. Coordinated communication between faculty and students, organized department events and academic activities. Facilitated student concerns and feedback to administration, contributing to improved academic environment and student satisfaction.",
+    highlights: [
+      "3 semesters of service",
+      "Faculty-student coordination",
+      "Department event organization",
+    ],
+    skills: [
+      "Communication",
+      "Leadership",
+      "Event Management",
+      "Problem Resolution",
+    ],
+  },
+  {
+    id: "exp-hackathons-team-leader",
+    title: "Team Leader",
+    company: "Hackathons (including Smart India Hackathon)",
+    location: "NIT Patna & Remote",
+    period: "2023",
+    type: "Leadership",
+    description:
+      "Led teams in 4 major hackathons, including the prestigious Smart India Hackathon. Guided my team to qualify at the internal NIT Patna hackathon and advance to the national level. Oversaw all phases from ideation to development and presentation, ensuring effective collaboration and timely delivery of innovative solutions.",
+    highlights: [
+      "National level qualification",
+      "4 major hackathons",
+      "End-to-end project management",
+    ],
+    skills: [
+      "Problem Solving",
+      "Team Management",
+      "Presentation",
+      "Innovation",
+    ],
+  },
+];
+
+// ============================================================================
+// 9. PROJECTS (from projects.ts)
+// ============================================================================
+
+const slugify = (s: string) =>
+  s
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
+
+export const projects: Project[] = [
+  {
+    id: "proj-bookhive",
+    slug: "bookhive",
+    title: "BookHive",
+    name: "BookHive",
+    description:
+      "BookHive is a full-stack library management system with distinct user and admin roles. It features book and PYQ management, a borrowing system, OTP-verified authentication, and separate dashboards. Built with React, Node.js, Express.js, and MongoDB.",
+    image:
+      "https://cdn.builder.io/api/v1/image/assets%2F911edf0abfc44540bba885225b62aa26%2F6aff8a4cc2a44603904ec06dfbd17734?format=webp&width=2880&height=1560",
+    category: "Full Stack",
+    featured: true,
+    tags: ["React", "Redux Toolkit", "Node.js", "Express", "MongoDB", "JWT"],
+    techStack: [
+      "React",
+      "Redux Toolkit",
+      "Node.js",
+      "Express",
+      "MongoDB",
+      "JWT",
+    ],
+    demo: "https://bookhive-manager.vercel.app",
+    live: "https://bookhive-manager.vercel.app",
+    github: "https://github.com/yuvraj-mehta/Byteverse_NandiNinjas",
+    status: "Live",
+    features: [
+      "Full-stack library management system",
+      "User and admin role management",
+      "Book and PYQ management",
+      "OTP-verified authentication",
+      "Separate user and admin dashboards",
+    ],
+  },
+  {
+    id: "proj-portfolio",
+    slug: "portfolio-website",
+    title: "Portfolio Website",
+    name: "Portfolio Website",
+    description:
+      "Personal developer portfolio showcasing projects and skills. Designed and built a responsive single-page portfolio with smooth animations and dynamic navigation. Integrated a contact form using EmailJS and added a downloadable resume feature.",
+    image:
+      "https://cdn.builder.io/api/v1/image/assets%2F911edf0abfc44540bba885225b62aa26%2F564561b9219a409f8cd1139440589eac?format=webp&width=2880&height=1560",
+    category: "Frontend",
+    featured: true,
+    tags: ["React", "Tailwind CSS", "Framer Motion", "Vite"],
+    techStack: ["React", "Tailwind CSS", "Framer Motion", "Vite"],
+    demo: "https://yuvrajmehta.codes",
+    live: "https://yuvrajmehta.codes",
+    github: "https://github.com/yuvraj-mehta/My-Portfolio",
+    status: "Live",
+    features: [
+      "Responsive single-page portfolio",
+      "Smooth animations and dynamic navigation",
+      "Integrated contact form with EmailJS",
+      "Downloadable resume feature",
+    ],
+  },
+  {
+    id: "proj-ecoguardian",
+    slug: "ecoguardian",
+    title: "EcoGuardian",
+    name: "EcoGuardian",
+    description:
+      "An online community platform empowering individuals to collaborate on environmental projects, report cleanliness issues, access educational resources, and drive positive change for a cleaner, greener future. 🌍",
+    image:
+      "https://cdn.builder.io/api/v1/image/assets%2F911edf0abfc44540bba885225b62aa26%2F2fbbcced95b94a128c0a7b5e14c085a0?format=webp&width=2880&height=1560",
+    category: "Full Stack",
+    featured: true,
+    tags: ["HTML", "CSS", "JavaScript", "Node.js", "Express", "MongoDB"],
+    techStack: ["HTML", "CSS", "JavaScript", "Node.js", "Express", "MongoDB"],
+    demo: "https://yuvraj-mehta.github.io/EcoGuardian_prototype/",
+    live: "https://yuvraj-mehta.github.io/EcoGuardian_prototype/",
+    github: "https://github.com/yuvraj-mehta/EcoGuardian_prototype",
+    status: "Live",
+    features: [
+      "Environmental community platform",
+      "Project collaboration features",
+      "Cleanliness issue reporting",
+      "Educational resources access",
+    ],
+  },
+  {
+    id: "proj-stickify",
+    slug: "stickify",
+    title: "Stickify",
+    name: "Stickify",
+    description:
+      "This is a simple notes application built with React and Vite. It allows users to create, update, delete, and manage notes with different colors. The application uses Appwrite as the backend service for managing notes.",
+    image:
+      "https://cdn.builder.io/api/v1/image/assets%2F911edf0abfc44540bba885225b62aa26%2F66d04f4d2b8f4683a586836a1645fcd0?format=webp&width=2880&height=1560",
+    category: "Frontend",
+    featured: false,
+    tags: ["React", "Vite", "Tailwind CSS", "Appwrite"],
+    techStack: ["React", "Vite", "Tailwind CSS", "Appwrite"],
+    demo: "https://stickify-git-master-yuvraj-mehtas-projects.vercel.app/",
+    live: "https://stickify-git-master-yuvraj-mehtas-projects.vercel.app/",
+    github: "https://github.com/yuvraj-mehta/Stickify",
+    status: "Live",
+    features: [
+      "Simple notes application",
+      "Create, update, delete notes",
+      "Color-coded note organization",
+      "Appwrite backend integration",
+    ],
+  },
+];
+
+// ============================================================================
+// 10. SKILLS (from skills.ts)
+// ============================================================================
+
+import {
+  SiTypescript,
+  SiMongodb,
+  SiNextdotjs,
+  SiExpress,
+} from "react-icons/si";
+import { FaCode, FaReact, FaNodeJs, FaDatabase } from "react-icons/fa";
 
 export const skills = {
   "Web Development": {
@@ -934,41 +1026,21 @@ export const techStack = [
   { name: "Tailwind", icon: "TW", color: "from-skill-tools to-primary" },
 ];
 
-================================================================================
-=== src/data/certifications.ts ===
-================================================================================
-import { FaGlobe } from "react-icons/fa";
-
-export const certificationsList = [
-  {
-    title: "Web Development Bootcamp",
-    issuer: "Udemy",
-    year: "2023",
-    description:
-      "Comprehensive full-stack web development course covering HTML, CSS, JavaScript, React, and Node.js",
-    badge: FaGlobe,
-    colorStyle: { color: "hsl(var(--primary))" },
-  },
-];
-
-================================================================================
-=== src/data/about.ts ===
-================================================================================
-import { interests } from "./interests";
-import { achievements } from "./achievements";
-import { getThemeColor } from "./common";
-import { projects } from "./projects";
-
-const colorKeys = ["primary", "success", "accent", "danger"];
+// ============================================================================
+// 11. ABOUT (from about.ts)
+// ============================================================================
 
 export const aboutPageData = {
-  interests: interests.slice(0, 4).map((interest, index) => ({
-    icon: interest.icon,
-    name: interest.name,
-    description: interest.description,
-    colorKey: colorKeys[index],
-    style: getThemeColor(colorKeys[index]),
-  })),
+  interests: interests.slice(0, 4).map((interest, index) => {
+    const colorKeys = ["primary", "success", "accent", "danger"];
+    return {
+      icon: interest.icon,
+      name: interest.name,
+      description: interest.description,
+      colorKey: colorKeys[index],
+      style: getThemeColor(colorKeys[index]),
+    };
+  }),
   achievementStats: [
     {
       value: achievements.leetcode.rating,
@@ -999,34 +1071,137 @@ export const aboutPageData = {
 
 export const pageInterests = interests;
 
-================================================================================
-=== src/data/overview.ts ===
-================================================================================
-import {
-  FaGraduationCap,
-  FaCode,
-  FaTrophy,
-  FaBriefcase,
-  FaEnvelope,
-  FaGithub,
-  FaLinkedin,
-  FaReact,
-  FaNodeJs,
-  FaDatabase,
-} from "react-icons/fa";
+// ============================================================================
+// 12. FOOTER (from footer.ts)
+// ============================================================================
+
 import { Download, MessageCircle } from "lucide-react";
 import { BiGitCommit } from "react-icons/bi";
+import { HiMail } from "react-icons/hi";
+
+export const footerStats: FooterStats = {
+  totalVisitors: "15,475",
+  lastUpdated: "August 16, 2025",
+  dsaRating: 5,
+  totalProblems: "500+",
+  totalProjects: `${projects.length}+`,
+  yearsExperience: "2+",
+};
+
+export const footerData = {
+  brand: {
+    name: personalInfo.name,
+    title: personalInfo.title,
+    description:
+      "Full Stack Developer specializing in modern web technologies and algorithms, currently exploring the exciting world of Generative AI.",
+  },
+  contact: {
+    location: personalInfo.currentLocation,
+    email: personalInfo.email,
+    emailDisplay: "yuvrajmehta2003@...",
+  },
+  sections: {
+    quickLinks: [
+      {
+        name: "Resume",
+        href: personalInfo.resume,
+        icon: FaFile,
+        external: true,
+      },
+      {
+        name: "LeetCode",
+        href: socialLinks.leetcode.url,
+        icon: SiLeetcode,
+        external: true,
+      },
+      {
+        name: "GeeksforGeeks",
+        href: socialLinks.geeksforgeeks.url,
+        icon: FaFile,
+        external: true,
+      },
+      {
+        name: "CodeChef",
+        href: socialLinks.codechef.url,
+        icon: FaFile,
+        external: true,
+      },
+      {
+        name: "Projects",
+        href: "/projects",
+        icon: FaLightbulb,
+        external: false,
+      },
+    ],
+    navigation: [
+      { name: "Home", href: "/" },
+      { name: "About", href: "/about" },
+      { name: "Skills", href: "/skills" },
+      { name: "Projects", href: "/projects" },
+      { name: "Experience", href: "/experience" },
+      { name: "Contact", href: "/contact" },
+    ],
+  },
+  stats: footerStats,
+  copyright: {
+    year: new Date().getFullYear(),
+    owner: personalInfo.name,
+    tech: "React & TypeScript",
+  },
+};
+
+export const socialMediaLinks = [
+  {
+    name: "GitHub",
+    icon: FaGithub,
+    href: socialLinks.github.url,
+    description: "Check out my code",
+    colorStyle: { color: "hsl(var(--secondary))" },
+    bgColor: "bg-secondary/20",
+    borderColor: "border-secondary/30",
+  },
+  {
+    name: "LinkedIn",
+    icon: FaLinkedin,
+    href: socialLinks.linkedin.url,
+    description: "Let's connect professionally",
+    colorStyle: { color: "hsl(var(--primary))" },
+    bgColor: "bg-primary/20",
+    borderColor: "border-primary/30",
+  },
+  {
+    name: "Instagram",
+    icon: FaInstagram,
+    href: socialLinks.instagram.url,
+    description: "Follow for updates",
+    colorStyle: { color: "hsl(var(--accent))" },
+    bgColor: "bg-accent/20",
+    borderColor: "border-accent/30",
+  },
+  {
+    name: "Email",
+    icon: HiMail,
+    href: socialLinks.email.url,
+    description: "Send me a message",
+    colorStyle: { color: "hsl(var(--destructive))" },
+    bgColor: "bg-destructive/20",
+    borderColor: "border-destructive/30",
+  },
+];
+
+// ============================================================================
+// 13. OVERVIEW (from overview.ts)
+// ============================================================================
+
 import {
-  SiTypescript,
-  SiMongodb,
-  SiNextdotjs,
-  SiExpress,
-} from "react-icons/si";
-import { projects } from "./projects";
-import { achievements } from "./achievements";
-import { personalInfo, socialLinks } from "./common";
+  FaGraduationCap,
+  FaTrophy,
+  FaBriefcase,
+  FaTwitter,
+} from "react-icons/fa";
 
 export const overviewData = {
+  interestsAndHobbies: interests.slice(0, 3),
   highlights: [
     {
       icon: FaGraduationCap,
@@ -1145,7 +1320,8 @@ export const overviewData = {
   },
   contactInfo: {
     email: personalInfo.email,
-    location: personalInfo.currentLocation,
+    location: personalInfo.location,
+    availability: personalInfo.status.availability,
     socialLinks: [
       {
         name: "GitHub",
@@ -1159,220 +1335,22 @@ export const overviewData = {
         url: socialLinks.linkedin.url,
         color: "text-primary",
       },
+      {
+        name: "Twitter",
+        icon: FaTwitter,
+        url: socialLinks.twitter.url,
+        color: "text-info",
+      },
+      {
+        name: "Email",
+        icon: FaEnvelope,
+        url: socialLinks.email.url,
+        color: "text-destructive",
+      },
     ],
   },
 };
 
-================================================================================
-=== src/data/contact.ts ===
-================================================================================
-import { personalInfo, socialLinks } from "./common";
-import { HiMail, HiPhone, HiLocationMarker } from "react-icons/hi";
-import { FaLinkedin, FaFile, FaLightbulb } from "react-icons/fa";
-import { SiLeetcode } from "react-icons/si";
-
-export const contactMethods = [
-  {
-    icon: HiMail,
-    label: "Email",
-    value: personalInfo.email,
-    href: socialLinks.email.url,
-    preferred: true,
-    responseTime: "Within 24 hours",
-  },
-  {
-    icon: HiPhone,
-    label: "Phone",
-    value: personalInfo.phone,
-    href: `tel:${personalInfo.phone}`,
-    preferred: false,
-    responseTime: "For urgent matters",
-  },
-  {
-    icon: HiLocationMarker,
-    label: "Location",
-    value: personalInfo.location,
-    href: null,
-    preferred: false,
-    responseTime: "Available for meetings",
-  },
-  {
-    icon: FaLinkedin,
-    label: "LinkedIn",
-    value: socialLinks.linkedin.username,
-    href: socialLinks.linkedin.url,
-    preferred: true,
-    responseTime: "Within 12 hours",
-  },
-];
-
-export const quickLinks = [
-  {
-    name: "Resume",
-    href: personalInfo.resume,
-    icon: FaFile,
-    external: true,
-  },
-  {
-    name: "LeetCode",
-    href: socialLinks.leetcode.url,
-    icon: SiLeetcode,
-    external: true,
-  },
-  {
-    name: "GeeksforGeeks",
-    href: socialLinks.geeksforgeeks.url,
-    icon: FaFile,
-    external: true,
-  },
-  {
-    name: "CodeChef",
-    href: socialLinks.codechef.url,
-    icon: FaFile,
-    external: true,
-  },
-  { name: "Projects", href: "/projects", icon: FaLightbulb, external: false },
-];
-
-================================================================================
-=== src/data/footer.ts ===
-================================================================================
-import { FooterStats } from "./types";
-import { personalInfo, socialLinks } from "./common";
-import { projects } from "./projects";
-import {
-  FaGithub,
-  FaLinkedin,
-  FaInstagram,
-  FaFile,
-  FaLightbulb,
-} from "react-icons/fa";
-import { HiMail } from "react-icons/hi";
-import { SiLeetcode } from "react-icons/si";
-
-export const footerStats: FooterStats = {
-  totalVisitors: "15,475",
-  lastUpdated: "August 16, 2025",
-  dsaRating: 5,
-  totalProblems: "500+",
-  totalProjects: `${projects.length}+`,
-  yearsExperience: "2+",
-};
-
-export const footerData = {
-  brand: {
-    name: personalInfo.name,
-    title: personalInfo.title,
-    description:
-      "Full Stack Developer specializing in modern web technologies and algorithms, currently exploring the exciting world of Generative AI.",
-  },
-  contact: {
-    location: personalInfo.currentLocation,
-    email: personalInfo.email,
-    emailDisplay: "yuvrajmehta2003@...",
-  },
-  sections: {
-    quickLinks: [
-      {
-        name: "Resume",
-        href: personalInfo.resume,
-        icon: FaFile,
-        external: true,
-      },
-      {
-        name: "LeetCode",
-        href: socialLinks.leetcode.url,
-        icon: SiLeetcode,
-        external: true,
-      },
-      {
-        name: "GeeksforGeeks",
-        href: socialLinks.geeksforgeeks.url,
-        icon: FaFile,
-        external: true,
-      },
-      {
-        name: "CodeChef",
-        href: socialLinks.codechef.url,
-        icon: FaFile,
-        external: true,
-      },
-      {
-        name: "Projects",
-        href: "/projects",
-        icon: FaLightbulb,
-        external: false,
-      },
-    ],
-    navigation: [
-      { name: "Home", href: "/" },
-      { name: "About", href: "/about" },
-      { name: "Skills", href: "/skills" },
-      { name: "Projects", href: "/projects" },
-      { name: "Experience", href: "/experience" },
-      { name: "Contact", href: "/contact" },
-    ],
-  },
-  stats: footerStats,
-  copyright: {
-    year: new Date().getFullYear(),
-    owner: personalInfo.name,
-    tech: "React & TypeScript",
-  },
-};
-
-export const socialMediaLinks = [
-  {
-    name: "GitHub",
-    icon: FaGithub,
-    href: socialLinks.github.url,
-    description: "Check out my code",
-    colorStyle: { color: "hsl(var(--secondary))" },
-    bgColor: "bg-secondary/20",
-    borderColor: "border-secondary/30",
-  },
-  {
-    name: "LinkedIn",
-    icon: FaLinkedin,
-    href: socialLinks.linkedin.url,
-    description: "Let's connect professionally",
-    colorStyle: { color: "hsl(var(--primary))" },
-    bgColor: "bg-primary/20",
-    borderColor: "border-primary/30",
-  },
-  {
-    name: "Instagram",
-    icon: FaInstagram,
-    href: socialLinks.instagram.url,
-    description: "Follow for updates",
-    colorStyle: { color: "hsl(var(--accent))" },
-    bgColor: "bg-accent/20",
-    borderColor: "border-accent/30",
-  },
-  {
-    name: "Email",
-    icon: HiMail,
-    href: socialLinks.email.url,
-    description: "Send me a message",
-    colorStyle: { color: "hsl(var(--destructive))" },
-    bgColor: "bg-destructive/20",
-    borderColor: "border-destructive/30",
-  },
-];
-
-================================================================================
-=== src/data/index.ts ===
-================================================================================
-export * from "./types";
-export * from "./common";
-export * from "./interests";
-export * from "./achievements";
-export * from "./projects";
-export * from "./experiences";
-export * from "./education";
-export * from "./footer";
-export * from "./contact";
-export * from "./about";
-export * from "./skills";
-export * from "./overview";
-export * from "./certifications";
+// ============================================================================
+// END OF CONSOLIDATED DATA
+// ============================================================================
