@@ -1,0 +1,23 @@
+version: "3.8"
+
+services:
+  portfolio-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: portfolio-development
+    ports:
+      - "5173:5173"
+    volumes:
+      - .:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+    networks:
+      - portfolio-network
+    stdin_open: true
+    tty: true
+
+networks:
+  portfolio-network:
+    driver: bridge

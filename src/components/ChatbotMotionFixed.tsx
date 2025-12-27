@@ -56,7 +56,6 @@ export default function ChatbotMotionFixed() {
         const parsed = JSON.parse(raw) as Message[];
         if (Array.isArray(parsed)) {
           setMessages(parsed);
-          if (parsed.length > 0) setOpen(true);
           requestAnimationFrame(() => {
             if (scrollRef.current)
               scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
@@ -96,15 +95,7 @@ export default function ChatbotMotionFixed() {
     }
   }, []);
 
-  // Hydrate open state
-  useEffect(() => {
-    try {
-      if (typeof window !== "undefined") {
-        const raw = window.localStorage.getItem(OPEN_KEY);
-        if (raw === "true") setOpen(true);
-      }
-    } catch {}
-  }, []);
+  // Removed: Don't auto-open chatbot on page load
 
   // Persist open state
   useEffect(() => {
