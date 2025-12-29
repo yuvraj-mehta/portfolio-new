@@ -137,6 +137,119 @@ export default function ChatbotMotionFixed() {
     }
   };
 
+  // Lightweight Markdown renderer for assistant messages
+  // Supports: headings (#, ##), bold (**text**), links [text](url),
+  // bullet lists (- item), and paragraph breaks (\n\n)
+  const renderMarkdown = (text: string) => {
+    const paragraphs = text.split(/\n\n+/);
+
+    const renderInline = (s: string) => {
+      const parts: (string | JSX.Element)[] = [];
+      let cursor = 0;
+
+      // Process links first: [label](url)
+      const linkRegex = /\[([^\]]+)\]\((https?:[^)]+)\)/g;
+      let match: RegExpExecArray | null;
+      while ((match = linkRegex.exec(s)) !== null) {
+        const [full, label, url] = match;
+        const start = match.index;
+        const end = start + full.length;
+        parts.push(s.slice(cursor, start));
+        parts.push(
+          <a
+            key={`l-${start}`}
+            href={url}
+            target="_blank"
+            rel="noreferrer"
+            className="underline"
+          >
+            {label}
+          </a>
+        );
+        cursor = end;
+      }
+      parts.push(s.slice(cursor));
+
+      // Join and process bold on the combined string segments
+      const joinStr = parts.join("");
+      const out: (string | JSX.Element)[] = [];
+      let bCursor = 0;
+      const boldRegex = /\*\*([^*]+)\*\*/g;
+      let bMatch: RegExpExecArray | null;
+      while ((bMatch = boldRegex.exec(joinStr)) !== null) {
+        const [full, content] = bMatch;
+        const start = bMatch.index;
+        const end = start + full.length;
+        out.push(joinStr.slice(bCursor, start));
+        out.push(
+          <strong key={`b-${start}`} className="font-semibold">
+            {content}
+          </strong>
+        );
+        bCursor = end;
+      }
+      out.push(joinStr.slice(bCursor));
+      return out;
+    };
+
+    const isListPara = (p: string) =>
+      p
+        .trim()
+        .split(/\n/)
+        .every((line) => /^[-*]\s+/.test(line.trim()));
+
+    return paragraphs.map((p, idx) => {
+      if (isListPara(p)) {
+        const items = p
+          .trim()
+          .split(/\n/)
+          .map((line) => line.replace(/^[-*]\s+/, "").trim());
+        return (
+          <ul
+            key={`ul-${idx}`}
+            className={`list-disc ml-5 ${idx > 0 ? "mt-3" : ""}`}
+          >
+            {items.map((it, i) => (
+              <li key={`li-${idx}-${i}`} className="text-sm leading-relaxed">
+                {renderInline(it)}
+              </li>
+            ))}
+          </ul>
+        );
+      }
+
+      // Headings
+      const lines = p.split(/\n/);
+      const headingMatch = lines[0].match(/^(#{1,2})\s+(.*)$/);
+      if (headingMatch) {
+        const level = headingMatch[1].length;
+        const title = headingMatch[2];
+        const rest = lines.slice(1).join("\n");
+        const HeadingTag = level === 1 ? "h4" : "h5";
+        return (
+          <div key={`h-${idx}`} className={idx > 0 ? "mt-3" : ""}>
+            {
+              <HeadingTag className="font-semibold text-sm">
+                {renderInline(title)}
+              </HeadingTag>
+            }
+            {rest && (
+              <p className="text-sm leading-relaxed mt-1">
+                {renderInline(rest)}
+              </p>
+            )}
+          </div>
+        );
+      }
+
+      return (
+        <p key={`p-${idx}`} className={idx > 0 ? "mt-3" : ""}>
+          <span className="text-sm leading-relaxed">{renderInline(p)}</span>
+        </p>
+      );
+    });
+  };
+
   return (
     <div className="fixed bottom-4 right-4 z-50">
       <div className="relative w-[360px] sm:w-[420px] max-w-[calc(100vw-1rem)]">
@@ -286,9 +399,15 @@ export default function ChatbotMotionFixed() {
                                     : "inline-block max-w-[85%] rounded-2xl bg-muted px-3 py-2 shadow-sm"
                                 }
                               >
-                                <span className="text-sm whitespace-pre-wrap leading-relaxed">
-                                  {m.content}
-                                </span>
+                                {m.role === "assistant" ? (
+                                  <div className="whitespace-pre-wrap">
+                                    {renderMarkdown(m.content)}
+                                  </div>
+                                ) : (
+                                  <span className="text-sm whitespace-pre-wrap leading-relaxed">
+                                    {m.content}
+                                  </span>
+                                )}
                               </div>
                             </motion.div>
                           ))}
