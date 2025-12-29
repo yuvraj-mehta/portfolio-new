@@ -176,7 +176,7 @@ console.log(`RAG payload written to ${outputPath}`);
 // Send data to portfolio server
 const PORTFOLIO_SERVER_URL =
   process.env.PORTFOLIO_SERVER_URL ||
-  "http://localhost:3001/api/portfolio/update";
+  "https://portfolio-new-0m64.onrender.com/api/portfolio/update";
 
 async function sendToServer() {
   try {
