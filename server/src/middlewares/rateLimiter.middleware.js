@@ -13,7 +13,7 @@ const requestStore = new Map();
  * @param {number} windowMs - Time window in milliseconds
  * @returns {Function} Express middleware function
  */
-export const createRateLimiter = (maxRequests = 5, windowMs = 10 * 60 * 1000) => {
+export const createRateLimiter = (maxRequests = 5, windowMs = 15 * 60 * 1000) => {
   return (req, res, next) => {
     // Skip rate limiting in development mode
     const isDevelopment = process.env.NODE_ENV === "development" || !process.env.NODE_ENV;
@@ -73,17 +73,17 @@ export const createRateLimiter = (maxRequests = 5, windowMs = 10 * 60 * 1000) =>
 };
 
 /**
- * Default rate limiter: 5 questions per 10 minutes
+ * Default rate limiter: 5 questions per 15 minutes
  */
-export const askRateLimiter = createRateLimiter(5, 10 * 60 * 1000);
+export const askRateLimiter = createRateLimiter(5, 15 * 60 * 1000);
 
 /**
  * Clean up old entries periodically to prevent memory leaks
- * Runs every 10 minutes
+ * Runs every 15 minutes
  */
 setInterval(() => {
   const now = Date.now();
-  const windowMs = 10 * 60 * 1000;
+  const windowMs = 15 * 60 * 1000;
 
   for (const [ip, userData] of requestStore.entries()) {
     userData.timestamps = userData.timestamps.filter((timestamp) => now - timestamp < windowMs);
@@ -91,4 +91,4 @@ setInterval(() => {
       requestStore.delete(ip);
     }
   }
-}, 10 * 60 * 1000);
+}, 15 * 60 * 1000);
