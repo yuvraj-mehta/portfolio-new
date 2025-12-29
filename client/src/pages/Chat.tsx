@@ -7,7 +7,11 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { askPortfolio } from "@/services/ragApi";
 import { motion } from "framer-motion";
 
-type Message = { role: "user" | "assistant"; content: string };
+type Message = {
+  role: "user" | "assistant" | "error";
+  content: string;
+  errorData?: any;
+};
 
 const quickPrompts = [
   "Tell me about your BookHive project and tech stack",
@@ -21,7 +25,6 @@ const Chat = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
 
   const STORAGE_KEY = "portfolio_chat_messages";
 
@@ -46,7 +49,6 @@ const Chat = () => {
     const query = (text || input).trim();
     if (!query || loading) return;
 
-    setError(null);
     setLoading(true);
 
     const userMsg: Message = { role: "user", content: query };
@@ -62,7 +64,17 @@ const Chat = () => {
       setMessages(finalMessages);
       persistMessages(finalMessages);
     } catch (e) {
-      setError(e instanceof Error ? e.message : String(e));
+      const errorData = (e as any)?.errorData;
+      const errorMsg: Message = {
+        role: "error",
+        content:
+          errorData?.title ||
+          (e instanceof Error ? e.message : "An error occurred"),
+        errorData: errorData,
+      };
+      const finalMessages = [...newMessages, errorMsg];
+      setMessages(finalMessages);
+      persistMessages(finalMessages);
     } finally {
       setLoading(false);
     }
@@ -182,19 +194,108 @@ const Chat = () => {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.3, delay: i * 0.05 }}
                   >
-                    <div
-                      className={
-                        m.role === "user"
-                          ? "max-w-[80%] rounded-3xl bg-white text-black px-5 py-3"
-                          : "max-w-[85%] rounded-3xl bg-white/10 text-white px-5 py-3"
-                      }
-                    >
-                      <div className="text-sm leading-relaxed">
-                        {m.role === "assistant"
-                          ? renderMarkdown(m.content)
-                          : m.content}
+                    {m.role === "error" ? (
+                      // Error Message
+                      <div className="max-w-[85%] rounded-3xl bg-red-500/10 border border-red-500/20 text-red-400 px-5 py-4 space-y-2">
+                        <div className="flex items-start gap-3">
+                          <svg
+                            className="w-5 h-5 mt-0.5 flex-shrink-0"
+                            fill="currentColor"
+                            viewBox="0 0 20 20"
+                          >
+                            <path
+                              fillRule="evenodd"
+                              d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                              clipRule="evenodd"
+                            />
+                          </svg>
+                          <div className="flex-1">
+                            <div className="font-semibold text-sm">
+                              {m.content}
+                            </div>
+                            {m.errorData?.description && (
+                              <div className="text-xs text-red-400/80 mt-1">
+                                {m.errorData.description}
+                              </div>
+                            )}
+                            {m.errorData?.details && (
+                              <div className="text-xs text-red-400/70 mt-2 space-y-1 bg-red-500/5 p-2 rounded">
+                                {m.errorData.code === "RATE_LIMIT_EXCEEDED" && (
+                                  <>
+                                    <div>
+                                      <span className="font-medium">
+                                        Limit:
+                                      </span>{" "}
+                                      {m.errorData.details.limit} questions per{" "}
+                                      {m.errorData.details.timeWindow}
+                                    </div>
+                                    <div>
+                                      <span className="font-medium">
+                                        Time until reset:
+                                      </span>{" "}
+                                      {m.errorData.details.remainingTime}
+                                    </div>
+                                  </>
+                                )}
+                                {m.errorData.code === "QUERY_TOO_LONG" && (
+                                  <>
+                                    <div>
+                                      <span className="font-medium">
+                                        Max length:
+                                      </span>{" "}
+                                      {m.errorData.details.maxLength} characters
+                                    </div>
+                                    <div>
+                                      <span className="font-medium">
+                                        Your length:
+                                      </span>{" "}
+                                      {m.errorData.details.currentLength}{" "}
+                                      characters
+                                    </div>
+                                  </>
+                                )}
+                                {m.errorData.code === "QUERY_TOO_SHORT" && (
+                                  <>
+                                    <div>
+                                      <span className="font-medium">
+                                        Min length:
+                                      </span>{" "}
+                                      {m.errorData.details.minLength} characters
+                                    </div>
+                                    <div>
+                                      <span className="font-medium">
+                                        Your length:
+                                      </span>{" "}
+                                      {m.errorData.details.currentLength}{" "}
+                                      characters
+                                    </div>
+                                  </>
+                                )}
+                              </div>
+                            )}
+                            {m.errorData?.suggestion && (
+                              <div className="text-xs text-red-300 mt-2 font-medium">
+                                💡 {m.errorData.suggestion}
+                              </div>
+                            )}
+                          </div>
+                        </div>
                       </div>
-                    </div>
+                    ) : (
+                      <div
+                        className={
+                          m.role === "user"
+                            ? "max-w-[80%] rounded-3xl bg-white text-black px-5 py-3"
+                            : "max-w-[85%] rounded-3xl bg-white/10 text-white px-5 py-3"
+                        }
+                      >
+                        <div className="text-sm leading-relaxed">
+                          {m.role === "assistant"
+                            ? renderMarkdown(m.content)
+                            : m.content}
+                        </div>
+                      </div>
+                    )}
                   </motion.div>
                 ))
               )}
@@ -254,7 +355,6 @@ const Chat = () => {
                   </svg>
                 </Button>
               </div>
-              {error && <p className="text-xs text-red-500 mt-2">{error}</p>}
             </div>
           </div>
         </div>
