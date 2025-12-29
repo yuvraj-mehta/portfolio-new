@@ -5,7 +5,6 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 
 type Message = { role: "user" | "assistant"; content: string };
@@ -163,11 +162,31 @@ export default function ChatbotMotionFixed() {
                     <div className="flex items-center gap-2">
                       <Button
                         variant="ghost"
-                        size="sm"
+                        size="icon"
                         aria-label="Minimize chat"
                         onClick={() => setOpen(false)}
-                        className="h-8 w-8 p-0"
+                        className="h-9 w-9 rounded-lg hover:bg-slate-700 hover:scale-110 transition-all duration-200"
                         title="Minimize"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="20"
+                          height="20"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
+                          <path d="M18 12H6" />
+                        </svg>
+                      </Button>
+                      <Button
+                        size="sm"
+                        onClick={() => window.open("/chat", "_blank")}
+                        className="gap-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-semibold shadow-lg hover:shadow-blue-500/50 hover:scale-105 transition-all duration-200"
+                        title="Open chat page"
                       >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -180,18 +199,32 @@ export default function ChatbotMotionFixed() {
                           strokeLinecap="round"
                           strokeLinejoin="round"
                         >
-                          <path d="M18 12H6" />
+                          <path d="M21 15a4 4 0 0 1-4 4H7l-4 4V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4v8z" />
                         </svg>
+                        Open
                       </Button>
-                      <Avatar>
-                        <AvatarFallback>YM</AvatarFallback>
-                      </Avatar>
                       <Button
-                        variant="destructive"
                         size="sm"
                         onClick={clearChat}
+                        className="gap-2 rounded-lg bg-red-600 hover:bg-red-700 text-white font-semibold shadow-lg hover:shadow-red-500/50 hover:scale-105 transition-all duration-200"
                         title="Clear chat"
                       >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="18"
+                          height="18"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
+                          <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8" />
+                          <path d="M21 3v5h-5" />
+                          <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16" />
+                          <path d="M3 21v-5h5" />
+                        </svg>
                         Clear
                       </Button>
                     </div>

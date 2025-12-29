@@ -32,6 +32,7 @@ const Navigation = () => {
     { name: "Skills", href: "/skills", icon: HiCog },
     { name: "Coding", href: "/coding", icon: HiTerminal },
     { name: "Projects", href: "/projects", icon: HiFolder },
+    { name: "Chat", href: "/chat", icon: HiSparkles },
     { name: "Contact", href: "/contact", icon: HiMail },
   ];
 
