@@ -3,6 +3,8 @@ import { QDRANT_URL } from "../config/envConfig.js"
 
 const client = new QdrantClient({
   url: QDRANT_URL,
+  port: 443,
+  protocol: "https",
   checkCompatibility: false
 })
 
