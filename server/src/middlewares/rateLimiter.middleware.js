@@ -3,15 +3,22 @@
  * Allows a specified number of requests per time window per IP address
  */
 
-// In-memory store for request tracking
-// Format: { ip: { timestamps: [timestamp1, timestamp2, ...] } }
+/**
+ * In-memory store for tracking request timestamps by client IP.
+ * Key: client IP address (string)
+ * Value: Object containing array of request timestamps (number[])
+ * @type {Map<string, { timestamps: number[] }>}
+ */
 const requestStore = new Map();
 
 /**
- * Create a rate limiter middleware
- * @param {number} maxRequests - Maximum number of requests allowed
- * @param {number} windowMs - Time window in milliseconds
- * @returns {Function} Express middleware function
+ * Creates an Express rate limiter middleware.
+ * Restricts the number of HTTP requests a client (identified by IP) can make
+ * within a specified time window. Bypassed in development mode.
+ *
+ * @param {number} [maxRequests=5] - The maximum number of requests allowed in the window.
+ * @param {number} [windowMs=900000] - The duration of the sliding window in milliseconds (default is 15 minutes).
+ * @returns {import("express").RequestHandler} Express middleware function that handles rate limiting.
  */
 export const createRateLimiter = (maxRequests = 5, windowMs = 15 * 60 * 1000) => {
   return (req, res, next) => {

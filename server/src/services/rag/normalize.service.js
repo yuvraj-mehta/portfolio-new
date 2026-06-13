@@ -11,6 +11,14 @@ const INPUT_FILE = path.join(__dirname, "../../data/portfolio.latest.json");
 const OUTPUT_FILE = path.join(__dirname, "../../data/normalized.json");
 
 /* ---------- Utilities ---------- */
+/**
+ * Synchronously reads a JSON file from disk and parses its content.
+ * Wraps any storage or parse errors in a descriptive error wrapper.
+ *
+ * @param {string} filePath - The absolute file path to load.
+ * @returns {Object} Parsed JSON data object.
+ * @throws {Error} If reading the file or parsing the JSON fails.
+ */
 function safeReadJson(filePath) {
   try {
     return JSON.parse(fs.readFileSync(filePath, "utf8"));
@@ -19,6 +27,13 @@ function safeReadJson(filePath) {
   }
 }
 
+/**
+ * Converts a string into a URL-friendly lowercase slug, truncating to 80 characters.
+ * Removes non-alphanumeric characters and replaces space sequences with dashes.
+ *
+ * @param {string} [s=""] - The input string to slugify.
+ * @returns {string} The formatted lowercase slug.
+ */
 function slugify(s = "") {
   return String(s)
     .toLowerCase()
@@ -28,10 +43,23 @@ function slugify(s = "") {
     .slice(0, 80);
 }
 
+/**
+ * Constructs a unique string identifier prefixing a slugified title.
+ *
+ * @param {string} prefix - The namespace or category prefix for the ID (e.g. chunkType).
+ * @param {string} title - The title of the content item.
+ * @returns {string} The formatted ID string.
+ */
 function mkId(prefix, title) {
   return `${prefix}-${slugify(title || "item")}`;
 }
 
+/**
+ * Standardizes line endings and redundant line breaks in a text string.
+ *
+ * @param {string} s - The text content to normalize.
+ * @returns {string} Cleaned text content with unified spacing.
+ */
 function cleanText(s) {
   if (!s) return "";
   return String(s)
@@ -41,6 +69,13 @@ function cleanText(s) {
 }
 
 /* ---------- Grammar Guard ---------- */
+/**
+ * Normalizes grammar constraints to ensure text starts in a clean first-person statement,
+ * correcting common casing issues and initial patterns.
+ *
+ * @param {string} text - The input text block.
+ * @returns {string} Grammar-corrected text block.
+ */
 function toFirstPerson(text) {
   return cleanText(text)
     .replace(/^i\s+/i, "I ")
@@ -52,6 +87,22 @@ function toFirstPerson(text) {
     .replace(/^\w/, c => c.toUpperCase());
 }
 
+/**
+ * Pushes a new structured chunk into the accumulation list, completing fields
+ * like unique ID, tag array, first-person grammar check, and defaults.
+ *
+ * @param {Array<Object>} arr - The destination chunks array.
+ * @param {Object} chunk - The target chunk payload.
+ * @param {string} [chunk.id] - Optional pre-defined unique string ID.
+ * @param {string} chunk.chunkType - Category classification name.
+ * @param {string} chunk.source - Origin identifier of the data section.
+ * @param {string} chunk.title - Label/title of the text segment.
+ * @param {string[]} [chunk.tags] - Descriptive tags associated with the chunk.
+ * @param {string} chunk.text - Text narrative of the chunk.
+ * @param {Object} [chunk.meta] - Associated reference metadata.
+ * @param {boolean} [chunk.shouldEmbed=true] - Whether the chunk should be vectorized in index.
+ * @returns {void}
+ */
 function pushChunk(arr, chunk) {
   arr.push({
     id: chunk.id || mkId(chunk.chunkType, chunk.title),
@@ -66,6 +117,14 @@ function pushChunk(arr, chunk) {
 }
 
 /* ---------- Main Normalizer ---------- */
+/**
+ * Main parser that reads raw portfolio JSON schema content, divides sections into
+ * granular structured semantic text chunks, and persists them to normalized.json.
+ * Extracts details about personal info, certifications, education, projects, skills, etc.
+ *
+ * @returns {Array<Object>} List of newly generated and structured portfolio chunks.
+ * @throws {Error} If reading or parsing raw json files fails.
+ */
 export function normalizePortfolio() {
   const profile = safeReadJson(INPUT_FILE);
   const chunks = [];

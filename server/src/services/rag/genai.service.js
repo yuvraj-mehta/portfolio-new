@@ -15,19 +15,50 @@ if (GENAI_PROVIDER === "openai") {
   });
 }
 
+/**
+ * GenAIService.
+ * Handles AI orchestration, including vector embeddings generation and chat completions
+ * using either OpenAI or Google Gemini REST API providers.
+ *
+ * @class GenAIService
+ */
 export class GenAIService {
+  /**
+   * Retrieves the configured GenAI provider name.
+   *
+   * @static
+   * @returns {string} The active provider string (e.g. 'openai' or 'gemini').
+   */
   static getProvider() {
     return GENAI_PROVIDER;
   }
 
+  /**
+   * Retrieves the embedding model name.
+   *
+   * @static
+   * @returns {string} The configured embedding model name.
+   */
   static getEmbeddingModel() {
     return EMBEDDING_MODEL;
   }
 
+  /**
+   * Retrieves the active chat/generation model name.
+   *
+   * @static
+   * @returns {string} The configured chat/generation model name.
+   */
   static getChatModel() {
     return CHAT_MODEL;
   }
 
+  /**
+   * Retrieves the vector dimension size associated with the active embedding model.
+   *
+   * @static
+   * @returns {number} The expected vector dimension size (e.g. 3072).
+   */
   static getVectorSize() {
     if (GENAI_PROVIDER === "gemini") {
       return 3072; // default size for gemini-embedding-001
@@ -35,14 +66,25 @@ export class GenAIService {
     return 3072; // default size for text-embedding-3-large
   }
 
+  /**
+   * Determines the Qdrant database collection name based on the current provider.
+   *
+   * @static
+   * @returns {string} The formatted Qdrant collection name.
+   */
   static getCollectionName() {
     return `portfolio_chunks_${GENAI_PROVIDER}`;
   }
 
   /**
-   * Generate vector embeddings for a list of texts
-   * @param {string[]} texts
-   * @returns {Promise<number[][]>} Array of embedding vectors
+   * Generates high-dimensional vector embeddings for a given batch of text inputs.
+   * Uses the provider-specific SDK or REST endpoints depending on the configuration.
+   *
+   * @static
+   * @async
+   * @param {string[]} texts - An array of text strings to generate embeddings for.
+   * @returns {Promise<number[][]>} Resolves with a matrix of embeddings, where each row is a number array of dimensions matching the model's vector size.
+   * @throws {Error} If the provider is unsupported or the API request fails.
    */
   static async generateEmbeddings(texts) {
     if (GENAI_PROVIDER === "openai") {
@@ -85,11 +127,16 @@ export class GenAIService {
   }
 
   /**
-   * Generate text answer using model & prompt context
-   * @param {string} query
-   * @param {string} systemPrompt
-   * @param {string} contextText
-   * @returns {Promise<string>} Model answer string
+   * Generates a conversational text answer by combining the user's question,
+   * system instructions, and retrieved context segments.
+   *
+   * @static
+   * @async
+   * @param {string} query - The trimmed user query or question.
+   * @param {string} systemPrompt - The system prompt specifying rules and behavioral constraints.
+   * @param {string} contextText - Formatted RAG document context extracted from Qdrant database.
+   * @returns {Promise<string>} Resolves with the generated text answer.
+   * @throws {Error} If the API request fails or the response from the provider is empty/invalid.
    */
   static async generateAnswer(query, systemPrompt, contextText) {
     if (GENAI_PROVIDER === "openai") {

@@ -11,13 +11,21 @@ const LATEST_DATA_FILE = path.join(DATA_DIR, "portfolio.latest.json");
 const PORTFOLIO_FILE = path.join(DATA_DIR, "portfolio.json");
 
 /**
- * FileStorage Service
- * Handles reading and writing portfolio data to JSON files
+ * FileStorage Service.
+ * Provides static utility methods for reading, writing, checking, and deleting
+ * JSON files containing portfolio metadata and content details.
+ *
+ * @class FileStorageService
  */
 class FileStorageService {
   /**
-   * Read master portfolio data from portfolio.json file
-   * @returns {Promise<Object>} Master portfolio data
+   * Reads master portfolio data from the primary portfolio.json file.
+   *
+   * @static
+   * @async
+   * @returns {Promise<Object>} Resolves with the parsed JSON content of the portfolio file.
+   * @throws {AppError} 404 - If the file does not exist.
+   * @throws {AppError} 500 - If reading or parsing the file fails.
    */
   static async getPortfolioData() {
     try {
@@ -32,9 +40,15 @@ class FileStorageService {
   }
 
   /**
-   * Save portfolio data to latestData.json file
-   * @param {Object} data - Validated portfolio data
-   * @returns {Promise<Object>} Response object with success status and file path
+   * Saves the validated portfolio payload into the portfolio.latest.json file.
+   * Creates the destination directory if it does not already exist, and appends a
+   * timestamp field `_savedAt` to the saved object.
+   *
+   * @static
+   * @async
+   * @param {Object} data - The validated portfolio schema payload to save.
+   * @returns {Promise<{success: boolean, message: string, filePath: string, savedAt: string}>} Resolves with a success wrapper containing the written file path and timestamp.
+   * @throws {Error} If writing to the file or directory creation fails.
    */
   static async saveLatestPortfolio(data) {
     try {
@@ -68,8 +82,12 @@ class FileStorageService {
   }
 
   /**
-   * Read latest portfolio data from file
-   * @returns {Promise<Object>} Latest portfolio data or null if file doesn't exist
+   * Reads the latest portfolio data from the portfolio.latest.json file.
+   *
+   * @static
+   * @async
+   * @returns {Promise<Object|null>} Resolves with the parsed JSON data, or null if the file does not exist.
+   * @throws {Error} If reading or parsing the file encounters an unexpected storage error.
    */
   static async getLatestPortfolio() {
     try {
@@ -86,8 +104,12 @@ class FileStorageService {
   }
 
   /**
-   * Delete latest portfolio data file
-   * @returns {Promise<Object>} Success response
+   * Deletes the portfolio.latest.json file if it exists.
+   *
+   * @static
+   * @async
+   * @returns {Promise<{success: boolean, message: string}>} Resolves with a success indicator and description message.
+   * @throws {Error} If deleting the file fails due to system permission or locking issues.
    */
   static async deleteLatestPortfolio() {
     try {
@@ -110,8 +132,11 @@ class FileStorageService {
   }
 
   /**
-   * Check if portfolio data exists
-   * @returns {Promise<boolean>} True if file exists, false otherwise
+   * Checks if the portfolio.latest.json file exists on the local disk.
+   *
+   * @static
+   * @async
+   * @returns {Promise<boolean>} Resolves to true if the file exists and is accessible, false otherwise.
    */
   static async portfolioExists() {
     try {

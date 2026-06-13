@@ -7,6 +7,16 @@ const QUERY_CONFIG = {
   maxLength: 500,
 };
 
+/**
+ * Express controller handler for answering portfolio questions.
+ * Validates that the input query is present and within configured length limits (3 to 500 characters),
+ * calls the RAG service to obtain an answer, and returns a JSON response.
+ *
+ * @param {import("express").Request} req - Express request object.
+ * @param {import("express").Response} res - Express response object.
+ * @throws {AppError} 400 - If the query is missing, too short, or too long.
+ * @returns {Promise<void>} Resolves when response is sent.
+ */
 export const askQuestion = catchAsyncErrors(async (req, res) => {
   const { query } = req.body;
 

@@ -16,7 +16,13 @@ const qdrant = new QdrantClient({
 
 const DATA_PATH = path.join(__dirname, "../../data/normalized.json")
 
-// Convert string ID to numeric ID
+/**
+ * Converts a string identifier into a 32-bit positive integer hash.
+ * Used to construct unique numeric IDs for Qdrant vector database points.
+ *
+ * @param {string} str - The string identifier to hash (e.g. chunk ID).
+ * @returns {number} The absolute 32-bit integer representation of the hash.
+ */
 function hashStringToId(str) {
   let hash = 0
   for (let i = 0; i < str.length; i++) {
@@ -27,6 +33,16 @@ function hashStringToId(str) {
   return Math.abs(hash)
 }
 
+/**
+ * Normalizes, embeds, and indexes the local portfolio content chunks.
+ * Loads the normalized portfolio JSON data, filters for embeddable chunks,
+ * retrieves high-dimensional vector embeddings from the configured GenAI provider,
+ * and upserts the formatted vector points into Qdrant.
+ *
+ * @async
+ * @returns {Promise<void>} Resolves when the ingestion and indexing are complete.
+ * @throws {Error} If checking/creating the collection fails or GenAI embeddings API errors out.
+ */
 export async function embedPortfolio() {
   const COLLECTION = GenAIService.getCollectionName()
   const VECTOR_SIZE = GenAIService.getVectorSize()

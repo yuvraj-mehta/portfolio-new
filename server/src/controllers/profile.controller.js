@@ -3,16 +3,19 @@ import FileStorageService from "../services/fileStorage.service.js";
 import { runRagPipeline } from "../services/rag/index.js";
 
 /**
- * Initialize/Update Portfolio Profile
+ * Express controller handler to initialize or update the portfolio profile.
+ * Saves the validated portfolio data payload to the filesystem using the FileStorageService.
  *
  * Flow:
  * 1. Request arrives with validated payload (AJV validation middleware)
  * 2. Controller saves validated data to file storage
- * 3. Triggers RAG pipeline: normalize → embed
- * 4. Returns success response
+ * 3. Returns success response
  *
  * @route POST /api/profile/init
  * @middleware validateSchema - AJV validation middleware
+ * @param {import("express").Request} req - Express request object containing the validated portfolio body.
+ * @param {import("express").Response} res - Express response object.
+ * @returns {Promise<void>} Resolves when the response is sent.
  */
 export const initProfile = catchAsyncErrors(async (req, res) => {
   const validatedPayload = req.body;

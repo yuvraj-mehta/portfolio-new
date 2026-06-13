@@ -4,8 +4,14 @@ import { embedPortfolio } from "./embed.service.js";
 import { fileURLToPath } from "url";
 
 /**
- * Run the full RAG ingestion pipeline: normalize → embed
- * Called after new portfolio data is ingested via POST /api/profile/init
+ * Runs the full RAG (Retrieval-Augmented Generation) ingestion pipeline.
+ * Synchronously normalizes raw portfolio data into semantic chunks, and then
+ * generates and indexes vector embeddings into the Qdrant DB.
+ * Called automatically or executed directly during deployment/updates.
+ *
+ * @async
+ * @returns {Promise<void>} Resolves when the entire pipeline finishes successfully.
+ * @throws {Error} If normalization or embedding stages fail.
  */
 export async function runRagPipeline() {
   await normalizePortfolio();

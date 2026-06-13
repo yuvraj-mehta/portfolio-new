@@ -7,6 +7,15 @@ const client = new QdrantClient({
   checkCompatibility: false
 })
 
+/**
+ * Verifies if a Qdrant collection with the given name exists.
+ * If the collection is missing, creates it with the default vector size of 3072
+ * and Cosine distance metric.
+ *
+ * @param {string} name - Name of the collection to ensure exists.
+ * @returns {Promise<void>} Resolves when the check/creation is complete.
+ * @throws {Error} If checking or creating the collection fails.
+ */
 async function ensureCollection(name) {
   try {
     await client.getCollection(name)
@@ -36,6 +45,12 @@ async function ensureCollection(name) {
   }
 }
 
+/**
+ * Main script entry point to initialize required Qdrant collections.
+ * Insures the "portfolio_chunks" collection is set up.
+ *
+ * @returns {Promise<void>} Resolves when initialization succeeds.
+ */
 async function init() {
   await ensureCollection("portfolio_chunks")
 }

@@ -11,10 +11,15 @@ const qdrant = new QdrantClient({
 const SCORE_THRESHOLD = 0.1; // Lowered for Gemini — gemini-embedding-001 scores tend to be lower than OpenAI
 
 /**
- * Retrieve relevant portfolio chunks for a query
- * @param {string} query
- * @param {number} topK
- * @returns {Array<{text, title, chunkType, score}>}
+ * Queries the Qdrant database to find matching portfolio context chunks for a query.
+ * First generates embeddings for the query, retrieves the top-K scoring points,
+ * filters out matches below similarity score thresholds, and maps them to context results.
+ *
+ * @async
+ * @param {string} query - The trimmed search text query.
+ * @param {number} [topK=5] - The maximum number of points to retrieve from Qdrant.
+ * @returns {Promise<Array<{score: number, text: string, title: string, chunkType: string}>>} Resolves with a list of matched context objects.
+ * @throws {Error} If vector generation or Qdrant search queries fail.
  */
 export async function retrieveContext(query, topK = 5) {
   const COLLECTION = GenAIService.getCollectionName()

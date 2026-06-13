@@ -4,9 +4,13 @@ import { GenAIService } from "./genai.service.js";
 const isDev = process.env.NODE_ENV !== "production";
 
 /**
- * Generate an answer using retrieved context
- * @param {string} query
- * @param {Array<{text: string, title: string}>} contexts
+ * Formats context chunks, prints debug information if running in development mode,
+ * and calls the active AI model provider to generate a conversational response
+ * to the user's portfolio question.
+ *
+ * @param {string} query - The trimmed question or query asked by the user.
+ * @param {Array<{text: string, title: string, chunkType?: string, score?: number}>} contexts - Array of retrieved context chunks matching the query.
+ * @returns {Promise<string>} Resolves with the generated text answer from the AI model.
  */
 export async function generateAnswer(query, contexts) {
   const hasContext = contexts && contexts.length > 0;

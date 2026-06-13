@@ -1,5 +1,15 @@
 import { AppError } from "../utils/AppError.js";
 
+/**
+ * Global Express error handling middleware.
+ * Formats errors and sends a unified error response to the client.
+ *
+ * @param {Error|AppError} err - The error object thrown or passed down the middleware chain.
+ * @param {import("express").Request} req - Express request object.
+ * @param {import("express").Response} res - Express response object.
+ * @param {import("express").NextFunction} next - Express next function.
+ * @returns {void}
+ */
 export const errorHandler = (err, req, res, next) => {
   let error = err;
 
