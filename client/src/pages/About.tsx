@@ -34,7 +34,16 @@ const About = () => {
     );
   }
 
-  const { personalInfo, socialLinks: rawSocialLinks, achievements, interests } = portfolio;
+  const { personalInfo, socialLinks: rawSocialLinks, achievements: rawAchievements, interests } = portfolio;
+
+  // Flatten competitiveProgramming so existing JSX can access achievements.leetcode etc. directly
+  const achievements = {
+    ...rawAchievements,
+    leetcode: rawAchievements.competitiveProgramming?.leetcode,
+    codechef: rawAchievements.competitiveProgramming?.codechef,
+    codeforces: rawAchievements.competitiveProgramming?.codeforces,
+    geeksforgeeks: rawAchievements.competitiveProgramming?.geeksforgeeks,
+  };
 
   const interestIcons: Record<string, { icon: any; color: string }> = {
     robotics: { icon: FaRobot, color: "text-primary" },

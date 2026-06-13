@@ -241,7 +241,16 @@ const Overview = () => {
     );
   }
 
-  const { personalInfo, socialLinks: rawSocialLinks, achievements, experience, projects, skills, interests } = portfolio;
+  const { personalInfo, socialLinks: rawSocialLinks, achievements: rawAchievements, experience, projects, skills, interests } = portfolio;
+
+  // Flatten competitiveProgramming so existing JSX can access achievements.leetcode etc. directly
+  const achievements = {
+    ...rawAchievements,
+    leetcode: rawAchievements.competitiveProgramming?.leetcode,
+    codechef: rawAchievements.competitiveProgramming?.codechef,
+    codeforces: rawAchievements.competitiveProgramming?.codeforces,
+    geeksforgeeks: rawAchievements.competitiveProgramming?.geeksforgeeks,
+  };
 
   // Reconstruct local variables to match JSX usages:
   const socialLinks = {
