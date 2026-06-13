@@ -8,16 +8,12 @@
       "type": "object",
       "description": "Metadata about the profile",
       "properties": {
-        "version": {
-          "type": "string",
-          "description": "Profile data version"
-        },
-        "timestamp": {
-          "type": "string",
-          "format": "date-time",
-          "description": "ISO timestamp when profile was created/updated"
-        }
-      }
+        "owner": { "type": "string" },
+        "generatedAt": { "type": "string", "format": "date-time" },
+        "source": { "type": "string" },
+        "version": { "type": "string" }
+      },
+      "additionalProperties": true
     },
     "personalInfo": {
       "type": "object",
@@ -26,240 +22,254 @@
         "name": {
           "type": "string",
           "minLength": 1,
-          "maxLength": 100,
-          "description": "Full name"
+          "maxLength": 100
         },
         "title": {
           "type": "string",
-          "maxLength": 100,
-          "description": "Professional title or designation"
+          "maxLength": 100
         },
-        "bio": {
-          "description": "Short biography (any type accepted)"
+        "subtitle": {
+          "type": "string"
+        },
+        "tagline": {
+          "type": "string"
         },
         "email": {
           "type": "string",
-          "format": "email",
-          "description": "Email address"
+          "format": "email"
         },
         "phone": {
-          "type": "string",
-          "description": "Contact phone number"
+          "type": "string"
         },
         "location": {
-          "type": "string",
-          "description": "Location/Address"
+          "type": "string"
         },
-        "avatar": {
-          "type": "string",
-          "format": "uri",
-          "description": "Avatar image URL"
+        "currentLocation": {
+          "type": "string"
+        },
+        "timezone": {
+          "type": "string"
+        },
+        "university": {
+          "type": "string"
+        },
+        "course": {
+          "type": "string"
+        },
+        "availability": {
+          "type": "string"
+        },
+        "workMode": {
+          "type": "string"
+        },
+        "bio": {
+          "type": "object",
+          "properties": {
+            "intro": { "type": "string" },
+            "full": { "type": "string" },
+            "robotics": { "type": "string" },
+            "interests": { "type": "string" }
+          },
+          "additionalProperties": true
         }
       },
       "required": [
         "name",
         "email"
-      ]
-    },
-    "experience": {
-      "type": "array",
-      "description": "Professional work experience",
-      "items": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "description": "Unique identifier for experience entry"
-          },
-          "company": {
-            "type": "string",
-            "minLength": 1,
-            "description": "Company name"
-          },
-          "position": {
-            "type": "string",
-            "minLength": 1,
-            "description": "Job position/title"
-          },
-          "startDate": {
-            "type": "string",
-            "format": "date",
-            "description": "Start date (YYYY-MM-DD)"
-          },
-          "endDate": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "format": "date",
-            "description": "End date or null if currently working"
-          },
-          "description": {
-            "type": "string",
-            "description": "Description of role and achievements"
-          },
-          "isCurrent": {
-            "type": "boolean",
-            "description": "Whether this is the current position"
-          }
-        }
-      }
-    },
-    "skills": {
-      "type": [
-        "array",
-        "object",
-        "null"
       ],
-      "description": "List of professional skills",
+      "additionalProperties": false
+    },
+    "careerPreferences": {
+      "type": "object",
+      "properties": {
+        "targetRoles": { "type": "array", "items": { "type": "string" } },
+        "jobTypes": { "type": "array", "items": { "type": "string" } },
+        "preferredDomains": { "type": "array", "items": { "type": "string" } },
+        "workModePreferences": { "type": "array", "items": { "type": "string" } },
+        "openToRelocation": { "type": "boolean" },
+        "preferredLocations": { "type": "array", "items": { "type": "string" } },
+        "availability": { "type": "string" },
+        "noticePeriod": { "type": "string" }
+      },
+      "additionalProperties": true
+    },
+    "socialLinks": {
+      "type": "object",
+      "properties": {
+        "github": { "type": "string", "format": "uri" },
+        "linkedin": { "type": "string", "format": "uri" },
+        "leetcode": { "type": "string", "format": "uri" },
+        "geeksforgeeks": { "type": "string", "format": "uri" },
+        "codechef": { "type": "string", "format": "uri" },
+        "codeforces": { "type": "string", "format": "uri" },
+        "twitter": { "type": "string", "format": "uri" },
+        "instagram": { "type": "string", "format": "uri" }
+      },
+      "additionalProperties": true
+    },
+    "interests": {
+      "type": "array",
       "items": {
         "type": "object",
         "properties": {
-          "id": {
-            "type": "string",
-            "description": "Unique identifier for skill"
-          },
-          "category": {
-            "type": "string",
-            "minLength": 1,
-            "description": "Skill category (e.g., Programming, Design)"
-          },
-          "name": {
-            "type": "string",
-            "minLength": 1,
-            "description": "Skill name"
-          },
-          "proficiency": {
-            "type": "string",
-            "enum": [
-              "Beginner",
-              "Intermediate",
-              "Advanced",
-              "Expert"
-            ],
-            "description": "Proficiency level"
-          },
-          "yearsOfExperience": {
-            "type": "number",
-            "minimum": 0,
-            "description": "Years of experience with this skill"
-          }
-        }
+          "id": { "type": "string" },
+          "name": { "type": "string" },
+          "description": { "type": "string" }
+        },
+        "required": ["id", "name"]
       }
     },
-    "projects": {
+    "achievements": {
+      "type": "object",
+      "properties": {
+        "competitiveProgramming": {
+          "type": "object",
+          "properties": {
+            "leetcode": {
+              "type": "object",
+              "properties": {
+                "rating": { "type": "string" },
+                "maxRating": { "type": "string" },
+                "problemsSolved": { "type": "string" },
+                "globalRanking": { "type": "string" },
+                "percentile": { "type": "string" }
+              }
+            },
+            "codechef": {
+              "type": "object",
+              "properties": {
+                "rating": { "type": "string" },
+                "maxRating": { "type": "string" },
+                "problemsSolved": { "type": "string" },
+                "stars": { "type": "string" },
+                "division": { "type": "string" }
+              }
+            },
+            "codeforces": {
+              "type": "object",
+              "properties": {
+                "rating": { "type": "string" },
+                "maxRating": { "type": "string" },
+                "problemsSolved": { "type": "string" },
+                "rank": { "type": "string" }
+              }
+            },
+            "geeksforgeeks": {
+              "type": "object",
+              "properties": {
+                "problemsSolved": { "type": "string" },
+                "rank": { "type": "string" }
+              }
+            }
+          }
+        },
+        "overallStats": {
+          "type": "object",
+          "properties": {
+            "yearsExperience": { "type": "string" },
+            "commits": { "type": "string" },
+            "totalProblemsSolved": { "type": "string" }
+          }
+        },
+        "awards": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "title": { "type": "string" },
+              "year": { "type": "string" },
+              "description": { "type": "string" }
+            },
+            "required": ["title"]
+          }
+        }
+      },
+      "additionalProperties": true
+    },
+    "certifications": {
       "type": "array",
-      "description": "Portfolio projects",
       "items": {
         "type": "object",
         "properties": {
-          "id": {
-            "type": "string",
-            "description": "Unique project identifier"
-          },
-          "title": {
-            "type": "string",
-            "minLength": 1,
-            "description": "Project title"
-          },
-          "description": {
-            "type": "string",
-            "minLength": 1,
-            "description": "Project description"
-          },
-          "technologies": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "description": "Technologies used in the project"
-          },
-          "startDate": {
-            "type": "string",
-            "format": "date",
-            "description": "Project start date"
-          },
-          "endDate": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "format": "date",
-            "description": "Project end date"
-          },
-          "link": {
-            "type": "string",
-            "format": "uri",
-            "description": "Project link/URL"
-          },
-          "imageUrl": {
-            "type": "string",
-            "format": "uri",
-            "description": "Project preview image URL"
-          }
-        }
+          "title": { "type": "string" },
+          "issuer": { "type": "string" },
+          "year": { "type": "string" },
+          "description": { "type": "string" }
+        },
+        "required": ["title", "issuer"]
       }
     },
     "education": {
       "type": "array",
-      "description": "Educational background",
       "items": {
         "type": "object",
         "properties": {
-          "id": {
-            "type": "string",
-            "description": "Unique education entry identifier"
-          },
-          "institution": {
-            "type": "string",
-            "minLength": 1,
-            "description": "Educational institution name"
-          },
-          "degree": {
-            "type": "string",
-            "minLength": 1,
-            "description": "Degree obtained"
-          },
-          "field": {
-            "type": "string",
-            "description": "Field of study"
-          },
-          "graduationDate": {
-            "type": "string",
-            "format": "date",
-            "description": "Graduation date"
-          }
+          "level": { "type": "string" },
+          "degree": { "type": "string" },
+          "institution": { "type": "string" },
+          "location": { "type": "string" },
+          "duration": { "type": "string" },
+          "status": { "type": "string" },
+          "cgpa": { "type": "string" },
+          "percentage": { "type": "string" },
+          "courses": { "type": "array", "items": { "type": "string" } },
+          "activities": { "type": "array", "items": { "type": "string" } },
+          "achievements": { "type": "array", "items": { "type": "string" } }
         },
-        "required": [
-          "institution",
-          "degree"
-        ]
+        "required": ["institution", "degree"]
       }
     },
-    "socialLinks": {
+    "experience": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "role": { "type": "string" },
+          "organization": { "type": "string" },
+          "location": { "type": "string" },
+          "period": { "type": "string" },
+          "description": { "type": "string" },
+          "skills": { "type": "array", "items": { "type": "string" } }
+        },
+        "required": ["role", "organization"]
+      }
+    },
+    "projects": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "name": { "type": "string" },
+          "category": { "type": "string" },
+          "description": { "type": "string" },
+          "techStack": { "type": "array", "items": { "type": "string" } },
+          "features": { "type": "array", "items": { "type": "string" } },
+          "links": {
+            "type": "object",
+            "properties": {
+              "live": { "type": "string", "format": "uri" },
+              "github": { "type": "string", "format": "uri" }
+            }
+          },
+          "status": { "type": "string" }
+        },
+        "required": ["name", "description"]
+      }
+    },
+    "skills": {
       "type": "object",
-      "description": "Social media and professional links",
+      "additionalProperties": {
+        "type": "array",
+        "items": { "type": "string" }
+      }
+    },
+    "currentFocus": {
+      "type": "object",
       "properties": {
-        "github": {
-          "type": "string",
-          "format": "uri"
-        },
-        "linkedin": {
-          "type": "string",
-          "format": "uri"
-        },
-        "twitter": {
-          "type": "string",
-          "format": "uri"
-        },
-        "portfolio": {
-          "type": "string",
-          "format": "uri"
-        },
-        "blog": {
-          "type": "string",
-          "format": "uri"
-        }
+        "learning": { "type": "string" },
+        "building": { "type": "string" },
+        "lookingFor": { "type": "string" }
       }
     }
   },
