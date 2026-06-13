@@ -58,36 +58,37 @@ export async function embedPortfolio() {
 
   const raw = JSON.parse(fs.readFileSync(DATA_PATH, "utf-8"))
 
-  const points = []
+  const embeddableChunks = raw.chunks.filter(c => c.shouldEmbed);
+  const points = [];
 
-  for (const chunk of raw.chunks) {
-    if (!chunk.shouldEmbed) continue
-
-    const embedding = await openai.embeddings.create({
+  if (embeddableChunks.length > 0) {
+    const batchResponse = await openai.embeddings.create({
       model: "text-embedding-3-large",
-      input: chunk.text
-    })
+      input: embeddableChunks.map(c => c.text)
+    });
 
-    points.push({
-      id: hashStringToId(chunk.id),
-      vector: embedding.data[0].embedding,
-      payload: {
-        chunkId: chunk.id,
-        chunkType: chunk.chunkType,
-        source: chunk.source,
-        title: chunk.title,
-        tags: chunk.tags,
-        text: chunk.text,
-        meta: chunk.meta
-      }
-    })
+    embeddableChunks.forEach((chunk, i) => {
+      points.push({
+        id: hashStringToId(chunk.id),
+        vector: batchResponse.data[i].embedding,
+        payload: {
+          chunkId: chunk.id,
+          chunkType: chunk.chunkType,
+          source: chunk.source,
+          title: chunk.title,
+          tags: chunk.tags,
+          text: chunk.text,
+          meta: chunk.meta
+        }
+      });
+    });
   }
 
   await qdrant.upsert(COLLECTION, {
     points
   })
 
-  console.log(`✅ Embedded ${points.length} chunks`)
+  console.log(`✅ Embedded ${points.length} chunks in 1 API call (was ${points.length} calls)`);
 }
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
