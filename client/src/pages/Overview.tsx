@@ -1286,7 +1286,7 @@ const Overview = () => {
                             },
                             {
                               icon: CircleDot,
-                              text: `${personalInfo.status.availability} for opportunities`,
+                              text: `${personalInfo.availability} for opportunities`,
                             },
                           ].map((item, idx) => (
                             <motion.div

@@ -442,7 +442,7 @@ const Contact = () => {
                           transition={{ duration: 0.2 }}
                         >
                           <div className="text-lg font-bold text-primary">
-                            {personalInfo.status.availability}
+                            {personalInfo.availability}
                           </div>
                           <div className="text-xs text-muted-foreground">
                             Current Status
