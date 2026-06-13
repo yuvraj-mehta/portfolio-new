@@ -1,15 +1,6 @@
 import { catchAsyncErrors } from "../middlewares/index.js";
 import FileStorageService from "../services/fileStorage.service.js";
 
-export const syncData = catchAsyncErrors(async (req, res, next) => {
-  const payload = req.body;
-  res.status(200).json({
-    success: true,
-    message: "Payload accepted",
-    meta: payload?.meta || null,
-  });
-});
-
 /**
  * Initialize/Update Portfolio Profile
  * 
