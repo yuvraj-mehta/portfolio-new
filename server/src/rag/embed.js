@@ -31,7 +31,7 @@ function hashStringToId(str) {
   return Math.abs(hash)
 }
 
-async function embedPortfolio() {
+export async function embedPortfolio() {
   const COLLECTION = "portfolio_chunks"
   const VECTOR_SIZE = 3072 // text-embedding-3-large
 
@@ -90,4 +90,6 @@ async function embedPortfolio() {
   console.log(`✅ Embedded ${points.length} chunks`)
 }
 
-embedPortfolio().catch(console.error)
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  embedPortfolio().catch(console.error)
+}
