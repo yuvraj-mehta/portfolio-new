@@ -473,3 +473,68 @@ export async function fetchAllCodingStats() {
     gfg: gfgResult.status === "fulfilled" ? gfgResult.value : null
   };
 }
+
+// In-memory cache variables
+let cachedStats = null;
+let activeUpdatePromise = null;
+
+/**
+ * Updates the coding stats cache by fetching from all platforms.
+ *
+ * @async
+ * @returns {Promise<Object>} The fetched and updated statistics.
+ */
+export async function updateCodingStatsCache() {
+  if (activeUpdatePromise) {
+    return activeUpdatePromise;
+  }
+
+  activeUpdatePromise = (async () => {
+    try {
+      console.log("[CodingStatsCache] Updating coding stats cache...");
+      const stats = await fetchAllCodingStats();
+      cachedStats = stats;
+      console.log("[CodingStatsCache] Coding stats cache updated successfully.");
+      return stats;
+    } catch (err) {
+      console.error("[CodingStatsCache] Error updating coding stats cache:", err);
+      throw err;
+    } finally {
+      activeUpdatePromise = null;
+    }
+  })();
+
+  return activeUpdatePromise;
+}
+
+/**
+ * Retrieves the coding stats from cache.
+ * If the cache is empty, it will trigger and await the update.
+ *
+ * @async
+ * @returns {Promise<Object>} The cached stats.
+ */
+export async function getCachedCodingStats() {
+  if (cachedStats) {
+    return cachedStats;
+  }
+  return updateCodingStatsCache();
+}
+
+// Schedule hourly updates (3600000 ms = 1 hour)
+const HOURLY_INTERVAL_MS = 60 * 60 * 1000;
+const cacheInterval = setInterval(() => {
+  updateCodingStatsCache().catch(err => {
+    console.error("[CodingStatsCache] Scheduled update failed:", err);
+  });
+}, HOURLY_INTERVAL_MS);
+
+// Unref the interval so that server testing scripts or exit handlers can finish cleanly if needed
+if (cacheInterval && typeof cacheInterval.unref === "function") {
+  cacheInterval.unref();
+}
+
+// Perform initial cache warmup asynchronously
+updateCodingStatsCache().catch(err => {
+  console.error("[CodingStatsCache] Initial cache warmup failed:", err);
+});

@@ -4,7 +4,7 @@ import {
   fetchCodeforces,
   fetchCodeChef,
   fetchGFG,
-  fetchAllCodingStats
+  getCachedCodingStats
 } from "../services/codingPlatforms.service.js";
 import FileStorageService from "../services/fileStorage.service.js";
 import AppError from "../utils/AppError.js";
@@ -50,7 +50,7 @@ async function getHandleFor(platform) {
  * @returns {Promise<void>} Resolves when response is sent.
  */
 export const getCodingStats = catchAsyncErrors(async (req, res) => {
-  const data = await fetchAllCodingStats();
+  const data = await getCachedCodingStats();
   res.json({ success: true, data });
 });
 
@@ -62,6 +62,10 @@ export const getCodingStats = catchAsyncErrors(async (req, res) => {
  * @returns {Promise<void>} Resolves when response is sent.
  */
 export const getLeetCodeStats = catchAsyncErrors(async (req, res) => {
+  const stats = await getCachedCodingStats();
+  if (stats && stats.leetcode) {
+    return res.json({ success: true, data: stats.leetcode });
+  }
   const handle = await getHandleFor("leetcode");
   const data = await fetchLeetCode(handle);
   res.json({ success: true, data });
@@ -75,6 +79,10 @@ export const getLeetCodeStats = catchAsyncErrors(async (req, res) => {
  * @returns {Promise<void>} Resolves when response is sent.
  */
 export const getCodeforcesStats = catchAsyncErrors(async (req, res) => {
+  const stats = await getCachedCodingStats();
+  if (stats && stats.codeforces) {
+    return res.json({ success: true, data: stats.codeforces });
+  }
   const handle = await getHandleFor("codeforces");
   const data = await fetchCodeforces(handle);
   res.json({ success: true, data });
@@ -88,6 +96,10 @@ export const getCodeforcesStats = catchAsyncErrors(async (req, res) => {
  * @returns {Promise<void>} Resolves when response is sent.
  */
 export const getCodeChefStats = catchAsyncErrors(async (req, res) => {
+  const stats = await getCachedCodingStats();
+  if (stats && stats.codechef) {
+    return res.json({ success: true, data: stats.codechef });
+  }
   const handle = await getHandleFor("codechef");
   const data = await fetchCodeChef(handle);
   res.json({ success: true, data });
@@ -101,6 +113,10 @@ export const getCodeChefStats = catchAsyncErrors(async (req, res) => {
  * @returns {Promise<void>} Resolves when response is sent.
  */
 export const getGFGStats = catchAsyncErrors(async (req, res) => {
+  const stats = await getCachedCodingStats();
+  if (stats && stats.gfg) {
+    return res.json({ success: true, data: stats.gfg });
+  }
   const handle = await getHandleFor("gfg");
   const data = await fetchGFG(handle);
   res.json({ success: true, data });
