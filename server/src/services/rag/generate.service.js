@@ -16,7 +16,7 @@ const isDev = process.env.NODE_ENV !== "production";
 export async function generateAnswer(query, contexts) {
   const hasContext = contexts && contexts.length > 0;
   const contextText = hasContext
-    ? contexts.map((c, i) => `(${i + 1}) ${c.text}`).join("\n\n")
+    ? contexts.map((c, i) => `(${i + 1}) [${c.title}]\n${c.text}`).join("\n\n")
     : "No specific portfolio information found for this query.";
 
   if (isDev) {
