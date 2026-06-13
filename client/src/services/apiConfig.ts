@@ -14,5 +14,5 @@ export function getApiBaseUrl(): string {
 // Returns the base URL for coding platforms API
 export function getCodingPlatformsApiUrl(): string {
   const envUrl = import.meta.env.VITE_CODING_API_BASE_URL as string | undefined;
-  return envUrl ? envUrl.replace(/\/$/, "") : "https://portfolio-1-1rg6.onrender.com/api/v1";
+  return envUrl ? envUrl.replace(/\/$/, "") : `${getApiBaseUrl()}/api`;
 }
