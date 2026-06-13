@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2025-12-29T13:15:00.606Z",
-  "count": 38,
+  "generatedAt": "2026-06-13T10:55:41.871Z",
+  "count": 39,
   "chunks": [
     {
       "id": "meta-profile-metadata-for-yuvraj-mehta",
@@ -125,7 +125,7 @@
       ],
       "text": "As a Robotics Club member, I've organized workshops and led teams building combat and soccer bots. I believe in learning by doing and enjoy sharing knowledge with others through mentoring and technical discussions.",
       "meta": {},
-      "shouldEmbed": true
+      "shouldEmbed": false
     },
     {
       "id": "bio-yuvraj-mehta-bio-interests",
@@ -138,7 +138,7 @@
       ],
       "text": "When I'm not coding, you can find me solving algorithmic challenges on competitive programming platforms, participating in hackathons, or running track. I won Bronze in 50m Hurdles at NIT Patna Intramurals!",
       "meta": {},
-      "shouldEmbed": true
+      "shouldEmbed": false
     },
     {
       "id": "careerPreference-yuvraj-mehta-career-preferences",
@@ -198,6 +198,21 @@
       ],
       "text": "When I'm not coding, I enjoy Leading workshops.",
       "meta": {},
+      "shouldEmbed": true
+    },
+    {
+      "id": "certification-web-development-bootcamp-udemy",
+      "chunkType": "certification",
+      "source": "certifications",
+      "title": "Web Development Bootcamp — Udemy",
+      "tags": [
+        "certification"
+      ],
+      "text": "I completed Web Development Bootcamp from Udemy in 2023. Comprehensive full-stack web development course covering HTML, CSS, JavaScript, React, and Node.js",
+      "meta": {
+        "issuer": "Udemy",
+        "year": "2023"
+      },
       "shouldEmbed": true
     },
     {
