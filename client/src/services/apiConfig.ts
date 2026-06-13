@@ -4,10 +4,13 @@
 
 export function getApiBaseUrl(): string {
   const envUrl = import.meta.env.VITE_API_BASE_URL as string | undefined;
-  // If no env variable is provided, default to the Render host in production
-  // or localhost in development
   if (envUrl && envUrl.length > 0) return envUrl;
-  return import.meta.env.DEV ? "http://localhost:3500" : "https://portfolio-1-1rg6.onrender.com";
+
+  const environment = import.meta.env.VITE_ENVIRONMENT as string | undefined;
+  if (environment === "prod") {
+    return "https://portfolio-new-0m64.onrender.com";
+  }
+  return "http://localhost:3500";
 }
 
 // Returns the base URL for coding platforms API
