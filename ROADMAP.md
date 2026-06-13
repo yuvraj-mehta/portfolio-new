@@ -12,13 +12,14 @@ This document outlines the implementation phases, specifically tracking the fixe
 - **Knowledge Completeness**: Added certification parsing to the chunking logic.
 - **Git Strategy**: Cleaned repository history, removed `.gsd` folders and `.env` files, and verified SSH commit signing.
 
-### Phase 7: Server Hardening & Client Code-Splitting (Current)
+### Phase 7: Server Hardening & Client Code-Splitting
 - **Server Environment Validation**: Added strict validation in `envConfig.js` to ensure the server crashes immediately (fails fast) on startup if critical environment variables (`OPENAI_API_KEY`, etc.) are missing.
 - **Centralized Error Handling**: Created a custom `AppError` class and refactored the global `errorHandler.middleware.js` to produce consistent JSON error responses.
 - **Controller Refactoring**: Updated `ask.controller.js` to throw `AppError` rather than manually formatting HTTP 400 responses.
 - **Client Code-Splitting**: Replaced static imports in `client/src/App.tsx` with `React.lazy` and wrapped the routes in `<Suspense>` to drastically reduce the initial bundle size.
 - **Client API Standardization**: Created `apiConfig.ts` to centralize base URL retrieval and refactored `ragApi.ts` and `codingPlatformsApi.ts` to use it.
-- **Git Strategy**: Committed all Phase 7 changes as atomic, Conventional Commits (`refactor(server): ...` and `perf(client): ...`) using `--no-gpg-sign` to bypass local environment restrictions while preserving history structure.
+- **Server-Side Coding Platform Statistics**: Built Express routing, controller, and services to fetch and parse live statistics directly from LeetCode, Codeforces, CodeChef, and GeeksforGeeks, and updated the client configuration to retrieve stats locally.
+- **Git Strategy**: Committed all Phase 7 changes as atomic, Conventional Commits using `--no-gpg-sign` to bypass local environment restrictions.
 
 ## Future Phases
 
