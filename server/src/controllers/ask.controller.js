@@ -18,7 +18,7 @@ const QUERY_CONFIG = {
  * @returns {Promise<void>} Resolves when response is sent.
  */
 export const askQuestion = catchAsyncErrors(async (req, res) => {
-  const { query } = req.body;
+  const { query, history } = req.body;
 
   if (!query) {
     throw new AppError(
@@ -61,7 +61,7 @@ export const askQuestion = catchAsyncErrors(async (req, res) => {
     );
   }
 
-  const answer = await askPortfolio(trimmedQuery);
+  const answer = await askPortfolio(trimmedQuery, history);
   res.json({ success: true, answer });
 });
 

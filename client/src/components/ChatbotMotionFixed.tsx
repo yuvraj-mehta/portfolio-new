@@ -117,8 +117,14 @@ export default function ChatbotMotionFixed() {
       return next;
     });
     setInput("");
+    
+    // Extract the last 5 messages for context
+    const history = messages
+      .slice(-5)
+      .map((m) => ({ role: m.role, content: m.content }));
+
     try {
-      const answer = await askPortfolio(q);
+      const answer = await askPortfolio(q, history);
       setMessages((m) => {
         const assistantMsg: Message = { role: "assistant", content: answer };
         const next: Message[] = [...m, assistantMsg];

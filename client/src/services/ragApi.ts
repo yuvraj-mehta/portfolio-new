@@ -1,5 +1,6 @@
 export interface AskRequest {
   query: string;
+  history?: { role: string; content: string }[];
 }
 
 export interface AskResponse {
@@ -24,12 +25,12 @@ export interface ErrorResponse {
 
 import { getApiBaseUrl } from "./apiConfig";
 
-export async function askPortfolio(query: string): Promise<string> {
+export async function askPortfolio(query: string, history?: { role: string; content: string }[]): Promise<string> {
   const base = getApiBaseUrl();
   const res = await fetch(`${base}/api/ask`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ query } satisfies AskRequest),
+    body: JSON.stringify({ query, history } satisfies AskRequest),
   });
 
   const json = (await res.json()) as

@@ -57,8 +57,14 @@ const Chat = () => {
     persistMessages(newMessages);
     setInput("");
 
+    // Extract the last 5 successful messages for context
+    const history = messages
+      .filter((m) => m.role !== "error")
+      .slice(-5)
+      .map((m) => ({ role: m.role, content: m.content }));
+
     try {
-      const answer = await askPortfolio(query);
+      const answer = await askPortfolio(query, history);
       const assistantMsg: Message = { role: "assistant", content: answer };
       const finalMessages = [...newMessages, assistantMsg];
       setMessages(finalMessages);

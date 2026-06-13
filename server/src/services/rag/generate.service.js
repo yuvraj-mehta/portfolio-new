@@ -10,9 +10,10 @@ const isDev = process.env.NODE_ENV !== "production";
  *
  * @param {string} query - The trimmed question or query asked by the user.
  * @param {Array<{text: string, title: string, chunkType?: string, score?: number}>} contexts - Array of retrieved context chunks matching the query.
+ * @param {Array<{role: string, content: string}>} [history=[]] - Optional chat history.
  * @returns {Promise<string>} Resolves with the generated text answer from the AI model.
  */
-export async function generateAnswer(query, contexts) {
+export async function generateAnswer(query, contexts, history = []) {
   const hasContext = contexts && contexts.length > 0;
   const contextText = hasContext
     ? contexts.map((c, i) => `(${i + 1}) [${c.title}]\n${c.text}`).join("\n\n")
@@ -41,7 +42,7 @@ export async function generateAnswer(query, contexts) {
   }
 
   console.log(`Generating answer using provider '${GenAIService.getProvider()}' for model '${GenAIService.getChatModel()}'...`);
-  const answer = await GenAIService.generateAnswer(query, SYSTEM_PROMPT, contextText);
+  const answer = await GenAIService.generateAnswer(query, SYSTEM_PROMPT, contextText, history);
 
   if (isDev) {
     console.log("LLM Response:", answer);

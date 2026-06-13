@@ -135,20 +135,27 @@ export class GenAIService {
    * @param {string} query - The trimmed user query or question.
    * @param {string} systemPrompt - The system prompt specifying rules and behavioral constraints.
    * @param {string} contextText - Formatted RAG document context extracted from Qdrant database.
+   * @param {Array<{role: string, content: string}>} [history=[]] - Chat history.
    * @returns {Promise<string>} Resolves with the generated text answer.
    * @throws {Error} If the API request fails or the response from the provider is empty/invalid.
    */
-  static async generateAnswer(query, systemPrompt, contextText) {
+  static async generateAnswer(query, systemPrompt, contextText, history = []) {
     if (GENAI_PROVIDER === "openai") {
+      const messages = [
+        { role: "system", content: systemPrompt },
+        ...history.map(msg => ({
+          role: msg.role === "assistant" ? "assistant" : "user",
+          content: msg.content
+        })),
+        {
+          role: "user",
+          content: `Context:\n${contextText}\n\nQuestion:\n${query}`
+        }
+      ];
+
       const response = await openai.chat.completions.create({
         model: CHAT_MODEL,
-        messages: [
-          { role: "system", content: systemPrompt },
-          {
-            role: "user",
-            content: `Context:\n${contextText}\n\nQuestion:\n${query}`
-          }
-        ],
+        messages: messages,
         temperature: 0.7
       });
       return response.choices[0].message.content;
@@ -156,18 +163,23 @@ export class GenAIService {
       // Use Google Generative Language REST API generateContent
       const url = `https://generativelanguage.googleapis.com/v1beta/models/${CHAT_MODEL}:generateContent?key=${GEMINI_API_KEY}`;
       
+      const contents = history.map(msg => ({
+        role: msg.role === "assistant" ? "model" : "user",
+        parts: [{ text: msg.content }]
+      }));
+
+      contents.push({
+        role: "user",
+        parts: [
+          {
+            text: `Context:\n${contextText}\n\nQuestion:\n${query}`
+          }
+        ]
+      });
+
       // Construct prompt including system instructions as per Gemini API format
       const requestBody = {
-        contents: [
-          {
-            role: "user",
-            parts: [
-              {
-                text: `Context:\n${contextText}\n\nQuestion:\n${query}`
-              }
-            ]
-          }
-        ],
+        contents: contents,
         systemInstruction: {
           parts: [
             { text: systemPrompt }
