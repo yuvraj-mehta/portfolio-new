@@ -23,14 +23,7 @@ const Projects = () => {
   });
 
   if (isLoading || !portfolio) {
-    return (
-      <div className="flex h-screen w-full items-center justify-center bg-background">
-        <div className="animate-pulse flex flex-col items-center gap-4">
-          <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent"></div>
-          <p className="text-sm text-muted-foreground">Loading...</p>
-        </div>
-      </div>
-    );
+    return null;
   }
 
   const { personalInfo, socialLinks: rawSocialLinks } = portfolio;

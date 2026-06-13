@@ -22,14 +22,7 @@ const Chat = React.lazy(() => import("./pages/Chat"));
 const queryClient = new QueryClient();
 
 // Simple loading fallback
-const PageLoader = () => (
-  <div className="flex h-screen w-full items-center justify-center">
-    <div className="animate-pulse flex flex-col items-center gap-4">
-      <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent"></div>
-      <p className="text-sm text-muted-foreground">Loading...</p>
-    </div>
-  </div>
-);
+const PageLoader = () => null;
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
