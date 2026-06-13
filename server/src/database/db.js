@@ -9,7 +9,7 @@ export const connectDB = () => {
 
   mongoose
     .connect(MONGO_URI, {
-      dbName: "bookhive",
+      dbName: "portfolio",
     })
     .then(() => {
       console.log("Database connected successfully.");
