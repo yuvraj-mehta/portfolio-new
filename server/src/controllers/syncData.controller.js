@@ -1,5 +1,7 @@
 import { catchAsyncErrors } from "../middlewares/index.js";
 import FileStorageService from "../services/fileStorage.service.js";
+import { normalizePortfolio } from "../rag/normalize.js";
+import { embedPortfolio } from "../rag/embed.js";
 
 /**
  * Initialize/Update Portfolio Profile
@@ -24,14 +26,19 @@ export const initProfile = catchAsyncErrors(async (req, res, next) => {
     validatedPayload
   );
 
+  // Trigger RAG pipeline: normalize → embed
+  await normalizePortfolio();
+  await embedPortfolio();
+
   // Return success response
   res.status(201).json({
     success: true,
-    message: "Portfolio profile initialized successfully",
+    message: "Portfolio profile initialized and RAG index updated successfully",
     data: {
       savedAt: saveResult.savedAt,
       filePath: saveResult.filePath,
       profileMeta: validatedPayload?.meta || null,
+      ragUpdated: true,
     },
   });
 });
