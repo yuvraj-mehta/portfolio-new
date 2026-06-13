@@ -265,6 +265,7 @@ const Overview = () => {
     title: project.name,
     demo: project.links?.live,
     github: project.links?.github,
+    tags: project.techStack ?? [],   // portfolio.json uses techStack; old data used tags
   }));
 
   const interestIcons: Record<string, any> = {
