@@ -1,6 +1,7 @@
 import { ProxyAgent, setGlobalDispatcher } from "undici";
 import FileStorageService from "./fileStorage.service.js";
 import AppError from "../utils/AppError.js";
+import { FALLBACK_HANDLES } from "../constants/codingHandles.js";
 
 // Setup global proxy agent for sandboxed terminal environment if proxy variables are present
 const proxyUrl = process.env.HTTPS_PROXY || process.env.HTTP_PROXY || process.env.https_proxy || process.env.http_proxy;
@@ -8,13 +9,6 @@ if (proxyUrl) {
   const dispatcher = new ProxyAgent({ uri: proxyUrl });
   setGlobalDispatcher(dispatcher);
 }
-
-const FALLBACK_HANDLES = {
-  leetcode: "holaGuy",
-  codeforces: "yuvraj.mehta532",
-  codechef: "quick_unity_53",
-  gfg: "yuvrajmevbrx"
-};
 
 /**
  * Extracts the user handle from a profile URL.

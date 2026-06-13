@@ -8,13 +8,7 @@ import {
 } from "../services/codingPlatforms.service.js";
 import FileStorageService from "../services/fileStorage.service.js";
 import AppError from "../utils/AppError.js";
-
-const FALLBACK_HANDLES = {
-  leetcode: "holaGuy",
-  codeforces: "yuvraj.mehta532",
-  codechef: "quick_unity_53",
-  gfg: "yuvrajmevbrx"
-};
+import { FALLBACK_HANDLES } from "../constants/codingHandles.js";
 
 /**
  * Helper to dynamically extract user handle from URL.
