@@ -9,7 +9,8 @@ import {
   codingPlatformsApi,
   AllPlatformStats,
 } from "@/services/codingPlatformsApi";
-import { achievements, socialLinks } from "@/data";
+import { usePortfolio } from "@/contexts/PortfolioContext";
+import { useLiveCodingStats } from "@/hooks/useLiveCodingStats";
 import { motion } from "framer-motion";
 
 import {
@@ -36,71 +37,72 @@ import {
 import { MdLeaderboard, MdTrendingUp } from "react-icons/md";
 
 const Coding = () => {
+  const { portfolio, isLoading: isPortfolioLoading } = usePortfolio();
+  const { stats: apiData, isLoading: isLiveStatsLoading, error: apiError, lastUpdatedAt: lastUpdated, refetch } = useLiveCodingStats();
+
+  const isRefreshing = isLiveStatsLoading && apiData !== null;
+  const isLoading = (isLiveStatsLoading && apiData === null) || isPortfolioLoading || !portfolio;
+
   const [animatedCounts, setAnimatedCounts] = useState({
     total: 0,
     platforms: [0, 0, 0, 0],
   });
 
-  const [apiData, setApiData] = useState<AllPlatformStats | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [isRefreshing, setIsRefreshing] = useState(false);
-  const [apiError, setApiError] = useState<string | null>(null);
-  const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
+  const achievements = portfolio ? {
+    leetcode: {
+      percentile: portfolio.achievements.competitiveProgramming.leetcode.percentile || "Top 16.4%",
+    }
+  } : {
+    leetcode: {
+      percentile: "Top 16.4%",
+    }
+  };
+
+  const socialLinks = portfolio ? {
+    leetcode: { url: portfolio.socialLinks.leetcode },
+    geeksforgeeks: { url: portfolio.socialLinks.geeksforgeeks },
+    codechef: { url: portfolio.socialLinks.codechef },
+    codeforces: { url: portfolio.socialLinks.codeforces },
+  } : {
+    leetcode: { url: "" },
+    geeksforgeeks: { url: "" },
+    codechef: { url: "" },
+    codeforces: { url: "" },
+  };
 
   const fallbackData = {
     leetcode: {
-      totalSolved: parseInt(achievements.leetcode.problemsSolved),
+      totalSolved: portfolio ? parseInt(portfolio.achievements.competitiveProgramming.leetcode.problemsSolved) : 371,
       problemsSolved: { easy: 180, medium: 85, hard: 12 },
-      rating: parseInt(achievements.leetcode.rating),
+      rating: portfolio ? parseInt(portfolio.achievements.competitiveProgramming.leetcode.rating) : 1659,
     },
     codeforces: {
-      problemsSolved: parseInt(achievements.codeforces.problemsSolved),
-      rating: parseInt(achievements.codeforces.rating),
-      rank: achievements.codeforces.rank,
+      problemsSolved: portfolio ? parseInt(portfolio.achievements.competitiveProgramming.codeforces.problemsSolved) : 27,
+      rating: portfolio ? parseInt(portfolio.achievements.competitiveProgramming.codeforces.rating) : 1030,
+      rank: portfolio?.achievements.competitiveProgramming.codeforces.rank || "Newbie",
     },
     codechef: {
-      problemsSolved: parseInt(achievements.codechef.problemsSolved),
-      rating: parseInt(achievements.codechef.rating),
+      problemsSolved: portfolio ? parseInt(portfolio.achievements.competitiveProgramming.codechef.problemsSolved) : 25,
+      rating: portfolio ? parseInt(portfolio.achievements.competitiveProgramming.codechef.rating) : 1451,
       stars: 2,
     },
     gfg: {
-      problemsSolved: parseInt(achievements.geeksforgeeks.problemsSolved),
+      problemsSolved: portfolio ? parseInt(portfolio.achievements.competitiveProgramming.geeksforgeeks.problemsSolved) : 130,
       score: 500,
-      rank: parseInt(achievements.geeksforgeeks.rank),
+      rank: portfolio ? parseInt(portfolio.achievements.competitiveProgramming.geeksforgeeks.rank || "1058") : 1058,
     },
   };
 
-  const fetchCodingData = async (isRefresh = false) => {
-    if (isRefresh) {
-      setIsRefreshing(true);
-    } else {
-      setIsLoading(true);
-    }
-    setApiError(null);
-
-    try {
-      const data = await codingPlatformsApi.getAllPlatformData();
-      if (data) {
-        setApiData(data);
-        setLastUpdated(new Date());
-        setApiError(null);
-      } else {
-        throw new Error("No data received from API");
-      }
-    } catch (error) {
-      console.error("Failed to fetch coding data:", error);
-      setApiError(
-        error instanceof Error ? error.message : "Failed to fetch data"
-      );
-    } finally {
-      setIsLoading(false);
-      setIsRefreshing(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchCodingData();
-  }, []);
+  if (isLoading) {
+    return (
+      <div className="flex h-screen w-full items-center justify-center bg-background">
+        <div className="animate-pulse flex flex-col items-center gap-4">
+          <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent"></div>
+          <p className="text-sm text-muted-foreground">Loading Coding Stats...</p>
+        </div>
+      </div>
+    );
+  }
 
   const getCurrentData = () => {
     if (apiData) {
@@ -482,16 +484,16 @@ const Coding = () => {
               transition={{ duration: 0.6, delay: 0.3 }}
             >
               <div className="flex items-center gap-2 px-3 py-2 bg-card/50 rounded-lg border border-border/50">
-                {isLoading ? (
+                {isLiveStatsLoading ? (
                   <>
                     <motion.div
                       animate={{ rotate: 360 }}
                       transition={{ duration: 1, repeat: Infinity }}
                     >
-                      <FaSync className="w-4 h-4 text-muted-foreground" />
+                      <FaSync className="w-4 h-4 text-muted-foreground animate-spin" />
                     </motion.div>
                     <span className="text-sm text-muted-foreground">
-                      Loading...
+                      Refreshing...
                     </span>
                   </>
                 ) : apiError ? (
@@ -524,7 +526,7 @@ const Coding = () => {
                 whileTap={{ scale: 0.95 }}
               >
                 <Button
-                  onClick={() => fetchCodingData(true)}
+                  onClick={refetch}
                   disabled={isRefreshing}
                   size="sm"
                   variant="outline"
