@@ -14,6 +14,8 @@ const qdrant = new QdrantClient({
 
 const COLLECTION = "portfolio_chunks"
 
+const SCORE_THRESHOLD = 0.35; // Cosine similarity — below this = unrelated
+
 /**
  * Retrieve relevant portfolio chunks for a query
  * @param {string} query
@@ -33,7 +35,8 @@ export async function retrieveContext(query, topK = 5) {
   const results = await qdrant.search(COLLECTION, {
     vector: queryVector,
     limit: topK,
-    with_payload: true
+    with_payload: true,
+    score_threshold: SCORE_THRESHOLD
   })
 
   // 3️⃣ Map results into clean context objects
