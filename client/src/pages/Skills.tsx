@@ -5,7 +5,7 @@ import { useState } from "react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import ThemeSwitcher from "@/components/ThemeSwitcher";
-import { personalInfo, skills } from "@/data";
+import { usePortfolio } from "@/contexts/PortfolioContext";
 import { motion } from "framer-motion";
 
 import {
@@ -78,8 +78,83 @@ const Skills = () => {
     Docker: FaDocker,
   };
 
-  const skillsData = skills;
+  const { portfolio, isLoading } = usePortfolio();
 
+  if (isLoading || !portfolio) {
+    return (
+      <div className="flex h-screen w-full items-center justify-center bg-background">
+        <div className="animate-pulse flex flex-col items-center gap-4">
+          <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent"></div>
+          <p className="text-sm text-muted-foreground">Loading...</p>
+        </div>
+      </div>
+    );
+  }
+
+  const { personalInfo } = portfolio;
+
+  const skillMetadata: Record<string, { level: string; colorKey: string }> = {
+    React: { level: "Advanced", colorKey: "primary" },
+    JavaScript: { level: "Advanced", colorKey: "warning" },
+    TypeScript: { level: "Intermediate", colorKey: "primary" },
+    HTML5: { level: "Advanced", colorKey: "danger" },
+    CSS3: { level: "Advanced", colorKey: "primary" },
+    "Tailwind CSS": { level: "Advanced", colorKey: "info" },
+    "Next.js": { level: "Intermediate", colorKey: "secondary" },
+    Redux: { level: "Intermediate", colorKey: "accent" },
+    Vue: { level: "Beginner", colorKey: "success" },
+    "Node.js": { level: "Intermediate", colorKey: "success" },
+    "RESTful APIs": { level: "Intermediate", colorKey: "info" },
+    "Express.js": { level: "Intermediate", colorKey: "secondary" },
+    MongoDB: { level: "Intermediate", colorKey: "success" },
+    SQL: { level: "Intermediate", colorKey: "primary" },
+    "Database Design": { level: "Intermediate", colorKey: "accent" },
+    "C++": { level: "Advanced", colorKey: "primary" },
+    Java: { level: "Intermediate", colorKey: "danger" },
+    Python: { level: "Beginner", colorKey: "warning" },
+    "Git & GitHub": { level: "Advanced", colorKey: "danger" },
+    "VS Code": { level: "Advanced", colorKey: "primary" },
+    Webpack: { level: "Intermediate", colorKey: "primary" },
+    Docker: { level: "Beginner", colorKey: "primary" },
+  };
+
+  const getThemeColor = (colorName: string): React.CSSProperties => {
+    const colorMap: { [key: string]: React.CSSProperties } = {
+      primary: { color: "hsl(var(--primary))" },
+      accent: { color: "hsl(var(--accent))" },
+      secondary: { color: "hsl(var(--secondary))" },
+      success: { color: "hsl(var(--skill-database))" },
+      info: { color: "hsl(var(--skill-tools))" },
+      warning: { color: "hsl(var(--skill-languages))" },
+      danger: { color: "hsl(var(--destructive))" },
+    };
+    return colorMap[colorName] || { color: "hsl(var(--primary))" };
+  };
+
+  const mapSkillList = (list: string[]) => (list || []).map(name => {
+    const meta = skillMetadata[name] || { level: "Intermediate", colorKey: "primary" };
+    return {
+      name,
+      level: meta.level,
+      style: getThemeColor(meta.colorKey)
+    };
+  });
+
+  const skillsData: Record<string, Record<string, Array<{ name: string; level: string; style: React.CSSProperties }>>> = {
+    "Web Development": {
+      Frontend: mapSkillList(portfolio.skills.frontend),
+      Backend: mapSkillList(portfolio.skills.backend)
+    },
+    Database: {
+      Database: mapSkillList(portfolio.skills.database)
+    },
+    Languages: {
+      Languages: mapSkillList(portfolio.skills.languages)
+    },
+    Tools: {
+      Tools: mapSkillList(portfolio.skills.tools)
+    }
+  };
   const getLevelColor = (level: string): React.CSSProperties => {
     switch (level) {
       case "Frontend":

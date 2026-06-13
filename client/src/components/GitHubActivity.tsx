@@ -22,13 +22,20 @@ import {
   GitHubCommit,
   GitHubRepository,
 } from "@/services/githubApi";
-import { socialLinks } from "@/data";
+import { usePortfolio } from "@/contexts/PortfolioContext";
 
 interface GitHubActivityProps {
   className?: string;
 }
 
 const GitHubActivity = ({ className = "" }: GitHubActivityProps) => {
+  const { portfolio } = usePortfolio();
+  const rawSocialLinks = portfolio?.socialLinks || { github: "", linkedin: "", leetcode: "" };
+  const socialLinks = {
+    github: { url: rawSocialLinks.github || "" },
+    linkedin: { url: rawSocialLinks.linkedin || "" },
+  };
+  
   const [commits, setCommits] = useState<GitHubCommit[]>([]);
   const [repositories, setRepositories] = useState<GitHubRepository[]>([]);
   const [stats, setStats] = useState({

@@ -15,11 +15,31 @@ import {
   ChevronUp,
 } from "lucide-react";
 import { FaTools } from "react-icons/fa";
-import { personalInfo, experiences, achievements } from "@/data";
+import { usePortfolio } from "@/contexts/PortfolioContext";
 import { motion, AnimatePresence } from "framer-motion";
 
 const Experience = () => {
   const [expandedCards, setExpandedCards] = useState<number[]>([]);
+  const { portfolio, isLoading } = usePortfolio();
+
+  if (isLoading || !portfolio) {
+    return (
+      <div className="flex h-screen w-full items-center justify-center bg-background">
+        <div className="animate-pulse flex flex-col items-center gap-4">
+          <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent"></div>
+          <p className="text-sm text-muted-foreground">Loading...</p>
+        </div>
+      </div>
+    );
+  }
+
+  const { personalInfo, achievements, experience: rawExperiences } = portfolio;
+
+  const experiences = (rawExperiences || []).map((exp) => ({
+    ...exp,
+    title: exp.role,
+    company: exp.organization,
+  }));
 
   const toggleCard = (index: number) => {
     setExpandedCards((prev) =>

@@ -15,9 +15,63 @@ import {
   SiCodeforces,
 } from "react-icons/si";
 import { Link } from "react-router-dom";
-import { footerData, socialLinks, personalInfo } from "@/data";
+import { usePortfolio } from "@/contexts/PortfolioContext";
 
 const Footer = () => {
+  const { portfolio } = usePortfolio();
+
+  if (!portfolio) {
+    return (
+      <footer
+        className="text-foreground mt-20"
+        style={{ backgroundColor: "hsl(var(--card))" }}
+      >
+        <div className="text-center py-6">
+          <p className="text-muted-foreground text-sm">Loading...</p>
+        </div>
+      </footer>
+    );
+  }
+
+  const { personalInfo, socialLinks: rawSocialLinks } = portfolio;
+
+  const socialLinks = {
+    github: { url: rawSocialLinks.github },
+    linkedin: { url: rawSocialLinks.linkedin },
+    email: { url: `mailto:${personalInfo.email}` },
+    leetcode: { url: rawSocialLinks.leetcode },
+    codechef: { url: rawSocialLinks.codechef },
+    codeforces: { url: rawSocialLinks.codeforces },
+    geeksforgeeks: { url: rawSocialLinks.geeksforgeeks },
+  };
+
+  const footerData = {
+    brand: {
+      name: personalInfo.name,
+      title: personalInfo.title,
+    },
+    contact: {
+      location: personalInfo.currentLocation,
+    },
+    sections: {
+      quickLinks: [
+        { href: personalInfo.resume }
+      ]
+    },
+    stats: {
+      totalVisitors: "15,475",
+      totalProblems: "500+",
+      totalProjects: `${portfolio.projects.length}+`,
+      yearsExperience: "2+",
+      lastUpdated: "August 16, 2025",
+    },
+    copyright: {
+      year: new Date().getFullYear(),
+      owner: personalInfo.name,
+      tech: "React & TypeScript",
+    }
+  };
+
   return (
     <footer
       className="text-foreground mt-20"

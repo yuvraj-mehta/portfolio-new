@@ -15,12 +15,62 @@ import {
   HiSparkles,
   HiBadgeCheck,
 } from "react-icons/hi";
-import { FaTrophy, FaChartBar, FaRobot } from "react-icons/fa";
-import { personalInfo, educationTimeline, certificationsList } from "@/data";
+import { FaTrophy, FaChartBar, FaRobot, FaGlobe } from "react-icons/fa";
+import { usePortfolio } from "@/contexts/PortfolioContext";
 import { motion, AnimatePresence } from "framer-motion";
 
 const Education = () => {
   const [expandedCards, setExpandedCards] = useState<number[]>([]);
+  const { portfolio, isLoading } = usePortfolio();
+
+  if (isLoading || !portfolio) {
+    return (
+      <div className="flex h-screen w-full items-center justify-center bg-background">
+        <div className="animate-pulse flex flex-col items-center gap-4">
+          <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent"></div>
+          <p className="text-sm text-muted-foreground">Loading...</p>
+        </div>
+      </div>
+    );
+  }
+
+  const { personalInfo } = portfolio;
+
+  const educationTimeline = (portfolio.education || []).map((edu, index) => {
+    const mappedActivities = edu.level === "Bachelor of Technology" ? [
+      { role: "Class Representative", detail: "CSE Department" },
+      { role: "Robotics Club Member", detail: "Building Combat & Soccer Bots" },
+      { role: "MUN 2023", detail: "Best Delegate Award" }
+    ] : (edu.activities || []).map(act => ({ role: act, detail: "" }));
+
+    const description = edu.level === "Bachelor of Technology"
+      ? "Pursuing comprehensive computer science education with focus on algorithms, data structures, and modern software development practices. Active participant in technical clubs and research projects."
+      : edu.level === "Higher Secondary"
+      ? "Completed higher secondary education with focus on science and mathematics subjects."
+      : "Completed secondary education with strong foundation in core subjects.";
+
+    return {
+      id: index,
+      status: edu.status === "current" ? "Currently Pursuing" : "",
+      type: edu.level,
+      period: edu.duration,
+      institution: edu.institution,
+      degree: edu.degree,
+      location: edu.location,
+      description,
+      keyPoints: {
+        courses: edu.courses || [],
+        achievements: edu.achievements || [],
+        activities: mappedActivities
+      }
+    };
+  });
+
+  const certificationsList = (portfolio.certifications || []).map(cert => ({
+    ...cert,
+    badge: FaGlobe,
+    colorStyle: { color: "hsl(var(--primary))" }
+  }));
 
   const toggleCard = (index: number) => {
     setExpandedCards((prev) =>

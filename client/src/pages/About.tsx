@@ -15,19 +15,68 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import ThemeSwitcher from "@/components/ThemeSwitcher";
 import { useNavigate } from "react-router-dom";
-import {
-  personalInfo,
-  socialLinks,
-  achievements,
-  pageInterests,
-  aboutPageData,
-} from "@/data";
+import { usePortfolio } from "@/contexts/PortfolioContext";
+import { FaRobot, FaRunning, FaPuzzlePiece, FaBullseye } from "react-icons/fa";
 import { motion } from "framer-motion";
 
 const About = () => {
   const navigate = useNavigate();
+  const { portfolio, isLoading } = usePortfolio();
 
-  const achievementStats = aboutPageData.achievementStats;
+  if (isLoading || !portfolio) {
+    return (
+      <div className="flex h-screen w-full items-center justify-center bg-background">
+        <div className="animate-pulse flex flex-col items-center gap-4">
+          <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent"></div>
+          <p className="text-sm text-muted-foreground">Loading...</p>
+        </div>
+      </div>
+    );
+  }
+
+  const { personalInfo, socialLinks: rawSocialLinks, achievements, interests } = portfolio;
+
+  const interestIcons: Record<string, { icon: any; color: string }> = {
+    robotics: { icon: FaRobot, color: "text-primary" },
+    athletics: { icon: FaRunning, color: "text-accent" },
+    "competitive-programming": { icon: FaPuzzlePiece, color: "text-warning" },
+    mentoring: { icon: FaBullseye, color: "text-destructive" },
+  };
+
+  const pageInterests = (interests || []).map((interest) => ({
+    ...interest,
+    icon: interestIcons[interest.id]?.icon || FaPuzzlePiece,
+    color: interestIcons[interest.id]?.color || "text-primary",
+  }));
+
+  const socialLinks = {
+    github: { url: rawSocialLinks.github },
+    linkedin: { url: rawSocialLinks.linkedin },
+    leetcode: { url: rawSocialLinks.leetcode },
+  };
+
+  const achievementStats = [
+    {
+      value: achievements.competitiveProgramming.leetcode.rating,
+      label: "LeetCode Rating",
+      color: "text-warning",
+    },
+    {
+      value: achievements.overallStats.totalProblemsSolved,
+      label: "Problems Solved",
+      color: "text-success",
+    },
+    {
+      value: `${portfolio.projects.length}`,
+      label: "Projects Built",
+      color: "text-primary",
+    },
+    {
+      value: achievements.competitiveProgramming.leetcode.percentile || "Top 16.4%",
+      label: "LeetCode Percentile",
+      color: "text-accent",
+    },
+  ];
 
   const handleContactClick = () => {
     navigate("/contact");

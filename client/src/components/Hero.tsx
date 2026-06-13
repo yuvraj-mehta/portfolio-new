@@ -12,12 +12,14 @@ import {
   Target,
 } from "lucide-react";
 import { useState, useEffect } from "react";
-import { personalInfo, socialLinks, achievements, techStack } from "@/data";
+import { usePortfolio } from "@/contexts/PortfolioContext";
 import ThemeSwitcher from "./ThemeSwitcher";
 import { FaReact, FaNodeJs, FaGitAlt } from "react-icons/fa";
 import { SiTypescript, SiMongodb, SiNextdotjs } from "react-icons/si";
 
 export function Hero() {
+  const { portfolio, isLoading } = usePortfolio();
+
   const nameVariants = {
     hidden: {
       opacity: 0,
@@ -39,20 +41,57 @@ export function Hero() {
     }),
   };
 
+  if (isLoading || !portfolio) {
+    return (
+      <div className="relative h-screen flex items-center overflow-hidden bg-gradient-to-br from-background via-background to-card pt-16">
+        <div className="w-full flex items-center justify-center py-8">
+          <div className="animate-pulse flex flex-col items-center gap-4">
+            <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent"></div>
+            <p className="text-sm text-muted-foreground">Loading...</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  const { personalInfo: rawPersonalInfo, socialLinks: rawSocialLinks, achievements } = portfolio;
+
+  const personalInfo = {
+    ...rawPersonalInfo,
+    status: {
+      availability: rawPersonalInfo.availability,
+      workMode: rawPersonalInfo.workMode
+    }
+  };
+
+  const socialLinks = {
+    github: { url: rawSocialLinks.github },
+    linkedin: { url: rawSocialLinks.linkedin },
+    email: { url: `mailto:${rawPersonalInfo.email}` }
+  };
+
+  const techStack = [
+    { name: "React", icon: "R", color: "from-primary to-primary-glow" },
+    { name: "Node.js", icon: "N", color: "from-skill-database to-accent" },
+    { name: "MongoDB", icon: "M", color: "from-skill-languages to-accent" },
+    { name: "TypeScript", icon: "TS", color: "from-accent to-primary" },
+    { name: "Tailwind", icon: "TW", color: "from-skill-tools to-primary" },
+  ];
+
   const statBadges = [
     {
       label: "Projects",
-      value: achievements.stats.totalProjects,
+      value: `${portfolio.projects.length}+`,
       icon: <Code className="w-5 h-5" />,
     },
     {
       label: "Problems",
-      value: achievements.leetcode.problemsSolved,
+      value: achievements.overallStats.totalProblemsSolved,
       icon: <Target className="w-5 h-5" />,
     },
     {
       label: "Commits",
-      value: achievements.stats.commits,
+      value: achievements.overallStats.commits,
       icon: <FaGitAlt className="w-5 h-5" />,
     },
   ];

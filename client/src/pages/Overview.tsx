@@ -61,15 +61,9 @@ import { Hero } from "@/components/Hero";
 import { Link } from "react-router-dom";
 import { useState, useEffect, useMemo } from "react";
 import { motion } from "framer-motion";
-import {
-  personalInfo,
-  socialLinks,
-  achievements,
-  projects,
-  skills,
-  interests,
-  overviewData,
-} from "@/data";
+import { usePortfolio } from "@/contexts/PortfolioContext";
+import { FaRobot, FaRunning, FaPuzzlePiece, FaBullseye } from "react-icons/fa";
+import { MessageCircle } from "lucide-react";
 
 // Animation Variants
 const containerVariants = {
@@ -234,18 +228,204 @@ const ProjectImage = ({
 };
 
 const Overview = () => {
-  // Memoized static data
-  const highlights = useMemo(() => overviewData.highlights, []);
-  const quickActions = useMemo(() => overviewData.quickActions, []);
-  const recentActivities = useMemo(() => overviewData.recentActivities, []);
-  const featuredProjects = useMemo(
-    () => projects.filter((project) => project.featured).slice(0, 3),
-    []
-  );
-  const skillLevels = useMemo(() => overviewData.skillLevels, []);
-  const currentStatus = useMemo(() => overviewData.currentStatus, []);
-  const contactInfo = useMemo(() => overviewData.contactInfo, []);
+  const { portfolio, isLoading } = usePortfolio();
 
+  if (isLoading || !portfolio) {
+    return (
+      <div className="flex h-screen w-full items-center justify-center bg-background">
+        <div className="animate-pulse flex flex-col items-center gap-4">
+          <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent"></div>
+          <p className="text-sm text-muted-foreground">Loading...</p>
+        </div>
+      </div>
+    );
+  }
+
+  const { personalInfo, socialLinks: rawSocialLinks, achievements, experience, projects, skills, interests } = portfolio;
+
+  // Reconstruct local variables to match JSX usages:
+  const socialLinks = {
+    github: { url: rawSocialLinks.github },
+    linkedin: { url: rawSocialLinks.linkedin },
+    twitter: { url: rawSocialLinks.twitter },
+    email: { url: `mailto:${personalInfo.email}` },
+  };
+
+  const featuredProjects = projects.filter((project) => project.featured).slice(0, 3).map((project) => ({
+    ...project,
+    title: project.name,
+    demo: project.links?.live,
+    github: project.links?.github,
+  }));
+
+  const interestIcons: Record<string, any> = {
+    robotics: FaRobot,
+    athletics: FaRunning,
+    "competitive-programming": FaPuzzlePiece,
+    mentoring: FaBullseye,
+  };
+
+  const mappedInterests = (interests || []).slice(0, 3).map((interest) => ({
+    ...interest,
+    icon: interestIcons[interest.id] || FaPuzzlePiece,
+  }));
+
+  const highlights = [
+    {
+      icon: FaGraduationCap,
+      title: "B.Tech CS",
+      subtitle: "NIT Patna",
+      year: "2027",
+      progress: 75,
+      trend: "+5%",
+      isLive: false,
+    },
+    {
+      icon: FaCode,
+      title: `${projects.length}`,
+      subtitle: "Full Stack",
+      year: achievements.overallStats.yearsExperience,
+      progress: 85,
+      trend: "+3 this month",
+      isLive: true,
+    },
+    {
+      icon: FaTrophy,
+      title: "DSA Expert",
+      subtitle: `${achievements.competitiveProgramming.leetcode.problemsSolved} Problems`,
+      year: "LeetCode",
+      progress: 90,
+      trend: "+50 this week",
+      isLive: true,
+    },
+    {
+      icon: FaBriefcase,
+      title: "Experience",
+      subtitle: "Internships & Projects",
+      year: "Active",
+      progress: 80,
+      trend: "Growing",
+      isLive: false,
+    },
+  ];
+
+  const quickActions = [
+    {
+      icon: FaEnvelope,
+      label: "Send Email",
+      href: `mailto:${personalInfo.email}`,
+      type: "external",
+    },
+    {
+      icon: Download,
+      label: "Download Resume",
+      href: personalInfo.resume,
+      type: "download",
+    },
+    {
+      icon: MessageCircle,
+      label: "Schedule Call",
+      href: "/contact",
+      type: "internal",
+    },
+    {
+      icon: FaGithub,
+      label: "View GitHub",
+      href: rawSocialLinks.github,
+      type: "external",
+    },
+  ];
+
+  const recentActivities = [
+    {
+      icon: BiGitCommit,
+      title: "Portfolio Enhancement",
+      description: "Updated portfolio with modern design and better UX",
+      time: "2 days ago",
+      type: "project",
+      isLive: true,
+      badge: "Live",
+    },
+    {
+      icon: FaTrophy,
+      title: "LeetCode Milestone",
+      description: "Solved 50+ problems this month, reached 500+ total",
+      time: "1 week ago",
+      type: "achievement",
+      badge: "Achievement",
+    },
+    {
+      icon: FaCode,
+      title: "Project Deployment",
+      description: "Deployed E-commerce platform with CI/CD pipeline",
+      time: "3 days ago",
+      type: "deployment",
+      isLive: true,
+      badge: "Deployed",
+    },
+    {
+      icon: FaCode,
+      title: "Learning Next.js 14",
+      description: "Completed advanced Next.js course with App Router",
+      time: "2 weeks ago",
+      type: "learning",
+      badge: "Completed",
+    },
+  ];
+
+  const skillLevels = [
+    { name: "React", level: 90, category: "Frontend", icon: FaReact },
+    { name: "Node.js", level: 85, category: "Backend", icon: FaNodeJs },
+    { name: "TypeScript", level: 80, category: "Language", icon: SiTypescript },
+    { name: "MongoDB", level: 75, category: "Database", icon: SiMongodb },
+    { name: "Next.js", level: 85, category: "Framework", icon: SiNextdotjs },
+    { name: "Express", level: 80, category: "Backend", icon: SiExpress },
+  ];
+
+  const currentStatus = {
+    availability: personalInfo.availability,
+    currentFocus: portfolio.currentFocus?.building || "Building Full-Stack Projects with Next.js",
+    learning: portfolio.currentFocus?.learning || "Advanced React Patterns & System Design",
+    lookingFor: portfolio.currentFocus?.lookingFor || "Internships & Full-time Opportunities",
+    location: personalInfo.location,
+    lastUpdated: "Updated 2 days ago",
+  };
+
+  const contactInfo = {
+    email: personalInfo.email,
+    location: personalInfo.location,
+    availability: personalInfo.availability,
+    socialLinks: [
+      {
+        name: "GitHub",
+        icon: FaGithub,
+        url: rawSocialLinks.github,
+        color: "text-secondary",
+      },
+      {
+        name: "LinkedIn",
+        icon: FaLinkedin,
+        url: rawSocialLinks.linkedin,
+        color: "text-primary",
+      },
+      {
+        name: "Twitter",
+        icon: FaTwitter,
+        url: rawSocialLinks.twitter,
+        color: "text-info",
+      },
+      {
+        name: "Email",
+        icon: FaEnvelope,
+        url: `mailto:${personalInfo.email}`,
+        color: "text-destructive",
+      },
+    ],
+  };
+
+  const overviewData = {
+    interestsAndHobbies: mappedInterests,
+  };
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background/95 to-primary/5 relative overflow-hidden">
       {/* SEO Meta Tags */}

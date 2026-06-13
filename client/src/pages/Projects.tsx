@@ -9,16 +9,45 @@ import { HiCheckCircle } from "react-icons/hi";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import ThemeSwitcher from "@/components/ThemeSwitcher";
-import { personalInfo, socialLinks, projects, achievements } from "@/data";
+import { usePortfolio } from "@/contexts/PortfolioContext";
 import { motion, AnimatePresence } from "framer-motion";
 
 const Projects = () => {
+  const { portfolio, isLoading } = usePortfolio();
+
   const [filter, setFilter] = useState("Featured");
   const [animatedCounts, setAnimatedCounts] = useState({
     totalProjects: 0,
     technologies: 0,
     liveProjects: 0,
   });
+
+  if (isLoading || !portfolio) {
+    return (
+      <div className="flex h-screen w-full items-center justify-center bg-background">
+        <div className="animate-pulse flex flex-col items-center gap-4">
+          <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent"></div>
+          <p className="text-sm text-muted-foreground">Loading...</p>
+        </div>
+      </div>
+    );
+  }
+
+  const { personalInfo, socialLinks: rawSocialLinks } = portfolio;
+
+  const socialLinks = {
+    github: { url: rawSocialLinks.github },
+  };
+
+  const projects = (portfolio.projects || []).map((project) => ({
+    ...project,
+    title: project.name,
+    slug: project.id,
+    tags: project.techStack || [],
+    demo: project.links?.live,
+    live: project.links?.live,
+    github: project.links?.github,
+  }));
 
   useEffect(() => {
     const duration = 2000;

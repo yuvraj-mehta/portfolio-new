@@ -18,9 +18,15 @@ import {
   HiHome,
   HiEye,
 } from "react-icons/hi";
-import { personalInfo } from "@/data";
+import { usePortfolio } from "@/contexts/PortfolioContext";
 
 const Navigation = () => {
+  const { portfolio } = usePortfolio();
+  const personalInfo = portfolio?.personalInfo || {
+    name: "Yuvraj Mehta",
+    profileImage: "",
+    resume: "",
+  };
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
 

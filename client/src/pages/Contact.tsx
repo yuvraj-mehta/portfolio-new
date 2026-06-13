@@ -33,13 +33,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useState } from "react";
 import { toast } from "sonner";
-import {
-  personalInfo,
-  socialLinks,
-  socialMediaLinks,
-  quickLinks,
-  contactMethods,
-} from "@/data";
+import { usePortfolio } from "@/contexts/PortfolioContext";
 import { motion, AnimatePresence } from "framer-motion";
 
 const contactSchema = z.object({
@@ -52,6 +46,8 @@ const contactSchema = z.object({
 type ContactForm = z.infer<typeof contactSchema>;
 
 const Contact = () => {
+  const { portfolio, isLoading } = usePortfolio();
+
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<
     "idle" | "success" | "error"
@@ -65,6 +61,124 @@ const Contact = () => {
   } = useForm<ContactForm>({
     resolver: zodResolver(contactSchema),
   });
+
+  if (isLoading || !portfolio) {
+    return (
+      <div className="flex h-screen w-full items-center justify-center bg-background">
+        <div className="animate-pulse flex flex-col items-center gap-4">
+          <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent"></div>
+          <p className="text-sm text-muted-foreground">Loading...</p>
+        </div>
+      </div>
+    );
+  }
+
+  const { personalInfo, socialLinks: rawSocialLinks } = portfolio;
+
+  const socialLinks = {
+    github: { url: rawSocialLinks.github },
+    linkedin: { url: rawSocialLinks.linkedin },
+    leetcode: { url: rawSocialLinks.leetcode },
+    geeksforgeeks: { url: rawSocialLinks.geeksforgeeks },
+    codechef: { url: rawSocialLinks.codechef },
+    instagram: { url: rawSocialLinks.instagram },
+    twitter: { url: rawSocialLinks.twitter },
+    email: { url: `mailto:${personalInfo.email}` },
+  };
+
+  const contactMethods = [
+    {
+      icon: HiMail,
+      label: "Email",
+      value: personalInfo.email,
+      href: `mailto:${personalInfo.email}`,
+      preferred: true,
+      responseTime: "Within 24 hours",
+    },
+    {
+      icon: HiPhone,
+      label: "Phone",
+      value: personalInfo.phone,
+      href: `tel:${personalInfo.phone}`,
+      preferred: false,
+      responseTime: "For urgent matters",
+    },
+    {
+      icon: HiLocationMarker,
+      label: "Location",
+      value: personalInfo.location,
+      href: null,
+      preferred: false,
+      responseTime: "Available for meetings",
+    },
+    {
+      icon: FaLinkedin,
+      label: "LinkedIn",
+      value: "yuvraj-mehta",
+      href: rawSocialLinks.linkedin,
+      preferred: true,
+      responseTime: "Within 12 hours",
+    },
+  ];
+
+  const quickLinks = [
+    {
+      name: "Resume",
+      href: personalInfo.resume,
+      icon: FaFileAlt,
+      external: true,
+    },
+    {
+      name: "LeetCode",
+      href: rawSocialLinks.leetcode,
+      icon: SiLeetcode,
+      external: true,
+    },
+    {
+      name: "GeeksforGeeks",
+      href: rawSocialLinks.geeksforgeeks,
+      icon: SiGeeksforgeeks,
+      external: true,
+    },
+    {
+      name: "CodeChef",
+      href: rawSocialLinks.codechef,
+      icon: SiCodechef,
+      external: true,
+    },
+    { name: "Projects", href: "/projects", icon: FaRocket, external: false },
+  ];
+
+  const socialMediaLinks = [
+    {
+      name: "GitHub",
+      icon: FaGithub,
+      href: rawSocialLinks.github,
+      description: "Check out my code",
+      colorStyle: { color: "hsl(var(--secondary))" },
+    },
+    {
+      name: "LinkedIn",
+      icon: FaLinkedin,
+      href: rawSocialLinks.linkedin,
+      description: "Let's connect professionally",
+      colorStyle: { color: "hsl(var(--primary))" },
+    },
+    {
+      name: "Instagram",
+      icon: FaInstagram,
+      href: rawSocialLinks.instagram,
+      description: "Follow for updates",
+      colorStyle: { color: "hsl(var(--accent))" },
+    },
+    {
+      name: "Email",
+      icon: HiMail,
+      href: `mailto:${personalInfo.email}`,
+      description: "Send me a message",
+      colorStyle: { color: "hsl(var(--destructive))" },
+    },
+  ];
 
   const onSubmit = async (data: ContactForm) => {
     setIsSubmitting(true);
