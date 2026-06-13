@@ -8,7 +8,7 @@ const qdrant = new QdrantClient({
   checkCompatibility: false
 })
 
-const SCORE_THRESHOLD = 0.35; // Cosine similarity — below this = unrelated
+const SCORE_THRESHOLD = 0.1; // Lowered for Gemini — gemini-embedding-001 scores tend to be lower than OpenAI
 
 /**
  * Retrieve relevant portfolio chunks for a query
@@ -23,13 +23,17 @@ export async function retrieveContext(query, topK = 5) {
   const embeddings = await GenAIService.generateEmbeddings([query])
   const queryVector = embeddings[0]
 
-  // 2️⃣ Search Qdrant
-  const results = await qdrant.search(COLLECTION, {
+  // 2️⃣ Search Qdrant (also fetch without threshold first to see raw scores)
+  const rawResults = await qdrant.search(COLLECTION, {
     vector: queryVector,
     limit: topK,
     with_payload: true,
-    score_threshold: SCORE_THRESHOLD
   })
+
+  console.log(`[Retrieve] Top ${rawResults.length} raw scores:`, rawResults.map(r => r.score.toFixed(4)).join(", ") || "none");
+
+  const results = rawResults.filter(r => r.score >= SCORE_THRESHOLD);
+  console.log(`[Retrieve] After threshold (${SCORE_THRESHOLD}): ${results.length} results`);
 
   // 3️⃣ Map results into clean context objects
   return results.map(r => ({

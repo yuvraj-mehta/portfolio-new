@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-06-13T14:35:07.219Z",
-  "count": 39,
+  "generatedAt": "2026-06-13T14:59:16.023Z",
+  "count": 40,
   "chunks": [
     {
       "id": "meta-profile-metadata-for-yuvraj-mehta",
@@ -435,6 +435,19 @@
       "shouldEmbed": true
     },
     {
+      "id": "projectSummary-yuvraj-mehta-projects-overview",
+      "chunkType": "projectSummary",
+      "source": "projects",
+      "title": "Yuvraj Mehta — Projects Overview",
+      "tags": [
+        "project",
+        "summary"
+      ],
+      "text": "I have built 4 software projects. My featured projects are: . All my projects include: BookHive, Portfolio Website, EcoGuardian, Stickify. These span areas such as Full Stack, Frontend.",
+      "meta": {},
+      "shouldEmbed": true
+    },
+    {
       "id": "project-bookhive-live",
       "chunkType": "project",
       "source": "projects",
@@ -443,7 +456,7 @@
         "project",
         "Full Stack"
       ],
-      "text": "I built BookHive, a full-stack library management system with distinct user and admin roles. It features book and PYQ management, a borrowing system, OTP-verified authentication, and separate dashboards. Built with React, Node.js, Express.js, and MongoDB.. I used React, Redux Toolkit, Node.js, Express, MongoDB, JWT to implement features such as Full-stack library management system, User and admin role management, Book and PYQ management, OTP-verified authentication, Separate user and admin dashboards.",
+      "text": "One of my software projects is BookHive. I built BookHive, a full-stack library management system with distinct user and admin roles. It features book and PYQ management, a borrowing system, OTP-verified authentication, and separate dashboards. Built with React, Node.js, Express.js, and MongoDB.. I used React, Redux Toolkit, Node.js, Express, MongoDB, JWT to implement features such as Full-stack library management system, User and admin role management, Book and PYQ management, OTP-verified authentication, Separate user and admin dashboards.",
       "meta": {
         "live": "https://bookhive-manager.vercel.app",
         "github": "https://github.com/yuvraj-mehta/Byteverse_NandiNinjas"
@@ -459,7 +472,7 @@
         "project",
         "Frontend"
       ],
-      "text": "I built Portfolio Website, Personal developer portfolio showcasing projects and skills. Designed and built a responsive single-page portfolio with smooth animations and dynamic navigation. Integrated a contact form using EmailJS and added a downloadable resume feature.. I used React, Tailwind CSS, Framer Motion, Vite to implement features such as Responsive single-page portfolio, Smooth animations and dynamic navigation, Integrated contact form with EmailJS, Downloadable resume feature.",
+      "text": "One of my software projects is Portfolio Website. I built Portfolio Website, Personal developer portfolio showcasing projects and skills. Designed and built a responsive single-page portfolio with smooth animations and dynamic navigation. Integrated a contact form using EmailJS and added a downloadable resume feature.. I used React, Tailwind CSS, Framer Motion, Vite to implement features such as Responsive single-page portfolio, Smooth animations and dynamic navigation, Integrated contact form with EmailJS, Downloadable resume feature.",
       "meta": {
         "live": "https://yuvrajmehta.codes",
         "github": "https://github.com/yuvraj-mehta/My-Portfolio"
@@ -475,7 +488,7 @@
         "project",
         "Full Stack"
       ],
-      "text": "I built EcoGuardian, An online community platform empowering individuals to collaborate on environmental projects, report cleanliness issues, access educational resources, and drive positive change for a cleaner, greener future. 🌍. I used HTML, CSS, JavaScript, Node.js, Express, MongoDB to implement features such as Environmental community platform, Project collaboration features, Cleanliness issue reporting, Educational resources access.",
+      "text": "One of my software projects is EcoGuardian. I built EcoGuardian, An online community platform empowering individuals to collaborate on environmental projects, report cleanliness issues, access educational resources, and drive positive change for a cleaner, greener future. 🌍. I used HTML, CSS, JavaScript, Node.js, Express, MongoDB to implement features such as Environmental community platform, Project collaboration features, Cleanliness issue reporting, Educational resources access.",
       "meta": {
         "live": "https://yuvraj-mehta.github.io/EcoGuardian_prototype/",
         "github": "https://github.com/yuvraj-mehta/EcoGuardian_prototype"
@@ -491,7 +504,7 @@
         "project",
         "Frontend"
       ],
-      "text": "I built Stickify, This is a simple notes application built with React and Vite. It allows users to create, update, delete, and manage notes with different colors. The application uses Appwrite as the backend service for managing notes.. I used React, Vite, Tailwind CSS, Appwrite to implement features such as Simple notes application, Create, update, delete notes, Color-coded note organization, Appwrite backend integration.",
+      "text": "One of my software projects is Stickify. I built Stickify, This is a simple notes application built with React and Vite. It allows users to create, update, delete, and manage notes with different colors. The application uses Appwrite as the backend service for managing notes.. I used React, Vite, Tailwind CSS, Appwrite to implement features such as Simple notes application, Create, update, delete notes, Color-coded note organization, Appwrite backend integration.",
       "meta": {
         "live": "https://stickify-git-master-yuvraj-mehtas-projects.vercel.app/",
         "github": "https://github.com/yuvraj-mehta/Stickify"

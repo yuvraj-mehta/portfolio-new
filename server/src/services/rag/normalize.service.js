@@ -288,7 +288,23 @@ export function normalizePortfolio() {
   });
 
   /* ---------- Projects ---------- */
-  profile.projects?.forEach(prj => {
+  const projectList = profile.projects || [];
+
+  // Summary chunk — enables generic queries like "list your projects" or "what have you built?"
+  if (projectList.length > 0) {
+    const featuredNames = projectList.filter(p => p.featured).map(p => p.name);
+    const allNames = projectList.map(p => p.name);
+    pushChunk(chunks, {
+      chunkType: "projectSummary",
+      source: "projects",
+      title: `${name} — Projects Overview`,
+      tags: ["project", "summary"],
+      text: `I have built ${allNames.length} software projects. My featured projects are: ${featuredNames.join(", ")}. All my projects include: ${allNames.join(", ")}. These span areas such as ${[...new Set(projectList.map(p => p.category))].join(", ")}.`
+    });
+  }
+
+  // Individual project chunks
+  projectList.forEach(prj => {
     const desc = prj.description.replace(
       new RegExp(`^${prj.name}\\s+is\\s+`, "i"),
       ""
@@ -299,7 +315,7 @@ export function normalizePortfolio() {
       source: "projects",
       title: `${prj.name} — ${prj.status}`,
       tags: ["project", prj.category],
-      text: `I built ${prj.name}, ${desc}. I used ${prj.techStack.join(", ")} to implement features such as ${prj.features.join(", ")}.`,
+      text: `One of my software projects is ${prj.name}. I built ${prj.name}, ${desc}. I used ${prj.techStack.join(", ")} to implement features such as ${prj.features.join(", ")}.`,
       meta: prj.links
     });
   });

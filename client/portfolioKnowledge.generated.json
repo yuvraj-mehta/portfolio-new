@@ -1,9 +1,9 @@
 {
   "meta": {
     "owner": "Yuvraj Mehta",
-    "generatedAt": "2025-12-29T15:47:44.875Z",
+    "generatedAt": "2025-12-27T08:11:58.369Z",
     "source": "src/data consolidated",
-    "version": "e897433f"
+    "version": "2f44d5aa"
   },
   "personalInfo": {
     "name": "Yuvraj Mehta",
@@ -19,6 +19,8 @@
     "course": "Computer Science and Engineering",
     "availability": "Available",
     "workMode": "Remote",
+    "profileImage": "https://images.pexels.com/photos/32326782/pexels-photo-32326782.jpeg",
+    "resume": "/src/assets/Yuvraj_Resume.pdf",
     "bio": {
       "intro": "B.Tech CS student at NIT Patna passionate about building full stack applications with a focus on user-friendly interfaces. Skilled in MERN Stack.",
       "full": "Computer Science student at NIT Patna passionate about full stack development with a strong foundation in Data Structures & Algorithms. I approach technical challenges analytically and continually expand my skills in GenAI and modern web technologies. As a Robotics Club member, I've organized workshops and led teams building combat and soccer bots. Outside coding, I enjoy competitive programming and sports, having won Bronze in 50m Hurdles at NIT Patna Intramurals.",
@@ -121,22 +123,30 @@
     },
     "awards": [
       {
+        "id": "award-mun-best-delegate",
         "title": "Winner - Model United Nations",
+        "category": "competition",
         "year": "2023",
         "description": "Represented the Republic of Poland at NIT Patna's Model United Nations. Earned the Best Delegate award for exceptional debate skills and impactful resolutions."
       },
       {
+        "id": "award-robotics-technical-member",
         "title": "Technical Member",
+        "category": "technical",
         "year": "2023 - Present",
         "description": "Active member of the Robotics Club, led team building combat and soccer bots, organized workshops."
       },
       {
+        "id": "award-class-representative",
         "title": "Class Representative",
+        "category": "leadership",
         "year": "2023 - 2024",
         "description": "Coordinated between faculty and students, organized department events for 3 semesters."
       },
       {
+        "id": "award-bronze-intramurals",
         "title": "Bronze Medal - NIT Patna Intramurals",
+        "category": "sports",
         "year": "2023",
         "description": "Won Bronze in 50m Hurdles at the university sports event."
       }
@@ -230,7 +240,14 @@
       "organization": "Robotics Club, NIT Patna",
       "location": "NIT Patna",
       "period": "December 2023 - Present",
+      "type": "Technical",
+      "status": "Currently Active",
       "description": "Organized and facilitated 3+ workshops on designing and building robotic bots. Led a team of 4 to build a combat-ready battle bot, achieving 4th place among 15+ teams at NIT Patna's tech fest. Directed a team of 3 in designing and developing a soccer bot for the annual tech fest, enhancing hands-on robotics and teamwork skills.",
+      "highlights": [
+        "4th place in tech fest",
+        "3+ workshops organized",
+        "Team of 4-7 members"
+      ],
       "skills": [
         "Arduino",
         "Mechanical Design",
@@ -242,7 +259,14 @@
       "organization": "Computer Science Department, NIT Patna",
       "location": "NIT Patna",
       "period": "2023 - 2024",
+      "type": "Leadership",
+      "status": "Completed",
       "description": "Served as the official representative for the Computer Science Engineering department for 3 consecutive semesters. Coordinated communication between faculty and students, organized department events and academic activities. Facilitated student concerns and feedback to administration, contributing to improved academic environment and student satisfaction.",
+      "highlights": [
+        "3 semesters of service",
+        "Faculty-student coordination",
+        "Department event organization"
+      ],
       "skills": [
         "Communication",
         "Leadership",
@@ -255,7 +279,13 @@
       "organization": "Hackathons (including Smart India Hackathon)",
       "location": "NIT Patna & Remote",
       "period": "2023",
+      "type": "Leadership",
       "description": "Led teams in 4 major hackathons, including the prestigious Smart India Hackathon. Guided my team to qualify at the internal NIT Patna hackathon and advance to the national level. Oversaw all phases from ideation to development and presentation, ensuring effective collaboration and timely delivery of innovative solutions.",
+      "highlights": [
+        "National level qualification",
+        "4 major hackathons",
+        "End-to-end project management"
+      ],
       "skills": [
         "Problem Solving",
         "Team Management",
@@ -269,6 +299,8 @@
       "id": "bookhive",
       "name": "BookHive",
       "category": "Full Stack",
+      "featured": true,
+      "image": "https://cdn.builder.io/api/v1/image/assets%2F911edf0abfc44540bba885225b62aa26%2F6aff8a4cc2a44603904ec06dfbd17734?format=webp&width=2880&height=1560",
       "description": "BookHive is a full-stack library management system with distinct user and admin roles. It features book and PYQ management, a borrowing system, OTP-verified authentication, and separate dashboards. Built with React, Node.js, Express.js, and MongoDB.",
       "techStack": [
         "React",
@@ -295,6 +327,8 @@
       "id": "portfolio-website",
       "name": "Portfolio Website",
       "category": "Frontend",
+      "featured": true,
+      "image": "https://cdn.builder.io/api/v1/image/assets%2F911edf0abfc44540bba885225b62aa26%2F564561b9219a409f8cd1139440589eac?format=webp&width=2880&height=1560",
       "description": "Personal developer portfolio showcasing projects and skills. Designed and built a responsive single-page portfolio with smooth animations and dynamic navigation. Integrated a contact form using EmailJS and added a downloadable resume feature.",
       "techStack": [
         "React",
@@ -318,6 +352,8 @@
       "id": "ecoguardian",
       "name": "EcoGuardian",
       "category": "Full Stack",
+      "featured": true,
+      "image": "https://cdn.builder.io/api/v1/image/assets%2F911edf0abfc44540bba885225b62aa26%2F2fbbcced95b94a128c0a7b5e14c085a0?format=webp&width=2880&height=1560",
       "description": "An online community platform empowering individuals to collaborate on environmental projects, report cleanliness issues, access educational resources, and drive positive change for a cleaner, greener future. 🌍",
       "techStack": [
         "HTML",
@@ -343,6 +379,8 @@
       "id": "stickify",
       "name": "Stickify",
       "category": "Frontend",
+      "featured": false,
+      "image": "https://cdn.builder.io/api/v1/image/assets%2F911edf0abfc44540bba885225b62aa26%2F66d04f4d2b8f4683a586836a1645fcd0?format=webp&width=2880&height=1560",
       "description": "This is a simple notes application built with React and Vite. It allows users to create, update, delete, and manage notes with different colors. The application uses Appwrite as the backend service for managing notes.",
       "techStack": [
         "React",
