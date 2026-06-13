@@ -142,13 +142,15 @@ export function normalizePortfolio() {
 
   /* ---------- Bio ---------- */
   if (p.bio && typeof p.bio === "object") {
+    const HIGH_VALUE_BIOS = new Set(["intro", "full"]);
     Object.entries(p.bio).forEach(([k, v]) => {
       pushChunk(chunks, {
         chunkType: "bio",
         source: "personalInfo",
         title: `${name} — Bio (${k})`,
         tags: ["bio", k],
-        text: v
+        text: v,
+        shouldEmbed: HIGH_VALUE_BIOS.has(k)  // only embed intro + full
       });
     });
   }
@@ -173,6 +175,21 @@ export function normalizePortfolio() {
       title: it.name,
       tags: ["interest"],
       text: `When I'm not coding, I enjoy ${it.description}.`
+    });
+  });
+
+  /* ---------- Certifications ---------- */
+  profile.certifications?.forEach(cert => {
+    pushChunk(chunks, {
+      chunkType: "certification",
+      source: "certifications",
+      title: `${cert.title} — ${cert.issuer}`,
+      tags: ["certification"],
+      text: `I completed ${cert.title} from ${cert.issuer} in ${cert.year}. ${cert.description}`,
+      meta: {
+        issuer: cert.issuer,
+        year: cert.year
+      }
     });
   });
 
