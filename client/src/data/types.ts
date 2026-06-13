@@ -176,3 +176,148 @@ export interface SiteMetadata {
   lang: string;
   locale: string;
 }
+
+export interface PortfolioData {
+  meta: {
+    owner: string;
+    generatedAt: string;
+    source: string;
+    version: string;
+  };
+  personalInfo: {
+    name: string;
+    title: string;
+    subtitle: string;
+    tagline: string;
+    email: string;
+    phone: string;
+    location: string;
+    currentLocation: string;
+    timezone: string;
+    university: string;
+    course: string;
+    availability: string;
+    workMode: string;
+    bio: {
+      intro: string;
+      full: string;
+      robotics: string;
+      interests: string;
+    };
+  };
+  careerPreferences: {
+    targetRoles: string[];
+    jobTypes: string[];
+    preferredDomains: string[];
+    workModePreferences: string[];
+    openToRelocation: boolean;
+    preferredLocations: string[];
+    availability: string;
+    noticePeriod: string;
+  };
+  socialLinks: {
+    github: string;
+    linkedin: string;
+    leetcode: string;
+    geeksforgeeks: string;
+    codechef: string;
+    codeforces: string;
+    twitter: string;
+    instagram: string;
+  };
+  interests: Array<{
+    id: string;
+    name: string;
+    description: string;
+  }>;
+  achievements: {
+    competitiveProgramming: {
+      leetcode: {
+        rating: string;
+        maxRating: string;
+        problemsSolved: string;
+        globalRanking?: string;
+        percentile?: string;
+      };
+      codechef: {
+        rating: string;
+        maxRating: string;
+        problemsSolved: string;
+        stars?: string;
+        division?: string;
+      };
+      codeforces: {
+        rating: string;
+        maxRating: string;
+        problemsSolved: string;
+        rank?: string;
+      };
+      geeksforgeeks: {
+        problemsSolved: string;
+        rank?: string;
+      };
+    };
+    overallStats: {
+      yearsExperience: string;
+      commits: string;
+      totalProblemsSolved: string;
+    };
+    awards: Array<{
+      title: string;
+      year: string;
+      description: string;
+    }>;
+  };
+  certifications: Array<{
+    title: string;
+    issuer: string;
+    year: string;
+    description: string;
+  }>;
+  education: Array<{
+    level: string;
+    degree: string;
+    institution: string;
+    location: string;
+    duration: string;
+    status: string;
+    cgpa?: string;
+    percentage?: string;
+    courses?: string[];
+    activities?: string[];
+    achievements?: string[];
+  }>;
+  experience: Array<{
+    role: string;
+    organization: string;
+    location: string;
+    period: string;
+    description: string;
+    skills?: string[];
+  }>;
+  projects: Array<{
+    id: string;
+    name: string;
+    category: string;
+    description: string;
+    techStack: string[];
+    features?: string[];
+    links: {
+      live?: string;
+      github?: string;
+    };
+    status?: string;
+  }>;
+  skills: {
+    frontend: string[];
+    backend: string[];
+    database: string[];
+    languages: string[];
+    tools: string[];
+  };
+  currentFocus: {
+    learning: string;
+    building: string;
+    lookingFor: string;
+  };
+}

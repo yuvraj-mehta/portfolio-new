@@ -5,6 +5,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "@/contexts/ThemeContext";
+import { PortfolioProvider } from "@/contexts/PortfolioContext";
 import ChatbotMotionFixed from "./components/ChatbotMotionFixed";
 
 const Overview = React.lazy(() => import("./pages/Overview"));
@@ -32,32 +33,34 @@ const PageLoader = () => (
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
-    <ThemeProvider>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          <Suspense fallback={<PageLoader />}>
-            <Routes>
-              <Route path="/" element={<Overview />} />
-              <Route path="/overview" element={<Overview />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/experience" element={<Experience />} />
-              <Route path="/education" element={<Education />} />
-              <Route path="/skills" element={<Skills />} />
-              <Route path="/coding" element={<Coding />} />
-              <Route path="/projects" element={<Projects />} />
-              <Route path="/contact" element={<Contact />} />
-              <Route path="/chat" element={<Chat />} />
-              {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </Suspense>
-          {/* Floating portfolio Q&A chat */}
-          <ChatbotMotionFixed />
-        </BrowserRouter>
-      </TooltipProvider>
-    </ThemeProvider>
+    <PortfolioProvider>
+      <ThemeProvider>
+        <TooltipProvider>
+          <Toaster />
+          <Sonner />
+          <BrowserRouter>
+            <Suspense fallback={<PageLoader />}>
+              <Routes>
+                <Route path="/" element={<Overview />} />
+                <Route path="/overview" element={<Overview />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/experience" element={<Experience />} />
+                <Route path="/education" element={<Education />} />
+                <Route path="/skills" element={<Skills />} />
+                <Route path="/coding" element={<Coding />} />
+                <Route path="/projects" element={<Projects />} />
+                <Route path="/contact" element={<Contact />} />
+                <Route path="/chat" element={<Chat />} />
+                {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </Suspense>
+            {/* Floating portfolio Q&A chat */}
+            <ChatbotMotionFixed />
+          </BrowserRouter>
+        </TooltipProvider>
+      </ThemeProvider>
+    </PortfolioProvider>
   </QueryClientProvider>
 );
 
