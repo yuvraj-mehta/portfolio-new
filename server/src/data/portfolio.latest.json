@@ -90,34 +90,34 @@
   "achievements": {
     "competitiveProgramming": {
       "leetcode": {
-        "rating": "1659",
-        "maxRating": "1693",
-        "problemsSolved": "371",
-        "globalRanking": "128980",
-        "percentile": "Top 16.4%"
+        "rating": "1835",
+        "maxRating": "1835",
+        "problemsSolved": "479",
+        "globalRanking": "211763",
+        "percentile": "Top 6.7%"
       },
       "codechef": {
-        "rating": "1451",
-        "maxRating": "1456",
-        "problemsSolved": "25",
+        "rating": "1490",
+        "maxRating": "1512",
+        "problemsSolved": "42",
         "stars": "2★",
         "division": "Div 3"
       },
       "codeforces": {
-        "rating": "1030",
-        "maxRating": "1085",
-        "problemsSolved": "27",
+        "rating": "1133",
+        "maxRating": "1133",
+        "problemsSolved": "47",
         "rank": "Newbie"
       },
       "geeksforgeeks": {
-        "problemsSolved": "130",
-        "rank": "1058"
+        "problemsSolved": "252",
+        "rank": "599"
       }
     },
     "overallStats": {
       "yearsExperience": "2+",
       "commits": "500+",
-      "totalProblemsSolved": "500+"
+      "totalProblemsSolved": "800+"
     },
     "awards": [
       {

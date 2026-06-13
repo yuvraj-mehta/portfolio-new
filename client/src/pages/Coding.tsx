@@ -72,24 +72,24 @@ const Coding = () => {
 
   const fallbackData = {
     leetcode: {
-      totalSolved: portfolio ? parseInt(portfolio.achievements.competitiveProgramming.leetcode.problemsSolved) : 371,
-      problemsSolved: { easy: 180, medium: 85, hard: 12 },
-      rating: portfolio ? parseInt(portfolio.achievements.competitiveProgramming.leetcode.rating) : 1659,
+      totalSolved: portfolio ? parseInt(portfolio.achievements.competitiveProgramming.leetcode.problemsSolved) : 479,
+      problemsSolved: { easy: 189, medium: 264, hard: 26 },
+      rating: portfolio ? parseInt(portfolio.achievements.competitiveProgramming.leetcode.rating) : 1835,
     },
     codeforces: {
-      problemsSolved: portfolio ? parseInt(portfolio.achievements.competitiveProgramming.codeforces.problemsSolved) : 27,
-      rating: portfolio ? parseInt(portfolio.achievements.competitiveProgramming.codeforces.rating) : 1030,
+      problemsSolved: portfolio ? parseInt(portfolio.achievements.competitiveProgramming.codeforces.problemsSolved) : 47,
+      rating: portfolio ? parseInt(portfolio.achievements.competitiveProgramming.codeforces.rating) : 1133,
       rank: portfolio?.achievements.competitiveProgramming.codeforces.rank || "Newbie",
     },
     codechef: {
-      problemsSolved: portfolio ? parseInt(portfolio.achievements.competitiveProgramming.codechef.problemsSolved) : 25,
-      rating: portfolio ? parseInt(portfolio.achievements.competitiveProgramming.codechef.rating) : 1451,
+      problemsSolved: portfolio ? parseInt(portfolio.achievements.competitiveProgramming.codechef.problemsSolved) : 42,
+      rating: portfolio ? parseInt(portfolio.achievements.competitiveProgramming.codechef.rating) : 1490,
       stars: 2,
     },
     gfg: {
-      problemsSolved: portfolio ? parseInt(portfolio.achievements.competitiveProgramming.geeksforgeeks.problemsSolved) : 130,
-      score: 500,
-      rank: portfolio ? parseInt(portfolio.achievements.competitiveProgramming.geeksforgeeks.rank || "1058") : 1058,
+      problemsSolved: portfolio ? parseInt(portfolio.achievements.competitiveProgramming.geeksforgeeks.problemsSolved) : 252,
+      score: 898,
+      rank: portfolio ? parseInt(portfolio.achievements.competitiveProgramming.geeksforgeeks.rank || "599") : 599,
     },
   };
 
@@ -188,16 +188,16 @@ const Coding = () => {
       lastActive: "2024",
       joinedDate: "Jan 2023",
       difficulty: apiData?.leetcode?.problemsSolved || {
-        easy: 150,
-        medium: 65,
-        hard: 13,
+        easy: 189,
+        medium: 264,
+        hard: 26,
       },
       recentActivity: "Solved 'Binary Tree Inorder Traversal' - 2 days ago",
     },
     {
       platform: "GeeksforGeeks",
-      solved: apiData?.gfg?.problemsSolved?.total || 130,
-      rating: apiData?.gfg?.profile?.rank || "Rank #1058",
+      solved: apiData?.gfg?.problemsSolved?.total || 252,
+      rating: apiData?.gfg?.profile?.rank || "Rank #599",
       streak: apiData?.gfg?.profile?.currentStreak
         ? `${apiData.gfg.profile.currentStreak}+ day streak`
         : "35+ day streak",
@@ -209,16 +209,17 @@ const Coding = () => {
       lastActive: "2024",
       joinedDate: "Mar 2023",
       difficulty: apiData?.gfg?.problemsSolved || {
-        easy: 45,
-        medium: 20,
-        hard: 5,
+        easy: 126,
+        medium: 76,
+        hard: 13,
+        basic: 37,
       },
       recentActivity: "Completed 'Array Rotation' challenge - 1 day ago",
     },
     {
       platform: "CodeChef",
-      solved: apiData?.codechef?.problemsSolved?.total || 25,
-      rating: apiData?.codechef?.profile?.rating?.toString() || "1451",
+      solved: apiData?.codechef?.problemsSolved?.total || 42,
+      rating: apiData?.codechef?.profile?.rating?.toString() || "1490",
       rank: apiData?.codechef?.achievements?.stars
         ? `${apiData.codechef.achievements.stars} Coder`
         : "2★ Coder (Division 3)",
@@ -230,16 +231,17 @@ const Coding = () => {
       lastActive: "2024",
       joinedDate: "Feb 2023",
       difficulty: apiData?.codechef?.problemsSolved || {
-        easy: 18,
-        medium: 6,
-        hard: 1,
+        easy: 21,
+        medium: 13,
+        hard: 2,
+        basic: 6,
       },
       recentActivity: "Participated in Starters 186 - 1 week ago",
     },
     {
       platform: "Codeforces",
-      solved: apiData?.codeforces?.problemsSolved?.total || 27,
-      rating: apiData?.codeforces?.profile?.rating?.toString() || "1030",
+      solved: apiData?.codeforces?.problemsSolved?.total || 47,
+      rating: apiData?.codeforces?.profile?.rating?.toString() || "1133",
       rank: apiData?.codeforces?.profile?.rank || "Newbie",
       color: "text-secondary",
       bgColor: "from-secondary/20 to-muted/20",
@@ -249,9 +251,10 @@ const Coding = () => {
       lastActive: "2024",
       joinedDate: "Apr 2023",
       difficulty: apiData?.codeforces?.problemsSolved || {
-        easy: 8,
-        medium: 2,
+        easy: 46,
+        medium: 1,
         hard: 0,
+        unrated: 0,
       },
       recentActivity: "Solved problem A in Div 3 contest - 2 weeks ago",
     },
@@ -286,7 +289,7 @@ const Coding = () => {
       description: `Best rank ${
         apiData?.leetcode?.contests?.bestRank || 6851
       } in LeetCode contests with ${
-        apiData?.leetcode?.contests?.attendedCount || 14
+        apiData?.leetcode?.contests?.attendedCount || 26
       } contests attended, demonstrating competitive programming skills`,
       icon: FaMedal,
       color: "text-accent",
