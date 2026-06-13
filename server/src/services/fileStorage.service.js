@@ -1,18 +1,36 @@
 import fs from "fs/promises";
 import path from "path";
 import { fileURLToPath } from "url";
+import AppError from "../utils/AppError.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const DATA_DIR = path.join(__dirname, "../data");
 const LATEST_DATA_FILE = path.join(DATA_DIR, "portfolio.latest.json");
+const PORTFOLIO_FILE = path.join(DATA_DIR, "portfolio.json");
 
 /**
  * FileStorage Service
  * Handles reading and writing portfolio data to JSON files
  */
 class FileStorageService {
+  /**
+   * Read master portfolio data from portfolio.json file
+   * @returns {Promise<Object>} Master portfolio data
+   */
+  static async getPortfolioData() {
+    try {
+      const fileContent = await fs.readFile(PORTFOLIO_FILE, "utf-8");
+      return JSON.parse(fileContent);
+    } catch (error) {
+      if (error.code === "ENOENT") {
+        throw new AppError("Portfolio data file not found.", 404, "PORTFOLIO_NOT_FOUND");
+      }
+      throw new AppError(`Failed to read portfolio data: ${error.message}`, 500, "FILE_READ_ERROR");
+    }
+  }
+
   /**
    * Save portfolio data to latestData.json file
    * @param {Object} data - Validated portfolio data
