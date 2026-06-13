@@ -1,6 +1,6 @@
 import OpenAI from "openai"
 import { QdrantClient } from "@qdrant/js-client-rest"
-import { OPENAI_API_KEY, QDRANT_URL, QDRANT_API_KEY } from "../config/envConfig.js"
+import { OPENAI_API_KEY, QDRANT_URL, QDRANT_API_KEY } from "../../config/envConfig.js"
 
 const openai = new OpenAI({
   apiKey: OPENAI_API_KEY

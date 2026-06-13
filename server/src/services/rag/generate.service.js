@@ -1,6 +1,6 @@
 import OpenAI from "openai";
-import { OPENAI_API_KEY } from "../config/envConfig.js";
-import { SYSTEM_PROMPT } from "./systemPrompt.js";
+import { OPENAI_API_KEY } from "../../config/envConfig.js";
+import { SYSTEM_PROMPT } from "../../constants/systemPrompt.js";
 
 const openai = new OpenAI({
   apiKey: OPENAI_API_KEY

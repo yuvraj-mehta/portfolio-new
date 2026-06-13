@@ -1,5 +1,5 @@
-import { retrieveContext } from "./retrieve.js";
-import { generateAnswer } from "./generate.js";
+import { retrieveContext } from "./retrieve.service.js";
+import { generateAnswer } from "./generate.service.js";
 
 export async function askPortfolio(query) {
   const contexts = await retrieveContext(query, 5);

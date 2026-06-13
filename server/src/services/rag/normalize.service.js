@@ -7,8 +7,8 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 /* ---------- Paths ---------- */
-const INPUT_FILE = path.join(__dirname, "../data/portfolio.latest.json");
-const OUTPUT_FILE = path.join(__dirname, "../data/normalized.json");
+const INPUT_FILE = path.join(__dirname, "../../data/portfolio.latest.json");
+const OUTPUT_FILE = path.join(__dirname, "../../data/normalized.json");
 
 /* ---------- Utilities ---------- */
 function safeReadJson(filePath) {

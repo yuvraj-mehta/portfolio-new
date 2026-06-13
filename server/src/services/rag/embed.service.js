@@ -1,7 +1,7 @@
 import fs from "fs"
 import OpenAI from "openai"
 import { QdrantClient } from "@qdrant/js-client-rest"
-import { OPENAI_API_KEY, QDRANT_URL, QDRANT_API_KEY } from "../config/envConfig.js"
+import { OPENAI_API_KEY, QDRANT_URL, QDRANT_API_KEY } from "../../config/envConfig.js"
 import path from "path"
 import { fileURLToPath } from "url"
 
@@ -18,7 +18,7 @@ const qdrant = new QdrantClient({
   checkCompatibility: false
 })
 
-const DATA_PATH = path.join(__dirname, "../data/normalized.json")
+const DATA_PATH = path.join(__dirname, "../../data/normalized.json")
 
 // Convert string ID to numeric ID
 function hashStringToId(str) {
