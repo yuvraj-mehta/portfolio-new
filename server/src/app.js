@@ -1,8 +1,7 @@
 import express from "express"
 import cors from "cors"
 import { ALLOWED_ORIGINS } from "./config/envConfig.js"
-import knowledgeRoutes from "./routes/knowledge.routes.js"
-import askRoute from "./routes/ask.js"
+import apiRoutes from "./routes/index.js"
 import { logger, errorHandler } from "./middlewares/index.js"
 
 const app = express()
@@ -19,9 +18,8 @@ app.get("/health", (req, res) => {
   res.json({ status: "ok" })
 })
 
-// Knowledge and Portfolio Routes
-app.use("/api", knowledgeRoutes)
-app.use("/api/ask", askRoute)
+// Unified API Routes
+app.use("/api", apiRoutes)
 
 
 // Global error handler (must be last)
