@@ -22,10 +22,7 @@ export interface ErrorResponse {
   suggestion?: string;
 }
 
-function getApiBaseUrl(): string {
-  const envUrl = import.meta.env.VITE_API_BASE_URL as string | undefined;
-  return envUrl && envUrl.length > 0 ? envUrl : "http://localhost:3500";
-}
+import { getApiBaseUrl } from "./apiConfig";
 
 export async function askPortfolio(query: string): Promise<string> {
   const base = getApiBaseUrl();

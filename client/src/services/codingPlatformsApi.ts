@@ -1,6 +1,6 @@
-const API_BASE_URL =
-  (import.meta.env.VITE_CODING_API_BASE_URL as string | undefined)?.replace(/\/$/, '') ??
-  'https://portfolio-1-1rg6.onrender.com/api/v1';
+import { getCodingPlatformsApiUrl } from "./apiConfig";
+
+const API_BASE_URL = getCodingPlatformsApiUrl();
 
 export interface LeetCodeStats {
   handle: string;
