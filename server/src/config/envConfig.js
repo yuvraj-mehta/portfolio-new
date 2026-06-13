@@ -24,14 +24,19 @@ if (!QDRANT_URL || !QDRANT_API_KEY) {
 
 // Conditional API key checks based on provider
 export const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
-export const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
+
+export const GEMINI_API_KEYS = process.env.GEMINI_API_KEYS
+  ? process.env.GEMINI_API_KEYS.split(",").map((k) => k.trim()).filter(Boolean)
+  : process.env.GEMINI_API_KEY
+  ? [process.env.GEMINI_API_KEY]
+  : [];
 
 if (GENAI_PROVIDER === "openai" && !OPENAI_API_KEY) {
   throw new Error(`CRITICAL STARTUP ERROR: Missing required environment variable: OPENAI_API_KEY for provider 'openai'`);
 }
 
-if (GENAI_PROVIDER === "gemini" && !GEMINI_API_KEY) {
-  throw new Error(`CRITICAL STARTUP ERROR: Missing required environment variable: GEMINI_API_KEY for provider 'gemini'`);
+if (GENAI_PROVIDER === "gemini" && GEMINI_API_KEYS.length === 0) {
+  throw new Error(`CRITICAL STARTUP ERROR: Missing required environment variable: GEMINI_API_KEYS or GEMINI_API_KEY for provider 'gemini'`);
 }
 
 export const ALLOWED_ORIGINS = process.env.ALLOWED_ORIGINS

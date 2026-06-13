@@ -2,10 +2,10 @@ import OpenAI from "openai";
 import {
   GENAI_PROVIDER,
   OPENAI_API_KEY,
-  GEMINI_API_KEY,
   EMBEDDING_MODEL,
   CHAT_MODEL
 } from "../../config/envConfig.js";
+import { apiKeyManager } from "./apiKeyManager.js";
 
 // Initialize OpenAI client if using OpenAI provider
 let openai = null;
@@ -95,32 +95,53 @@ export class GenAIService {
       return response.data.map(d => d.embedding);
     } else if (GENAI_PROVIDER === "gemini") {
       // Use Google Generative Language REST API batchEmbedContents
-      const url = `https://generativelanguage.googleapis.com/v1beta/models/${EMBEDDING_MODEL}:batchEmbedContents?key=${GEMINI_API_KEY}`;
-      
-      const requests = texts.map(text => ({
-        model: `models/${EMBEDDING_MODEL}`,
-        content: {
-          parts: [{ text }]
+      let retries = 0;
+      const maxRetries = apiKeyManager.keys.length;
+
+      while (retries <= maxRetries) {
+        let currentKey;
+        try {
+          currentKey = apiKeyManager.getKey();
+        } catch (e) {
+          throw new Error("Gemini Embedding API failed: " + e.message);
         }
-      }));
 
-      const res = await fetch(url, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ requests })
-      });
+        const url = `https://generativelanguage.googleapis.com/v1beta/models/${EMBEDDING_MODEL}:batchEmbedContents?key=${currentKey}`;
+        
+        const requests = texts.map(text => ({
+          model: `models/${EMBEDDING_MODEL}`,
+          content: {
+            parts: [{ text }]
+          }
+        }));
 
-      if (!res.ok) {
-        const errBody = await res.text();
-        throw new Error(`Gemini Embedding API error: Status ${res.status} - ${errBody}`);
+        const res = await fetch(url, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ requests })
+        });
+
+        if (res.status === 429) {
+          apiKeyManager.markKeyRateLimited(currentKey);
+          retries++;
+          if (retries >= maxRetries) {
+            throw new Error(`Gemini Embedding API error: Rate limits exhausted across all available keys.`);
+          }
+          continue; // Try next key
+        }
+
+        if (!res.ok) {
+          const errBody = await res.text();
+          throw new Error(`Gemini Embedding API error: Status ${res.status} - ${errBody}`);
+        }
+
+        const json = await res.json();
+        if (!json.embeddings || json.embeddings.length !== texts.length) {
+          throw new Error("Gemini Embedding API response does not match input size");
+        }
+
+        return json.embeddings.map(e => e.values);
       }
-
-      const json = await res.json();
-      if (!json.embeddings || json.embeddings.length !== texts.length) {
-        throw new Error("Gemini Embedding API response does not match input size");
-      }
-
-      return json.embeddings.map(e => e.values);
     } else {
       throw new Error(`Unsupported GenAI provider: ${GENAI_PROVIDER}`);
     }
@@ -161,53 +182,74 @@ export class GenAIService {
       return response.choices[0].message.content;
     } else if (GENAI_PROVIDER === "gemini") {
       // Use Google Generative Language REST API generateContent
-      const url = `https://generativelanguage.googleapis.com/v1beta/models/${CHAT_MODEL}:generateContent?key=${GEMINI_API_KEY}`;
-      
-      const contents = history.map(msg => ({
-        role: msg.role === "assistant" ? "model" : "user",
-        parts: [{ text: msg.content }]
-      }));
+      let retries = 0;
+      const maxRetries = apiKeyManager.keys.length;
 
-      contents.push({
-        role: "user",
-        parts: [
-          {
-            text: `Context:\n${contextText}\n\nQuestion:\n${query}`
-          }
-        ]
-      });
-
-      // Construct prompt including system instructions as per Gemini API format
-      const requestBody = {
-        contents: contents,
-        systemInstruction: {
-          parts: [
-            { text: systemPrompt }
-          ]
-        },
-        generationConfig: {
-          temperature: 0.7
+      while (retries <= maxRetries) {
+        let currentKey;
+        try {
+          currentKey = apiKeyManager.getKey();
+        } catch (e) {
+          throw new Error("Gemini Chat API failed: " + e.message);
         }
-      };
 
-      const res = await fetch(url, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(requestBody)
-      });
+        const url = `https://generativelanguage.googleapis.com/v1beta/models/${CHAT_MODEL}:generateContent?key=${currentKey}`;
+        
+        const contents = history.map(msg => ({
+          role: msg.role === "assistant" ? "model" : "user",
+          parts: [{ text: msg.content }]
+        }));
 
-      if (!res.ok) {
-        const errBody = await res.text();
-        throw new Error(`Gemini Chat API error: Status ${res.status} - ${errBody}`);
+        contents.push({
+          role: "user",
+          parts: [
+            {
+              text: `Context:\n${contextText}\n\nQuestion:\n${query}`
+            }
+          ]
+        });
+
+        // Construct prompt including system instructions as per Gemini API format
+        const requestBody = {
+          contents: contents,
+          systemInstruction: {
+            parts: [
+              { text: systemPrompt }
+            ]
+          },
+          generationConfig: {
+            temperature: 0.7
+          }
+        };
+
+        const res = await fetch(url, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(requestBody)
+        });
+
+        if (res.status === 429) {
+          apiKeyManager.markKeyRateLimited(currentKey);
+          retries++;
+          if (retries >= maxRetries) {
+            throw new Error(`Gemini Chat API error: Rate limits exhausted across all available keys.`);
+          }
+          continue; // Try next key
+        }
+
+        if (!res.ok) {
+          const errBody = await res.text();
+          throw new Error(`Gemini Chat API error: Status ${res.status} - ${errBody}`);
+        }
+
+        const json = await res.json();
+        const answer = json?.candidates?.[0]?.content?.parts?.[0]?.text;
+        if (!answer) {
+          throw new Error(`Invalid or empty response from Gemini Chat API: ${JSON.stringify(json)}`);
+        }
+
+        return answer;
       }
-
-      const json = await res.json();
-      const answer = json?.candidates?.[0]?.content?.parts?.[0]?.text;
-      if (!answer) {
-        throw new Error(`Invalid or empty response from Gemini Chat API: ${JSON.stringify(json)}`);
-      }
-
-      return answer;
     } else {
       throw new Error(`Unsupported GenAI provider: ${GENAI_PROVIDER}`);
     }

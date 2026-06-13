@@ -82,7 +82,7 @@ export const createRateLimiter = (maxRequests = 5, windowMs = 15 * 60 * 1000) =>
 /**
  * Default rate limiter: 5 questions per 15 minutes
  */
-export const askRateLimiter = createRateLimiter(5, 15 * 60 * 1000);
+export const askRateLimiter = createRateLimiter(50, 15 * 60 * 1000);
 
 /**
  * Clean up old entries periodically to prevent memory leaks
