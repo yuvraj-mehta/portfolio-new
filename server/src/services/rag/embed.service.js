@@ -1,16 +1,12 @@
 import fs from "fs"
-import OpenAI from "openai"
 import { QdrantClient } from "@qdrant/js-client-rest"
-import { OPENAI_API_KEY, QDRANT_URL, QDRANT_API_KEY } from "../../config/envConfig.js"
+import { QDRANT_URL, QDRANT_API_KEY } from "../../config/envConfig.js"
+import { GenAIService } from "./genai.service.js"
 import path from "path"
 import { fileURLToPath } from "url"
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
-
-const openai = new OpenAI({
-  apiKey: OPENAI_API_KEY
-})
 
 const qdrant = new QdrantClient({
   url: QDRANT_URL,
@@ -32,15 +28,21 @@ function hashStringToId(str) {
 }
 
 export async function embedPortfolio() {
-  const COLLECTION = "portfolio_chunks"
-  const VECTOR_SIZE = 3072 // text-embedding-3-large
+  const COLLECTION = GenAIService.getCollectionName()
+  const VECTOR_SIZE = GenAIService.getVectorSize()
 
   // Ensure collection exists before upserting points
   try {
-    await qdrant.getCollection(COLLECTION)
+    const info = await qdrant.getCollection(COLLECTION)
+    const existingSize = info?.config?.params?.vectors?.size || info?.result?.config?.params?.vectors?.size
+    if (existingSize && existingSize !== VECTOR_SIZE) {
+      console.log(`⚠️ Dimension mismatch in Qdrant collection '${COLLECTION}' (existing: ${existingSize}, requested: ${VECTOR_SIZE}). Recreating collection...`)
+      await qdrant.deleteCollection(COLLECTION)
+      throw { status: 404, message: "Recreating due to dimension mismatch" }
+    }
   } catch (err) {
     const msg = err?.data?.status?.error || err?.message || ""
-    const isNotFound = err?.status === 404 || /Not found/i.test(msg)
+    const isNotFound = err?.status === 404 || /Not found/i.test(msg) || msg.includes("Recreating")
     const isAlreadyExists = err?.status === 409 || /Already exists/i.test(msg)
 
     if (isNotFound) {
@@ -50,7 +52,7 @@ export async function embedPortfolio() {
           distance: "Cosine"
         }
       })
-      console.log(`✅ Created collection '${COLLECTION}'`)
+      console.log(`✅ Created collection '${COLLECTION}' (size: ${VECTOR_SIZE})`)
     } else if (!isAlreadyExists) {
       throw err
     }
@@ -62,15 +64,13 @@ export async function embedPortfolio() {
   const points = [];
 
   if (embeddableChunks.length > 0) {
-    const batchResponse = await openai.embeddings.create({
-      model: "text-embedding-3-large",
-      input: embeddableChunks.map(c => c.text)
-    });
+    console.log(`Generating embeddings using provider '${GenAIService.getProvider()}' for model '${GenAIService.getEmbeddingModel()}'...`);
+    const embeddings = await GenAIService.generateEmbeddings(embeddableChunks.map(c => c.text));
 
     embeddableChunks.forEach((chunk, i) => {
       points.push({
         id: hashStringToId(chunk.id),
-        vector: batchResponse.data[i].embedding,
+        vector: embeddings[i],
         payload: {
           chunkId: chunk.id,
           chunkType: chunk.chunkType,
@@ -88,7 +88,7 @@ export async function embedPortfolio() {
     points
   })
 
-  console.log(`✅ Embedded ${points.length} chunks in 1 API call (was ${points.length} calls)`);
+  console.log(`✅ Embedded ${points.length} chunks into Qdrant collection '${COLLECTION}'`);
 }
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) {

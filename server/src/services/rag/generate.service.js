@@ -1,10 +1,5 @@
-import OpenAI from "openai";
-import { OPENAI_API_KEY } from "../../config/envConfig.js";
 import { SYSTEM_PROMPT } from "../../constants/systemPrompt.js";
-
-const openai = new OpenAI({
-  apiKey: OPENAI_API_KEY
-});
+import { GenAIService } from "./genai.service.js";
 
 const isDev = process.env.NODE_ENV !== "production";
 
@@ -41,28 +36,9 @@ export async function generateAnswer(query, contexts) {
     console.log("System prompt length:", SYSTEM_PROMPT.length);
   }
 
-  const response = await openai.chat.completions.create({
-    model: "gpt-4o-mini",
-    messages: [
-      {
-        role: "system",
-        content: SYSTEM_PROMPT
-      },
-      {
-        role: "user",
-        content: `
-Context:
-${contextText}
+  console.log(`Generating answer using provider '${GenAIService.getProvider()}' for model '${GenAIService.getChatModel()}'...`);
+  const answer = await GenAIService.generateAnswer(query, SYSTEM_PROMPT, contextText);
 
-Question:
-${query}
-`
-      }
-    ],
-    temperature: 0.7
-  });
-
-  const answer = response.choices[0].message.content;
   if (isDev) {
     console.log("LLM Response:", answer);
     console.log("=================");
