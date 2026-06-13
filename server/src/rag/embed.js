@@ -1,7 +1,7 @@
 import fs from "fs"
 import OpenAI from "openai"
 import { QdrantClient } from "@qdrant/js-client-rest"
-import { OPENAI_API_KEY } from "../config/envConfig.js"
+import { OPENAI_API_KEY, QDRANT_URL, QDRANT_API_KEY } from "../config/envConfig.js"
 import path from "path"
 import { fileURLToPath } from "url"
 
@@ -13,8 +13,8 @@ const openai = new OpenAI({
 })
 
 const qdrant = new QdrantClient({
-  url: process.env.QDRANT_URL,
-  apiKey: process.env.QDRANT_API_KEY,
+  url: QDRANT_URL,
+  apiKey: QDRANT_API_KEY,
   checkCompatibility: false
 })
 

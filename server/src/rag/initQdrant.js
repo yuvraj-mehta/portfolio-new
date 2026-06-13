@@ -1,9 +1,9 @@
 import { QdrantClient } from "@qdrant/js-client-rest"
-import { QDRANT_URL } from "../config/envConfig.js"
+import { QDRANT_URL, QDRANT_API_KEY } from "../config/envConfig.js"
 
 const client = new QdrantClient({
   url: QDRANT_URL,
-  apiKey: process.env.QDRANT_API_KEY,
+  apiKey: QDRANT_API_KEY,
   checkCompatibility: false
 })
 
