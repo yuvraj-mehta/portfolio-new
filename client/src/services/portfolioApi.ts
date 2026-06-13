@@ -6,18 +6,28 @@ export interface PortfolioApiResponse {
   data: PortfolioData;
 }
 
+let prefetchPromise: Promise<PortfolioData> | null = null;
+
+export function preloadPortfolioData() {
+  if (!prefetchPromise) {
+    const base = getApiBaseUrl();
+    prefetchPromise = fetch(`${base}/api/portfolio`).then(async (res) => {
+      if (!res.ok) {
+        throw new Error(`Failed to fetch portfolio data: Status ${res.status}`);
+      }
+      const json = (await res.json()) as PortfolioApiResponse;
+      if (!json.success || !json.data) {
+        throw new Error("Portfolio API returned unsuccessful response");
+      }
+      return json.data;
+    });
+  }
+  return prefetchPromise;
+}
+
 export async function fetchPortfolioData(): Promise<PortfolioData> {
-  const base = getApiBaseUrl();
-  const res = await fetch(`${base}/api/portfolio`);
-
-  if (!res.ok) {
-    throw new Error(`Failed to fetch portfolio data: Status ${res.status}`);
+  if (prefetchPromise) {
+    return prefetchPromise;
   }
-
-  const json = (await res.json()) as PortfolioApiResponse;
-  if (!json.success || !json.data) {
-    throw new Error("Portfolio API returned unsuccessful response");
-  }
-
-  return json.data;
+  return preloadPortfolioData();
 }

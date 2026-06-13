@@ -18,6 +18,8 @@ const PORTFOLIO_FILE = path.join(DATA_DIR, "portfolio.json");
  * @class FileStorageService
  */
 class FileStorageService {
+  static cachedPortfolio = null;
+
   /**
    * Reads master portfolio data from the primary portfolio.json file.
    *
@@ -29,8 +31,13 @@ class FileStorageService {
    */
   static async getPortfolioData() {
     try {
+      if (this.cachedPortfolio) {
+        return this.cachedPortfolio;
+      }
+      
       const fileContent = await fs.readFile(PORTFOLIO_FILE, "utf-8");
-      return JSON.parse(fileContent);
+      this.cachedPortfolio = JSON.parse(fileContent);
+      return this.cachedPortfolio;
     } catch (error) {
       if (error.code === "ENOENT") {
         throw new AppError("Portfolio data file not found.", 404, "PORTFOLIO_NOT_FOUND");
