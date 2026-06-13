@@ -1,16 +1,12 @@
-import express from "express";
-import { askPortfolio } from "../rag/ask.js";
-import { askRateLimiter } from "../middlewares/index.js";
+import { catchAsyncErrors } from "../middlewares/index.js";
+import { askPortfolio } from "../services/rag/index.js";
 
-const router = express.Router();
-
-// Configuration for query limits
 const QUERY_CONFIG = {
   minLength: 3,
   maxLength: 500,
 };
 
-router.post("/", askRateLimiter, async (req, res) => {
+export const askQuestion = catchAsyncErrors(async (req, res) => {
   const { query } = req.body;
 
   if (!query) {
@@ -25,7 +21,6 @@ router.post("/", askRateLimiter, async (req, res) => {
     });
   }
 
-  // Trim and validate query length
   const trimmedQuery = query.trim();
 
   if (trimmedQuery.length < QUERY_CONFIG.minLength) {
@@ -40,7 +35,7 @@ router.post("/", askRateLimiter, async (req, res) => {
           currentLength: trimmedQuery.length,
           charsNeeded: QUERY_CONFIG.minLength - trimmedQuery.length,
         },
-        suggestion: `Please write a more detailed question. You need ${QUERY_CONFIG.minLength - trimmedQuery.length} more character${QUERY_CONFIG.minLength - trimmedQuery.length > 1 ? 's' : ''}.`,
+        suggestion: `Please write a more detailed question. You need ${QUERY_CONFIG.minLength - trimmedQuery.length} more character${QUERY_CONFIG.minLength - trimmedQuery.length > 1 ? "s" : ""}.`,
       },
     });
   }
@@ -57,26 +52,11 @@ router.post("/", askRateLimiter, async (req, res) => {
           currentLength: trimmedQuery.length,
           charsOverLimit: trimmedQuery.length - QUERY_CONFIG.maxLength,
         },
-        suggestion: `Please shorten your question by ${trimmedQuery.length - QUERY_CONFIG.maxLength} character${trimmedQuery.length - QUERY_CONFIG.maxLength > 1 ? 's' : ''}.`,
+        suggestion: `Please shorten your question by ${trimmedQuery.length - QUERY_CONFIG.maxLength} character${trimmedQuery.length - QUERY_CONFIG.maxLength > 1 ? "s" : ""}.`,
       },
     });
   }
 
-  try {
-    const answer = await askPortfolio(trimmedQuery);
-    res.json({ success: true, answer });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({
-      success: false,
-      error: {
-        code: "PROCESSING_ERROR",
-        title: "Unable to Process Question",
-        description: "We encountered an error while processing your question.",
-        suggestion: "Please try again in a moment.",
-      },
-    });
-  }
+  const answer = await askPortfolio(trimmedQuery);
+  res.json({ success: true, answer });
 });
-
-export default router;
