@@ -1,6 +1,6 @@
 import Ajv from "ajv";
 import addFormats from "ajv-formats";
-import portfolioSchema from "../schema/portfolio.schema.json" assert { type: "json" };
+import portfolioSchema from "../schema/portfolio.schema.json" with { type: "json" };
 
 const ajv = new Ajv({ allErrors: true, coerceTypes: true });
 addFormats(ajv);
