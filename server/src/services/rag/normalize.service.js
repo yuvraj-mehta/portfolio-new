@@ -15,8 +15,7 @@ function safeReadJson(filePath) {
   try {
     return JSON.parse(fs.readFileSync(filePath, "utf8"));
   } catch (e) {
-    console.error("Failed to read/parse input file:", e.message);
-    process.exit(1);
+    throw new Error(`Failed to read portfolio data at "${filePath}": ${e.message}`);
   }
 }
 
