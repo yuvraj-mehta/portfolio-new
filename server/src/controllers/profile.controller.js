@@ -19,17 +19,14 @@ export const initProfile = catchAsyncErrors(async (req, res) => {
 
   const saveResult = await FileStorageService.saveLatestPortfolio(validatedPayload);
 
-  // Trigger RAG ingestion pipeline: normalize → embed
-  await runRagPipeline();
-
   res.status(201).json({
     success: true,
-    message: "Portfolio profile initialized and RAG index updated successfully",
+    message: "Portfolio profile initialized successfully",
     data: {
       savedAt: saveResult.savedAt,
       filePath: saveResult.filePath,
       profileMeta: validatedPayload?.meta || null,
-      ragUpdated: true,
+      ragUpdated: false,
     },
   });
 });

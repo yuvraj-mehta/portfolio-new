@@ -9,6 +9,7 @@
   "scripts": {
     "start": "node src/server.js",
     "dev": "nodemon src/server.js",
+    "ingest": "node src/services/rag/pipeline.service.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
