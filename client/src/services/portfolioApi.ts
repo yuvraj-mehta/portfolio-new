@@ -1,5 +1,6 @@
 import { getApiBaseUrl } from "./apiConfig";
 import { PortfolioData } from "../data/types";
+import fallbackData from "../../portfolioKnowledge.generated.json";
 
 export interface PortfolioApiResponse {
   success: boolean;
@@ -11,16 +12,23 @@ let prefetchPromise: Promise<PortfolioData> | null = null;
 export function preloadPortfolioData() {
   if (!prefetchPromise) {
     const base = getApiBaseUrl();
-    prefetchPromise = fetch(`${base}/api/portfolio`).then(async (res) => {
-      if (!res.ok) {
-        throw new Error(`Failed to fetch portfolio data: Status ${res.status}`);
-      }
-      const json = (await res.json()) as PortfolioApiResponse;
-      if (!json.success || !json.data) {
-        throw new Error("Portfolio API returned unsuccessful response");
-      }
-      return json.data;
-    });
+    prefetchPromise = fetch(`${base}/api/portfolio`)
+      .then(async (res) => {
+        if (!res.ok) {
+          console.warn(`Failed to fetch portfolio data: Status ${res.status}. Using fallback local data.`);
+          return fallbackData as unknown as PortfolioData;
+        }
+        const json = (await res.json()) as PortfolioApiResponse;
+        if (!json.success || !json.data) {
+          console.warn("Portfolio API returned unsuccessful response. Using fallback local data.");
+          return fallbackData as unknown as PortfolioData;
+        }
+        return json.data;
+      })
+      .catch((err) => {
+        console.warn("Server unavailable, using fallback local data.", err);
+        return fallbackData as unknown as PortfolioData;
+      });
   }
   return prefetchPromise;
 }
